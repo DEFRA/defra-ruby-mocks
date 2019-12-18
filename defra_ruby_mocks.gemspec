@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.license     = "The Open Government Licence (OGL) Version 3"
 
   s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
+  s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "rails", "~> 4.2.11.1"
 
@@ -29,4 +30,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "github_changelog_generator"
 
   s.add_development_dependency "defra_ruby_style"
+  s.add_development_dependency "rspec-rails", "~> 3.8.0"
 end

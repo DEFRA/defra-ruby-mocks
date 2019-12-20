@@ -13,5 +13,5 @@ SimpleCov.start do
   add_filter "/spec/"
   # The version file is simply just that, so we do not feel the need to ensure
   # we have a test for it
-  add_filter "lib/defra_ruby_mocks/version"
+  add_filter "lib/defra_ruby/mocks/version"
 end

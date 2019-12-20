@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
-# desc "Explaining what the task does"
-# task :defra_ruby_mocks do
-#   # Task goes here
+# namespace :defra_ruby do
+#   namespace :mocks do
+#     desc "Explaining what the task does"
+#     task :test do
+#       # Task goes here
+#     end
+#   end
 # end

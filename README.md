@@ -1,5 +1,11 @@
 # Defra Ruby Mocks
 
+[![Build Status](https://travis-ci.com/DEFRA/defra-ruby-mocks.svg?branch=master)](https://travis-ci.com/DEFRA/defra-ruby-mocks)
+[![Maintainability](https://api.codeclimate.com/v1/badges/8b14cc1e0e1c1d6a33cc/maintainability)](https://codeclimate.com/github/DEFRA/defra-ruby-mocks/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/8b14cc1e0e1c1d6a33cc/test_coverage)](https://codeclimate.com/github/DEFRA/defra-ruby-mocks/test_coverage)
+[![security](https://hakiri.io/github/DEFRA/defra-ruby-mocks/master.svg)](https://hakiri.io/github/DEFRA/defra-ruby-mocks/master)
+[![Licence](https://img.shields.io/badge/Licence-OGLv3-blue.svg)](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3)
+
 A Rails Engine used by the [Ruby services team](https://github.com/DEFRA/ruby-services-team) in their digital services.
 
 We use it to mock external services such as Companies House, so we can performance test our services and not get in trouble!

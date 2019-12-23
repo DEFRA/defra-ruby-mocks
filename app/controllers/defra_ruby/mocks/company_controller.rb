@@ -11,7 +11,7 @@ module DefraRuby
 
         respond_to :json
       rescue NotFoundError
-        render status: 404
+        render "not_found", status: 404
       end
 
       private

@@ -14,9 +14,11 @@ module DefraRuby
 
           it "returns a JSON response with a code of 404" do
             get "#{path}/#{company_number}"
+            content = JSON.parse(response.body)
 
             expect(response.content_type).to eq("application/json")
             expect(response.code).to eq("404")
+            expect(content).to include("errors")
           end
         end
 
@@ -64,9 +66,11 @@ module DefraRuby
 
           it "returns a JSON response with a 404 code" do
             get "#{path}/#{company_number}"
+            content = JSON.parse(response.body)
 
             expect(response.content_type).to eq("application/json")
             expect(response.code).to eq("404")
+            expect(content).to include("errors")
           end
         end
       end

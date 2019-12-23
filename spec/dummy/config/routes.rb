@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
 
-  mount DefraRuby::Mocks::Engine => "/defra_ruby/mocks"
+  mount DefraRubyMocks::Engine => "/defra_ruby_mocks"
 end

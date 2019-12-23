@@ -9,7 +9,7 @@ require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 Bundler.require(*Rails.groups)
-require "defra_ruby"
+require "defra_ruby_mocks"
 
 module Dummy
   class Application < Rails::Application

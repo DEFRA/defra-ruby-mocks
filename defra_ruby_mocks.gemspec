@@ -3,12 +3,12 @@
 $LOAD_PATH.push File.expand_path("lib", __dir__)
 
 # Maintain your gem's version:
-require "defra_ruby/mocks/version"
+require "defra_ruby_mocks/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "defra_ruby_mocks"
-  s.version     = DefraRuby::Mocks::VERSION
+  s.version     = DefraRubyMocks::VERSION
   s.authors     = ["Defra"]
   s.email       = ["alan.cruikshanks@environment-agency.gov.uk"]
   s.homepage    = "https://github.com/DEFRA/defra-ruby-mocks"

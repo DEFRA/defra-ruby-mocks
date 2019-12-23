@@ -24,7 +24,7 @@ Make sure you already have:
 - Ruby 2.4.2
 - [Bundler](http://bundler.io/) – for installing Ruby gems
 
-# Mounting the engine
+## Mounting the engine
 
 Add the engine to your Gemfile:
 
@@ -39,11 +39,52 @@ Then mount the engine in your routes.rb file:
 
 ```ruby
 Rails.application.routes.draw do
-  mount DefraRuby::Mocks::Engine => "/"
+  mount DefraRuby::Mocks::Engine => "/mocks"
 end
 ```
 
-The engine should now be mounted at the root of your project. You can change `"/"` to a different route if you'd prefer it to be in a subdirectory.
+The engine should now be mounted at `/mocks` of your project. You can change `"/mocks"` to a different route if you'd prefer it to be elsewhere.
+
+## Mocks
+
+The project currently mocks the following services.
+
+### Companies House
+
+When mounted into an app you can make requests to `/mocks/company/[company number]` to get a response that matches what our apps expect.
+
+This is an important distinction to note. When our apps like the [Waste Exemptions front office](https://github.com/DEFRA/waste-exemptions-front-office) make a real request to Companies House, they get a lot more information back in the JSON reponse. However the only thing they are interested in is the value of `"company_status"`.
+
+So rather than maintain a lot of unused JSON data, the mock just returns that bit of the JSON.
+
+```bash
+curl http://localhost:3000/mocks/company/SC123456
+{
+    "company_status": "active"
+}
+```
+
+#### Company numbers
+
+As long as the request is for a valid number the mock will return the status as `"active"`. (see <https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/426891/uniformResourceIdentifiersCustomerGuide.pdf> for details of valid number formats).
+
+The exceptions to this are the 'special' numbers listed below. Use them if you are looking for alternate responses.
+
+- `05868270` will return `"dissolved"`
+- `04270505` will return `"administration"`
+- `99999999` will mock a not found result and return a 404 error
+- `88888888` will return `"liquidation"`
+- `77777777` will return `"receivership"`
+- `66666666` will return `"converted-closed"`
+- `55555555` will return `"voluntary-arrangement"`
+- `44444444` will return `"insolvency-proceedings"`
+- `33333333` will return `"open"`
+- `22222222` will return `"closed"`
+
+The list of possible statuses was taken from
+
+- [Companies House API](https://developer.companieshouse.gov.uk/api/docs/company/company_number/companyProfile-resource.html)
+- [Companies House API enumerations](https://github.com/companieshouse/api-enumerations/blob/master/constants.yml)
 
 ## Installation
 

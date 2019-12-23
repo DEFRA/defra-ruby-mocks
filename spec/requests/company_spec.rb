@@ -7,39 +7,67 @@ module DefraRuby
     RSpec.describe "Company", type: :request do
       let(:path) { "/defra_ruby/mocks/company" }
 
-      context "when the company number is not 99999999" do
-        let(:company_number) { "SC247974" }
+      context "when the company number is from the 'specials' list" do
 
-        it "responds with a content type of json" do
-          get "#{path}/#{company_number}"
-          expect(response.content_type).to eq("application/json")
+        context "and is 99999999 for not found" do
+          let(:company_number) { "99999999" }
+
+          it "returns a JSON response with a code of 404" do
+            get "#{path}/#{company_number}"
+
+            expect(response.content_type).to eq("application/json")
+            expect(response.code).to eq("404")
+          end
         end
 
-        it "the response contains a status of 'active'" do
-          get "#{path}/#{company_number}"
-          # binding.pry
-          status = JSON.parse(response.body)["company_status"]
+        specials = {
+          "05868270": "dissolved",
+          "04270505": "administration",
+          "88888888": "liquidation",
+          "77777777": "receivership",
+          "66666666": "converted-closed",
+          "55555555": "voluntary-arrangement",
+          "44444444": "insolvency-proceedings",
+          "33333333": "open",
+          "22222222": "closed"
+        }
+        specials.each do |company_number, status|
+          context "and the number is #{company_number}" do
+            it "returns a JSON response with a 200 code and a status of '#{status}'" do
+              get "#{path}/#{company_number}"
+              company_status = JSON.parse(response.body)["company_status"]
 
-          expect(status).to eq("active")
-        end
-
-        it "responds to the GET request with a 200 status code" do
-          get "#{path}/#{company_number}"
-          expect(response.code).to eq("200")
+              expect(response.content_type).to eq("application/json")
+              expect(response.code).to eq("200")
+              expect(company_status).to eq(status)
+            end
+          end
         end
       end
 
-      context "when the company number is 99999999" do
-        let(:company_number) { "99999999" }
+      context "when the company number is not from the 'specials' list" do
+        context "and it is valid" do
+          let(:company_number) { "SC247974" }
 
-        it "responds with a content type of json" do
-          get "#{path}/#{company_number}"
-          expect(response.content_type).to eq("application/json")
+          it "returns a JSON response with a 200 code and a status of 'active'" do
+            get "#{path}/#{company_number}"
+            company_status = JSON.parse(response.body)["company_status"]
+
+            expect(response.content_type).to eq("application/json")
+            expect(response.code).to eq("200")
+            expect(company_status).to eq("active")
+          end
         end
 
-        it "responds to the GET request with a 404 status code" do
-          get "#{path}/#{company_number}"
-          expect(response.code).to eq("404")
+        context "and it is not valid" do
+          let(:company_number) { "foo" }
+
+          it "returns a JSON response with a 404 code" do
+            get "#{path}/#{company_number}"
+
+            expect(response.content_type).to eq("application/json")
+            expect(response.code).to eq("404")
+          end
         end
       end
     end

@@ -39,7 +39,7 @@ Then mount the engine in your routes.rb file:
 
 ```ruby
 Rails.application.routes.draw do
-  mount DefraRuby::Mocks::Engine => "/mocks"
+  mount DefraRubyMocks::Engine => "/mocks"
 end
 ```
 

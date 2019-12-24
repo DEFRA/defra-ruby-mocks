@@ -4,6 +4,13 @@ require "rails_helper"
 
 module DefraRuby
   RSpec.describe "Company", type: :request do
+    before(:all) do
+      DefraRubyMocks.configure do |config|
+        config.delay = 100
+      end
+    end
+    after(:all) { DefraRubyMocks.reset_configuration }
+
     let(:path) { "/defra_ruby_mocks/company" }
 
     context "when the company number is from the 'specials' list" do

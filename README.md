@@ -45,6 +45,24 @@ end
 
 The engine should now be mounted at `/mocks` of your project. You can change `"/mocks"` to a different route if you'd prefer it to be elsewhere.
 
+## Configuration
+
+For the mock routes to be accessible you'll also need to enable them.
+
+```ruby
+# config/initializers/defra_ruby_mocks.rb
+require "defra_ruby_mocks"
+
+DefraRubyMocks.configure do |config|
+  config.enable = true
+  config.delay = 1000
+end
+```
+
+To protect against having them enabled when in production, by default the engine will not allow access unless they have been enabled in the config.
+
+We also provide an option to control how long the mock should delay before responding. The default is 1000ms (1 second).
+
 ## Mocks
 
 The project currently mocks the following services.

@@ -4,6 +4,9 @@ require "rails_helper"
 
 module DefraRuby
   RSpec.describe "Company", type: :request do
+    before(:all) { Helpers::Configuration.prep_for_tests }
+    after(:all) { Helpers::Configuration.reset_for_tests }
+
     let(:path) { "/defra_ruby_mocks/company" }
 
     context "when the company number is from the 'specials' list" do

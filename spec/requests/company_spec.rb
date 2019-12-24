@@ -4,12 +4,8 @@ require "rails_helper"
 
 module DefraRuby
   RSpec.describe "Company", type: :request do
-    before(:all) do
-      DefraRubyMocks.configure do |config|
-        config.delay = 100
-      end
-    end
-    after(:all) { DefraRubyMocks.reset_configuration }
+    before(:all) { Helpers::Configuration.prep_for_tests }
+    after(:all) { Helpers::Configuration.reset_for_tests }
 
     let(:path) { "/defra_ruby_mocks/company" }
 

@@ -11,7 +11,7 @@ RSpec.describe DefraRubyMocks do
   end
 
   describe "#configuration" do
-    before { described_class.reset_configuration }
+    before(:each) { Helpers::Configuration.reset_for_tests }
 
     context "when the host app has not provided configuration" do
       let(:enabled) { false }

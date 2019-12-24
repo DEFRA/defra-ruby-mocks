@@ -17,6 +17,20 @@ module DefraRubyMocks
 
     NOT_FOUND = "99999999"
 
+    def self.special_company_numbers
+      {
+        "05868270" => "dissolved",
+        "04270505" => "administration",
+        "88888888" => "liquidation",
+        "77777777" => "receivership",
+        "66666666" => "converted-closed",
+        "55555555" => "voluntary-arrangement",
+        "44444444" => "insolvency-proceedings",
+        "33333333" => "open",
+        "22222222" => "closed"
+      }
+    end
+
     def run(company_number)
       raise NotFoundError unless valid_company_number?(company_number)
       raise NotFoundError if company_number == NOT_FOUND
@@ -33,17 +47,7 @@ module DefraRubyMocks
     end
 
     def specials
-      @_specials ||= {
-        "05868270" => "dissolved",
-        "04270505" => "administration",
-        "88888888" => "liquidation",
-        "77777777" => "receivership",
-        "66666666" => "converted-closed",
-        "55555555" => "voluntary-arrangement",
-        "44444444" => "insolvency-proceedings",
-        "33333333" => "open",
-        "22222222" => "closed"
-      }
+      self.class.special_company_numbers
     end
 
   end

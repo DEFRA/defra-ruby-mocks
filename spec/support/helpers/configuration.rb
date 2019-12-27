@@ -4,7 +4,7 @@ module Helpers
   module Configuration
     def self.prep_for_tests(delay = 100)
       DefraRubyMocks.configure do |config|
-        config.enabled = true
+        config.enable = true
         config.delay = delay
       end
     end

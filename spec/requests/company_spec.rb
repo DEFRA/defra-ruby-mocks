@@ -67,7 +67,7 @@ module DefraRuby
     end
 
     context "when mocks are disabled" do
-      before(:all) { DefraRubyMocks.configuration.enabled = false }
+      before(:all) { DefraRubyMocks.configuration.enable = false }
 
       let(:company_number) { "SC247974" }
 

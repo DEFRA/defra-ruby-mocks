@@ -23,18 +23,4 @@ module DefraRubyMocks
   def self.configure
     yield(configuration)
   end
-
-  class Configuration
-    # Set whether the mocks are enabled. Only if set to true will the mock
-    # pages be accessible
-    attr_accessor :enabled
-    # Set a delay in milliseconds for the mocks to respond.
-    # Defaults to 1000 (1 sec)
-    attr_accessor :delay
-
-    def initialize
-      @enabled = false
-      @delay = 1000
-    end
-  end
 end

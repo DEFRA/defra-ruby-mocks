@@ -9,7 +9,7 @@ module DefraRubyMocks
         it "sets enable to 'true'" do
           subject.enable = true
 
-          expect(subject.enable).to be(true)
+          expect(subject.enabled?).to be(true)
         end
       end
 
@@ -17,7 +17,7 @@ module DefraRubyMocks
         it "sets enable to 'false'" do
           subject.enable = false
 
-          expect(subject.enable).to be(false)
+          expect(subject.enabled?).to be(false)
         end
       end
 
@@ -25,7 +25,7 @@ module DefraRubyMocks
         it "sets enable to 'true'" do
           subject.enable = "true"
 
-          expect(subject.enable).to be(true)
+          expect(subject.enabled?).to be(true)
         end
       end
 
@@ -33,7 +33,7 @@ module DefraRubyMocks
         it "sets enable to 'false'" do
           subject.enable = "false"
 
-          expect(subject.enable).to be(false)
+          expect(subject.enabled?).to be(false)
         end
       end
     end

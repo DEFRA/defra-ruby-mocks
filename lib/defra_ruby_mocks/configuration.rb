@@ -2,13 +2,14 @@
 
 module DefraRubyMocks
   class Configuration
-    # Set a delay in milliseconds for the mocks to respond.
-    # Defaults to 1000 (1 sec)
-    attr_accessor :delay
+
+    DEFAULT_DELAY = 1000
+
+    attr_reader :delay
 
     def initialize
       @enable = false
-      @delay = 1000
+      @delay = DEFAULT_DELAY
     end
 
     # Controls whether the mocks are enabled. Only if set to true will the mock
@@ -23,6 +24,16 @@ module DefraRubyMocks
 
     def enabled?
       @enable
+    end
+
+    # Set a delay in milliseconds for the mocks to respond.
+    # Defaults to 1000 (1 sec)
+    def delay=(arg)
+      # We implement our own setter to handle values being passed in as strings
+      # rather than integers
+      @delay = arg.to_i
+
+      @delay = DEFAULT_DELAY if @delay.zero?
     end
   end
 end

@@ -20,7 +20,7 @@ RSpec.describe DefraRubyMocks do
       it "returns a DefraRubyMocks::Configuration instance with default values" do
         expect(described_class.configuration).to be_an_instance_of(DefraRubyMocks::Configuration)
 
-        expect(described_class.configuration.enable).to eq(enabled)
+        expect(described_class.configuration.enabled?).to eq(enabled)
         expect(described_class.configuration.delay).to eq(delay)
       end
     end
@@ -36,7 +36,7 @@ RSpec.describe DefraRubyMocks do
         end
 
         expect(described_class.configuration).to be_an_instance_of(DefraRubyMocks::Configuration)
-        expect(described_class.configuration.enable).to eq(enabled)
+        expect(described_class.configuration.enabled?).to eq(enabled)
         expect(described_class.configuration.delay).to eq(delay)
       end
     end

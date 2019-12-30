@@ -6,8 +6,8 @@ module DefraRubyMocks
     before_action :set_default_response_format
 
     def payments_service
-      @merchant_code = "merchant100"
-      @order_code = "order200"
+      parse_request(request.body.read)
+
       @worldpay_id = generate_world_pay_id
       @worldpay_url = "#{base_url}?OrderKey=#{@merchant_code}%5E#{@order_code}"
 
@@ -29,6 +29,18 @@ module DefraRubyMocks
 
     def base_url
       File.join(DefraRubyMocks.configuration.worldpay_domain, "/worldpay/dispatcher")
+    end
+
+    def parse_request(body)
+      doc = Nokogiri::XML(body)
+
+      payment_service = doc.at_xpath("//paymentService")
+
+      @merchant_code = payment_service.attribute("merchantCode").text if payment_service.present?
+
+      order = doc.at_xpath("//order")
+
+      @order_code = order.attribute("orderCode").text if order.present?
     end
 
   end

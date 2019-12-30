@@ -5,7 +5,14 @@ module DefraRubyMocks
     let(:path) { "/defra_ruby_mocks/worldpay" }
 
     context "when mocks are enabled" do
-      before(:all) { Helpers::Configuration.prep_for_tests }
+      before(:all) do
+        Helpers::Configuration.prep_for_tests
+        DefraRubyMocks.configure do |config|
+          config.worldpay_admin_code = "admincode1"
+          config.worldpay_mac_secret = "macsecret1"
+          config.worldpay_domain = "http://localhost:3000/defra_ruby_mocks"
+        end
+      end
       after(:all) { Helpers::Configuration.reset_for_tests }
 
       it "returns an XML response with a 200 code" do

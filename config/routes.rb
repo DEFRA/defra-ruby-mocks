@@ -5,4 +5,9 @@ DefraRubyMocks::Engine.routes.draw do
       to: "company#show",
       as: "company",
       constraints: ->(_request) { DefraRubyMocks.configuration.enabled? }
+
+  get "/worldpay",
+      to: "worldpay#show",
+      as: "worldpay",
+      constraints: ->(_request) { DefraRubyMocks.configuration.enabled? }
 end

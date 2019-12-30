@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-module DefraRuby
+module DefraRubyMocks
   RSpec.describe "Company", type: :request do
 
     let(:path) { "/defra_ruby_mocks/company" }

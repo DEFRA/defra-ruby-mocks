@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     defra_ruby_mocks (1.0.0)
+      nokogiri
       rails (~> 4.2.11.1)
 
 GEM

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "configuration"
+require_relative "invalid_config_error"
 
 module DefraRubyMocks
   class Engine < ::Rails::Engine

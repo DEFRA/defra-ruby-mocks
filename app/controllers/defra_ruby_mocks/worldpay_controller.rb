@@ -18,6 +18,12 @@ module DefraRubyMocks
       head 500
     end
 
+    def dispatcher
+      redirect_to "/"
+    rescue StandardError
+      head 500
+    end
+
     private
 
     def set_default_response_format

@@ -9,7 +9,7 @@ module DefraRubyMocks
 
       context "when the mocks config is missing a worldpay domain" do
         it "raises a 'InvalidConfigError'" do
-          expect { described_class.run(nil)}.to raise_error InvalidConfigError
+          expect { described_class.run(nil) }.to raise_error InvalidConfigError
         end
       end
 

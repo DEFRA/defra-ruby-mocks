@@ -22,7 +22,7 @@ module DefraRubyMocks
     def check_config
       domain = DefraRubyMocks.configuration.worldpay_domain
 
-      raise InvalidConfigError.new(:worldpay_domain) if domain.blank?
+      raise InvalidConfigError, :worldpay_domain if domain.blank?
     end
 
     def extract_merchant_code(xml)

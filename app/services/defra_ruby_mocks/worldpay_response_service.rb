@@ -8,13 +8,6 @@ module DefraRubyMocks
       @registration = locate_record
       @order = last_order
 
-      Rails.logger.debug "Reference #{@reference}"
-      Rails.logger.debug "Registration #{@registration}"
-      Rails.logger.debug "Order #{@order}"
-      Rails.logger.debug "Url format #{@url_format}"
-      Rails.logger.debug "Query string #{query_string}"
-      Rails.logger.debug response_url(success_url)
-
       response_url(success_url)
     end
 
@@ -23,7 +16,6 @@ module DefraRubyMocks
     def parse_reference(url)
       path = URI.parse(url).path
       parts = path.split("/")
-      Rails.logger.debug parts
 
       if parts[1].downcase == "your-registration"
         # ["", "your-registration", "xP2zj9nqWYI0SAsMtGZn6w", "worldpay", "success", "1577812071", "NEWREG"]

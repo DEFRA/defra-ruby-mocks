@@ -40,22 +40,83 @@ module DefraRubyMocks
       end
 
       context "#dispatcher" do
-        let(:path) { "/defra_ruby_mocks/worldpay/dispatcher" }
+        let(:registration_relation) { double(:registration_relation) }
+        let(:transient_registration_relation) { double(:transient_registration_relation) }
+        let(:registration) { double(:registration) }
+        let(:transient_registration) { double(:transient_registration) }
+        let(:finance_details) { double(:finance_details) }
+        let(:orders) { double(:orders) }
+        let(:order) { double(:order, order_code: "987654", total_amount: 105_00) }
+
+        let(:path) { "/defra_ruby_mocks/worldpay/dispatcher?successURL=#{CGI.escape(success_url)}" }
 
         context "and the request is valid" do
-          it "redirects the user with a 300 code" do
-            get path
+          let(:response_params) { "orderKey=admincode1^^987654&paymentStatus=AUTHORISED&paymentAmount=10500&paymentCurrency=GBP&mac=0ba5271e1ed1b26f9bb428ef7fb536a4&source=WP" }
 
-            expect(response).to redirect_to("/")
-            expect(response.code).to eq("302")
+          context "and comes from the waste-carriers-front-office project" do
+            let(:success_url) { "http://example.com/fo/12345/worldpay/success" }
+
+            it "redirects the user with a 300 code" do
+
+              expect(::WasteCarriersEngine::TransientRegistration).to receive(:where).and_return(transient_registration_relation)
+              expect(transient_registration_relation).to receive(:first) { transient_registration }
+              expect(transient_registration).to receive(:finance_details).and_return(finance_details)
+              expect(finance_details).to receive(:orders).and_return(orders)
+              expect(orders).to receive(:order_by).and_return(orders)
+              expect(orders).to receive(:first).and_return(order)
+
+              get path
+
+              expect(response).to redirect_to("#{success_url}?#{response_params}")
+              expect(response.code).to eq("302")
+            end
+          end
+
+          context "and comes from the waste-carriers-frontend project" do
+            let(:success_url) { "http://example.com/your-registration/12345/worldpay/success/54321/NEWREG" }
+
+            it "redirects the user with a 300 code" do
+
+              expect(::WasteCarriersEngine::TransientRegistration).to receive(:where).and_return(transient_registration_relation)
+              expect(transient_registration_relation).to receive(:first) { transient_registration }
+              expect(transient_registration).to receive(:finance_details).and_return(finance_details)
+              expect(finance_details).to receive(:orders).and_return(orders)
+              expect(orders).to receive(:order_by).and_return(orders)
+              expect(orders).to receive(:first).and_return(order)
+
+              get path
+
+              expect(response).to redirect_to("#{success_url}&#{response_params}")
+              expect(response.code).to eq("302")
+            end
           end
         end
 
         context "and the request is invalid" do
-          it "returns a response with a 500 code" do
-            get path
+          context "because the success url is not in a recognised format" do
+            let(:success_url) { "http://example.com/forthewin" }
 
-            expect(response.code).to eq("500")
+            it "returns a response with a 500 code" do
+              get path
+
+              expect(response.code).to eq("500")
+            end
+          end
+
+          context "because the success url contains an ID for a unknown registration" do
+            let(:success_url) { "http://example.com/fo/12345/worldpay/success" }
+
+            it "returns a response with a 500 code" do
+              expect(::WasteCarriersEngine::TransientRegistration).to receive(:where).and_return(transient_registration_relation)
+              expect(transient_registration_relation).to receive(:first) { nil }
+
+              expect(::WasteCarriersEngine::Registration).to receive(:where).and_return(registration_relation)
+              expect(registration_relation).to receive(:first) { nil }
+
+              get path
+
+              expect(response.code).to eq("500")
+            end
           end
         end
       end

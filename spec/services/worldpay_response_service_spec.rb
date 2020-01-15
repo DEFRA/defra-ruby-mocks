@@ -4,6 +4,18 @@ require "rails_helper"
 
 module DefraRubyMocks
   RSpec.describe WorldpayResponseService do
+    before(:each) do
+      Helpers::Configuration.prep_for_tests
+      DefraRubyMocks.configure do |config|
+        config.worldpay_admin_code = admin_code
+        config.worldpay_merchant_code = merchant_code
+        config.worldpay_mac_secret = "macsecret1"
+      end
+    end
+
+    let(:admin_code) { "admincode1" }
+    let(:merchant_code) { "merchantcode1" }
+
     describe ".run" do
       let(:relation) { double(:relation) }
       let(:registration) { double(:registration) }
@@ -21,13 +33,21 @@ module DefraRubyMocks
         end
 
         let(:reference) { "12345" }
+        let(:order_code) { "54321" }
         let(:success_url) { "http://example.com/fo/#{reference}/worldpay/success" }
-        let(:order) { double(:order, order_code: reference, total_amount: 105_00) }
+        let(:order) { double(:order, order_code: , total_amount: 105_00) }
 
         it "can extract the reference from the `success_url`" do
           described_class.run(success_url)
 
           expect(::WasteCarriersEngine::TransientRegistration).to have_received(:where).with(token: reference)
+        end
+
+        it "can generate a valid order key" do
+          expected_result = "#{admin_code}^#{merchant_code}^#{reference}"
+          result = described_class.run(success_url)
+
+          expect(result).to eq("foo")
         end
       end
 
@@ -48,8 +68,9 @@ module DefraRubyMocks
         end
 
         let(:reference) { "98765" }
+        let(:order_code) { "56789" }
         let(:success_url) { "http://example.com/your-registration/#{reference}/worldpay/success/54321/NEWREG" }
-        let(:order) { double(:order, order_code: reference, total_amount: 105_00) }
+        let(:order) { double(:order, order_code: order_code, total_amount: 105_00) }
 
         it "can extract the reference from the `success_url`" do
           described_class.run(success_url)

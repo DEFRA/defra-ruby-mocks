@@ -75,7 +75,7 @@ module DefraRubyMocks
           end
 
           context "and comes from the waste-carriers-frontend project" do
-            let(:success_url) { "http://example.com/your-registration/12345/worldpay/success/54321/NEWREG" }
+            let(:success_url) { "http://example.com/your-registration/12345/worldpay/success/54321/NEWREG?locale=en" }
 
             it "redirects the user with a 300 code" do
 

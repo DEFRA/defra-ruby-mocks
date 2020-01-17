@@ -17,6 +17,7 @@ module DefraRubyMocks
     let(:merchant_code) { "merchantcode1" }
     let(:reference) { "12345" }
     let(:order_code) { "54321" }
+    let(:order_key) { "#{admin_code}^#{merchant_code}^#{order_code}" }
 
     describe ".run" do
       before do
@@ -46,10 +47,9 @@ module DefraRubyMocks
         end
 
         it "can generate a valid order key" do
-          expected_result = "#{admin_code}^#{merchant_code}^#{order_code}"
           params = parse_for_params(described_class.run(success_url))
 
-          expect(params["orderKey"]).to eq(expected_result)
+          expect(params["orderKey"]).to eq(order_key)
         end
       end
 
@@ -73,10 +73,9 @@ module DefraRubyMocks
         end
 
         it "can generate a valid order key" do
-          expected_result = "#{admin_code}^#{merchant_code}^#{order_code}"
           params = parse_for_params(described_class.run(success_url))
 
-          expect(params["orderKey"]).to eq(expected_result)
+          expect(params["orderKey"]).to eq(order_key)
         end
       end
     end

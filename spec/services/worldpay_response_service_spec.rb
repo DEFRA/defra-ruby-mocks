@@ -39,6 +39,17 @@ module DefraRubyMocks
       Digest::MD5.hexdigest(data.join).to_s
     end
 
+    let(:query_string) do
+      [
+        "orderKey=#{order_key}",
+        "paymentStatus=AUTHORISED",
+        "paymentAmount=#{order_value}",
+        "paymentCurrency=GBP",
+        "mac=#{mac}",
+        "source=WP"
+      ].join("&")
+    end
+
     describe ".run" do
       before do
         allow(relation).to receive(:first) { registration }
@@ -72,6 +83,12 @@ module DefraRubyMocks
 
           expect(params["mac"]).to eq(mac)
         end
+
+        it "returns a url in the expected format" do
+          expected_response = "#{success_url}?#{query_string}"
+
+          expect(described_class.run(success_url)).to eq(expected_response)
+        end
       end
 
       context "when the request comes from the waste-carriers-frontend" do
@@ -103,6 +120,12 @@ module DefraRubyMocks
           params = parse_for_params(described_class.run(success_url))
 
           expect(params["mac"]).to eq(mac)
+        end
+
+        it "returns a url in the expected format" do
+          expected_response = "#{success_url}&#{query_string}"
+
+          expect(described_class.run(success_url)).to eq(expected_response)
         end
       end
     end

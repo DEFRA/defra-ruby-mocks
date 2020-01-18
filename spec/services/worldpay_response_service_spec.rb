@@ -21,10 +21,10 @@ module DefraRubyMocks
     let(:order_key) { "#{admin_code}^#{merchant_code}^#{order_code}" }
     let(:order_value) { 105_00 }
 
-    let(:relation) { double(:relation) }
-    let(:registration) { double(:registration) }
-    let(:finance_details) { double(:finance_details) }
-    let(:orders) { double(:orders) }
+    let(:registration) { double(:registration, finance_details: finance_details) }
+    let(:finance_details) { double(:finance_details, orders: orders) }
+    let(:orders) { double(:orders, order_by: sorted_orders) }
+    let(:sorted_orders) { double(:sorted_orders, first: order) }
     let(:order) { double(:order, order_code: order_code, total_amount: order_value) }
 
     let(:mac) do
@@ -51,14 +51,6 @@ module DefraRubyMocks
     end
 
     describe ".run" do
-      before do
-        allow(relation).to receive(:first) { registration }
-        allow(registration).to receive(:finance_details) { finance_details }
-        allow(finance_details).to receive(:orders) { orders }
-        allow(orders).to receive(:order_by) { orders }
-        allow(orders).to receive(:first) { order }
-      end
-
       context "when the request comes from the waste-carriers-front-office" do
         before do
           allow(::WasteCarriersEngine::TransientRegistration).to receive(:where) { relation }
@@ -66,28 +58,32 @@ module DefraRubyMocks
 
         let(:success_url) { "http://example.com/fo/#{reference}/worldpay/success" }
 
-        it "can extract the reference from the `success_url`" do
-          described_class.run(success_url)
+        context "and is valid" do
+          let(:relation) { double(:relation, first: registration) }
 
-          expect(::WasteCarriersEngine::TransientRegistration).to have_received(:where).with(token: reference)
-        end
+          it "can extract the reference from the `success_url`" do
+            described_class.run(success_url)
 
-        it "can generate a valid order key" do
-          params = parse_for_params(described_class.run(success_url))
+            expect(::WasteCarriersEngine::TransientRegistration).to have_received(:where).with(token: reference)
+          end
 
-          expect(params["orderKey"]).to eq(order_key)
-        end
+          it "can generate a valid order key" do
+            params = parse_for_params(described_class.run(success_url))
 
-        it "can generate a valid mac" do
-          params = parse_for_params(described_class.run(success_url))
+            expect(params["orderKey"]).to eq(order_key)
+          end
 
-          expect(params["mac"]).to eq(mac)
-        end
+          it "can generate a valid mac" do
+            params = parse_for_params(described_class.run(success_url))
 
-        it "returns a url in the expected format" do
-          expected_response = "#{success_url}?#{query_string}"
+            expect(params["mac"]).to eq(mac)
+          end
 
-          expect(described_class.run(success_url)).to eq(expected_response)
+          it "returns a url in the expected format" do
+            expected_response = "#{success_url}?#{query_string}"
+
+            expect(described_class.run(success_url)).to eq(expected_response)
+          end
         end
       end
 
@@ -104,28 +100,32 @@ module DefraRubyMocks
 
         let(:success_url) { "http://example.com/your-registration/#{reference}/worldpay/success/54321/NEWREG?locale=en" }
 
-        it "can extract the reference from the `success_url`" do
-          described_class.run(success_url)
+        context "and is valid" do
+          let(:relation) { double(:relation, first: registration) }
 
-          expect(::WasteCarriersEngine::Registration).to have_received(:where).with(reg_uuid: reference)
-        end
+          it "can extract the reference from the `success_url`" do
+            described_class.run(success_url)
 
-        it "can generate a valid order key" do
-          params = parse_for_params(described_class.run(success_url))
+            expect(::WasteCarriersEngine::Registration).to have_received(:where).with(reg_uuid: reference)
+          end
 
-          expect(params["orderKey"]).to eq(order_key)
-        end
+          it "can generate a valid order key" do
+            params = parse_for_params(described_class.run(success_url))
 
-        it "can generate a valid mac" do
-          params = parse_for_params(described_class.run(success_url))
+            expect(params["orderKey"]).to eq(order_key)
+          end
 
-          expect(params["mac"]).to eq(mac)
-        end
+          it "can generate a valid mac" do
+            params = parse_for_params(described_class.run(success_url))
 
-        it "returns a url in the expected format" do
-          expected_response = "#{success_url}&#{query_string}"
+            expect(params["mac"]).to eq(mac)
+          end
 
-          expect(described_class.run(success_url)).to eq(expected_response)
+          it "returns a url in the expected format" do
+            expected_response = "#{success_url}&#{query_string}"
+
+            expect(described_class.run(success_url)).to eq(expected_response)
+          end
         end
       end
     end

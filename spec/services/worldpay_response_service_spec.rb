@@ -9,15 +9,35 @@ module DefraRubyMocks
       DefraRubyMocks.configure do |config|
         config.worldpay_admin_code = admin_code
         config.worldpay_merchant_code = merchant_code
-        config.worldpay_mac_secret = "macsecret1"
+        config.worldpay_mac_secret = mac_secret
       end
     end
 
     let(:admin_code) { "admincode1" }
     let(:merchant_code) { "merchantcode1" }
+    let(:mac_secret) { "mac1" }
     let(:reference) { "12345" }
     let(:order_code) { "54321" }
     let(:order_key) { "#{admin_code}^#{merchant_code}^#{order_code}" }
+    let(:order_value) { 105_00 }
+
+    let(:relation) { double(:relation) }
+    let(:registration) { double(:registration) }
+    let(:finance_details) { double(:finance_details) }
+    let(:orders) { double(:orders) }
+    let(:order) { double(:order, order_code: order_code, total_amount: order_value) }
+
+    let(:mac) do
+      data = [
+        order_key,
+        order_value,
+        "GBP",
+        "AUTHORISED",
+        mac_secret
+      ]
+
+      Digest::MD5.hexdigest(data.join).to_s
+    end
 
     describe ".run" do
       before do
@@ -27,11 +47,6 @@ module DefraRubyMocks
         allow(orders).to receive(:order_by) { orders }
         allow(orders).to receive(:first) { order }
       end
-      let(:relation) { double(:relation) }
-      let(:registration) { double(:registration) }
-      let(:finance_details) { double(:finance_details) }
-      let(:orders) { double(:orders) }
-      let(:order) { double(:order, order_code: order_code, total_amount: 105_00) }
 
       context "when the request comes from the waste-carriers-front-office" do
         before do
@@ -50,6 +65,12 @@ module DefraRubyMocks
           params = parse_for_params(described_class.run(success_url))
 
           expect(params["orderKey"]).to eq(order_key)
+        end
+
+        it "can generate a valid mac" do
+          params = parse_for_params(described_class.run(success_url))
+
+          expect(params["mac"]).to eq(mac)
         end
       end
 
@@ -76,6 +97,12 @@ module DefraRubyMocks
           params = parse_for_params(described_class.run(success_url))
 
           expect(params["orderKey"]).to eq(order_key)
+        end
+
+        it "can generate a valid mac" do
+          params = parse_for_params(described_class.run(success_url))
+
+          expect(params["mac"]).to eq(mac)
         end
       end
     end

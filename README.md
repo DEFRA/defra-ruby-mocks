@@ -104,6 +104,68 @@ The list of possible statuses was taken from
 - [Companies House API](https://developer.companieshouse.gov.uk/api/docs/company/company_number/companyProfile-resource.html)
 - [Companies House API enumerations](https://github.com/companieshouse/api-enumerations/blob/master/constants.yml)
 
+### Worldpay
+
+When mounted into an app you can simulate interacting with the Worldpay hosted pages service.
+
+Making a payment with Worldpay essentially comes in 2 stages
+
+1. The app sends an XML request to Worldpay asking it to prepare for a new payment. Worldpay responds with a reference and a URL to redirect the user to
+2. The app redirects the user to the URL and adds to it query params that tell Worldpay where to redirect the user to when the payment is complete
+
+For more details check out [Making a payment with WorldPay](https://github.com/DEFRA/ruby-services-team/blob/master/services/wcr/payment_with_worldpay.md)
+
+This Worldpay mock replicates those 2 interactions with the following urls
+
+- `../worldpay/payments-service`
+- `../worldpay/dispatcher`
+
+#### Configuration
+
+In order to use the Worldpay mock you'll need to provide additional configuration details
+
+```ruby
+# config/initializers/defra_ruby_mocks.rb
+require "defra_ruby_mocks"
+
+DefraRubyMocks.configure do |config|
+  config.enable = true
+  config.delay = 1000
+
+  config.worldpay_admin_code = "admincode1"
+  config.worldpay_mac_secret = "macsecret1"
+  config.worldpay_merchant_code = "merchantcode1"
+  config.worldpay_domain = "http://localhost:3000/mocks"
+end
+```
+
+It's important that the admin code, mac secret and merchant code are the same as used by the apps calling the Worldpay mock. These values are used when generating the responses and are validated by the apps so it's important they match.
+
+The domain is used when generating the URL we tell the app to redirect users to. As this is just an engine and not a standalone service, we need to tell it what domain it is running from. For example, if the engine is mounted into the app like this
+
+```ruby
+mount DefraRubyMocks::Engine => "/mocks"
+```
+
+And the app is running at `http://localhost:3000`, this engine can then use that information to tell the app to redirect users to `http://localhost:3000/mocks/worldpay/dispatcher` as part of the `payments-service` response.
+
+#### Only for Waste Carriers
+
+At this time there is only one digital service built using Ruby on Rails that uses Worldpay; the [Waste Carriers Registration service](https://github.com/DEFRA/ruby-services-team/tree/master/services/wcr). So the Worldpay mock has been written with the assumption it will only be mounted into one of the Waste Carriers apps.
+
+A critical aspect of this is the expectation that the following classes will be loaded and available when the engine is mounted and the app is running
+
+- `WasteCarriersEngine::TransientRegistration`
+- `WasteCarriersEngine::Registration`
+
+We need these classes so we can use them to query the database for the registration the payment is being made against. We only get the registration reference in the request made to `/worldpay/dispatcher`, not the order code. As the response needs to include the order code we need access to these ActiveRecord models to locate the last order added.
+
+In the live Worldpay service this information (along with the amount to be paid) is saved after the initial request to `/payments-service`. The mock however isn't persisting anything to reduce complexity. So instead it needs to be able to query the database for the information it needs via ActiveRecord.
+
+#### Payment pages are not mocked
+
+The actual Worldpay service presents payment pages that display a form where users are able to enter their credit card details and confirm the payment is correct. This mock does **not** replicate the UI of Worldpay, only the API. Bear this in mind when building any automated acceptance tests.
+
 ## Installation
 
 You don't need to do this if you're just mounting the engine without making any changes.

@@ -1,5 +1,17 @@
 # Changelog
 
+## [v1.1.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v1.1.0) (2020-01-20)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v1.0.0...v1.1.0)
+
+**Implemented enhancements:**
+
+- Add worlpday mocking functionality [\#11](https://github.com/DEFRA/defra-ruby-mocks/pull/11) ([Cruikshanks](https://github.com/Cruikshanks))
+
+**Fixed bugs:**
+
+- Fix simplecov setup in project [\#12](https://github.com/DEFRA/defra-ruby-mocks/pull/12) ([Cruikshanks](https://github.com/Cruikshanks))
+
 ## [v1.0.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v1.0.0) (2019-12-30)
 
 [Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/c890ea2f0737549cff02d2532a00d9dc7c5ebe81...v1.0.0)

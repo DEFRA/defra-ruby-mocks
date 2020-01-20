@@ -42,12 +42,11 @@ module DefraRubyMocks
       end
 
       context "#dispatcher" do
-        let(:registration_relation) { double(:registration_relation) }
-        let(:transient_registration_relation) { double(:transient_registration_relation) }
-        let(:registration) { double(:registration) }
-        let(:transient_registration) { double(:transient_registration) }
-        let(:finance_details) { double(:finance_details) }
-        let(:orders) { double(:orders) }
+        let(:relation) { double(:relation, first: registration) }
+        let(:registration) { double(:registration, finance_details: finance_details) }
+        let(:finance_details) { double(:finance_details, orders: orders) }
+        let(:orders) { double(:orders, order_by: sorted_orders) }
+        let(:sorted_orders) { double(:sorted_orders, first: order) }
         let(:order) { double(:order, order_code: "987654", total_amount: 105_00) }
 
         let(:path) { "/defra_ruby_mocks/worldpay/dispatcher?successURL=#{CGI.escape(success_url)}" }
@@ -57,13 +56,7 @@ module DefraRubyMocks
           let(:success_url) { "http://example.com/fo/12345/worldpay/success" }
 
           it "redirects the user with a 300 code" do
-
-            expect(::WasteCarriersEngine::TransientRegistration).to receive(:where).and_return(transient_registration_relation)
-            expect(transient_registration_relation).to receive(:first) { transient_registration }
-            expect(transient_registration).to receive(:finance_details).and_return(finance_details)
-            expect(finance_details).to receive(:orders).and_return(orders)
-            expect(orders).to receive(:order_by).and_return(orders)
-            expect(orders).to receive(:first).and_return(order)
+            expect(::WasteCarriersEngine::TransientRegistration).to receive(:where) { relation }
 
             get path
 

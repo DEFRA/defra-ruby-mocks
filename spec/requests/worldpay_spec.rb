@@ -54,43 +54,21 @@ module DefraRubyMocks
 
         context "and the request is valid" do
           let(:response_params) { "orderKey=admincode1^^987654&paymentStatus=AUTHORISED&paymentAmount=10500&paymentCurrency=GBP&mac=0ba5271e1ed1b26f9bb428ef7fb536a4&source=WP" }
+          let(:success_url) { "http://example.com/fo/12345/worldpay/success" }
 
-          context "and comes from the waste-carriers-front-office project" do
-            let(:success_url) { "http://example.com/fo/12345/worldpay/success" }
+          it "redirects the user with a 300 code" do
 
-            it "redirects the user with a 300 code" do
+            expect(::WasteCarriersEngine::TransientRegistration).to receive(:where).and_return(transient_registration_relation)
+            expect(transient_registration_relation).to receive(:first) { transient_registration }
+            expect(transient_registration).to receive(:finance_details).and_return(finance_details)
+            expect(finance_details).to receive(:orders).and_return(orders)
+            expect(orders).to receive(:order_by).and_return(orders)
+            expect(orders).to receive(:first).and_return(order)
 
-              expect(::WasteCarriersEngine::TransientRegistration).to receive(:where).and_return(transient_registration_relation)
-              expect(transient_registration_relation).to receive(:first) { transient_registration }
-              expect(transient_registration).to receive(:finance_details).and_return(finance_details)
-              expect(finance_details).to receive(:orders).and_return(orders)
-              expect(orders).to receive(:order_by).and_return(orders)
-              expect(orders).to receive(:first).and_return(order)
+            get path
 
-              get path
-
-              expect(response).to redirect_to("#{success_url}?#{response_params}")
-              expect(response.code).to eq("302")
-            end
-          end
-
-          context "and comes from the waste-carriers-frontend project" do
-            let(:success_url) { "http://example.com/your-registration/12345/worldpay/success/54321/NEWREG?locale=en" }
-
-            it "redirects the user with a 300 code" do
-
-              expect(::WasteCarriersEngine::TransientRegistration).to receive(:where).and_return(transient_registration_relation)
-              expect(transient_registration_relation).to receive(:first) { transient_registration }
-              expect(transient_registration).to receive(:finance_details).and_return(finance_details)
-              expect(finance_details).to receive(:orders).and_return(orders)
-              expect(orders).to receive(:order_by).and_return(orders)
-              expect(orders).to receive(:first).and_return(order)
-
-              get path
-
-              expect(response).to redirect_to("#{success_url}&#{response_params}")
-              expect(response.code).to eq("302")
-            end
+            expect(response).to redirect_to("#{success_url}?#{response_params}")
+            expect(response.code).to eq("302")
           end
         end
 

@@ -5,7 +5,7 @@ module DefraRubyMocks
 
     def run(success_url)
       parse_reference(success_url)
-      @registration = locate_record
+      locate_registration
       @order = last_order
 
       response_url(success_url)
@@ -28,8 +28,10 @@ module DefraRubyMocks
       end
     end
 
-    def locate_record
-      locate_transient_registration || locate_registration
+    def locate_registration
+      @registration = locate_transient_registration || locate_completed_registration
+
+      raise(MissingRegistrationError, @reference) if @registration.nil?
     end
 
     def locate_transient_registration
@@ -39,7 +41,7 @@ module DefraRubyMocks
         .first
     end
 
-    def locate_registration
+    def locate_completed_registration
       "WasteCarriersEngine::Registration"
         .constantize
         .where(reg_uuid: @reference)

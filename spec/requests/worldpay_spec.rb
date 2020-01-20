@@ -104,22 +104,6 @@ module DefraRubyMocks
               expect(response.code).to eq("500")
             end
           end
-
-          context "because the success url contains an ID for a unknown registration" do
-            let(:success_url) { "http://example.com/fo/12345/worldpay/success" }
-
-            it "returns a response with a 500 code" do
-              expect(::WasteCarriersEngine::TransientRegistration).to receive(:where).and_return(transient_registration_relation)
-              expect(transient_registration_relation).to receive(:first) { nil }
-
-              expect(::WasteCarriersEngine::Registration).to receive(:where).and_return(registration_relation)
-              expect(registration_relation).to receive(:first) { nil }
-
-              get path
-
-              expect(response.code).to eq("500")
-            end
-          end
         end
       end
     end

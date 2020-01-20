@@ -11,6 +11,9 @@ module DefraRubyMocks
         config.worldpay_merchant_code = merchant_code
         config.worldpay_mac_secret = mac_secret
       end
+
+      allow(::WasteCarriersEngine::TransientRegistration).to receive(:where) { relation }
+      allow(::WasteCarriersEngine::Registration).to receive(:where) { relation }
     end
 
     let(:admin_code) { "admincode1" }
@@ -52,10 +55,6 @@ module DefraRubyMocks
 
     describe ".run" do
       context "when the request comes from the waste-carriers-front-office" do
-        before do
-          allow(::WasteCarriersEngine::TransientRegistration).to receive(:where) { relation }
-        end
-
         let(:success_url) { "http://example.com/fo/#{reference}/worldpay/success" }
 
         context "and is valid" do
@@ -85,6 +84,14 @@ module DefraRubyMocks
             expect(described_class.run(success_url)).to eq(expected_response)
           end
         end
+
+        context "but the registration does not exist" do
+          let(:relation) { double(:relation, first: nil) }
+
+          it "causes an error" do
+            expect { described_class.run(success_url) }.to raise_error MissingRegistrationError
+          end
+        end
       end
 
       context "when the request comes from the waste-carriers-frontend" do
@@ -94,8 +101,6 @@ module DefraRubyMocks
           # `locate_transient_registration()` to allow the service to then
           # call `locate_registration()`
           allow_any_instance_of(described_class).to receive(:locate_transient_registration).and_return(nil)
-
-          allow(::WasteCarriersEngine::Registration).to receive(:where) { relation }
         end
 
         let(:success_url) { "http://example.com/your-registration/#{reference}/worldpay/success/54321/NEWREG?locale=en" }
@@ -125,6 +130,14 @@ module DefraRubyMocks
             expected_response = "#{success_url}&#{query_string}"
 
             expect(described_class.run(success_url)).to eq(expected_response)
+          end
+        end
+
+        context "but the registration does not exist" do
+          let(:relation) { double(:relation, first: nil) }
+
+          it "causes an error" do
+            expect { described_class.run(success_url) }.to raise_error MissingRegistrationError
           end
         end
       end

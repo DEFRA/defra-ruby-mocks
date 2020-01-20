@@ -2,14 +2,14 @@
 
 require "rails_helper"
 
-module DefraRuby
+module DefraRubyMocks
   RSpec.describe "Company", type: :request do
+    after(:all) { Helpers::Configuration.reset_for_tests }
 
     let(:path) { "/defra_ruby_mocks/company" }
 
     context "when mocks are enabled" do
-      before(:all) { Helpers::Configuration.prep_for_tests }
-      after(:all) { Helpers::Configuration.reset_for_tests }
+      before(:each) { Helpers::Configuration.prep_for_tests }
 
       context "when the company number is 99999999 for not found" do
         let(:company_number) { "99999999" }

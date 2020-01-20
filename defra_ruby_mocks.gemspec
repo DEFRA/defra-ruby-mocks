@@ -21,6 +21,10 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 4.2.11.1"
 
+  # Used to parse XML requests. Needed to support the Worldpay mock, as Worldpay
+  # uses XML rather than JSON
+  s.add_dependency "nokogiri"
+
   # Allows us to automatically generate the change log from the tags, issues,
   # labels and pull requests on GitHub. Added as a dependency so all dev's have
   # access to it to generate a log, and so they are using the same version.

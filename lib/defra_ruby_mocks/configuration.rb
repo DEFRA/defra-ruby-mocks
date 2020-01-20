@@ -5,6 +5,8 @@ module DefraRubyMocks
 
     DEFAULT_DELAY = 1000
 
+    attr_accessor :worldpay_admin_code, :worldpay_mac_secret
+    attr_accessor :worldpay_merchant_code, :worldpay_domain
     attr_reader :delay
 
     def initialize

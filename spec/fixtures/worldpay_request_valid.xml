@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE paymentService PUBLIC "-//WorldPay/DTD WorldPay PaymentService v1/EN" "http://dtd.worldpay.com/paymentService_v1.dtd">
+<paymentService version="1.4" merchantCode="MERCHME">
+  <submit>
+    <order orderCode="1577726052">
+      <description>Your Waste Carrier Registration CBDU2</description>
+      <amount currencyCode="GBP" value="10500" exponent="2"/>
+      <orderContent>Waste Carrier Registration renewal: CBDU2 for Booth Mcdaniel Associates</orderContent>
+      <paymentMethodMask>
+        <include code="VISA-SSL"/>
+        <include code="MAESTRO-SSL"/>
+        <include code="ECMC-SSL"/>
+      </paymentMethodMask>
+      <shopper>
+        <shopperEmailAddress>vucij@example.com</shopperEmailAddress>
+      </shopper>
+      <billingAddress>
+        <address>
+          <firstName>Bell</firstName>
+          <lastName>Cruz</lastName>
+          <address1>HARMSEN GROUP DEANERY ROAD</address1>
+          <address2/>
+          <postalCode>BS1 5AH</postalCode>
+          <city>BRISTOL</city>
+          <countryCode>GB</countryCode>
+        </address>
+      </billingAddress>
+    </order>
+  </submit>
+</paymentService>

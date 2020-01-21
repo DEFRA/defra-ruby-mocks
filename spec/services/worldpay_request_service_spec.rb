@@ -20,7 +20,7 @@ module DefraRubyMocks
           end
         end
 
-        let(:data) { File.read("spec/fixtures/worldpay_request_valid.xml") }
+        let(:data) { File.read("spec/fixtures/payment_request_valid.xml") }
 
         context "the result it returns" do
           it "is a hash" do

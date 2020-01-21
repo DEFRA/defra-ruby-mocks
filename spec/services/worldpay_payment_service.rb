@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module DefraRubyMocks
-  RSpec.describe WorldpayRequestService do
+  RSpec.describe WorldpayPaymentService do
     describe ".run" do
       after(:each) { Helpers::Configuration.reset_for_tests }
 

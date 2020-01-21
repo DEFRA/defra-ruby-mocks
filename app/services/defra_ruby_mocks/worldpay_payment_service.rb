@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module DefraRubyMocks
-  class WorldpayRequestService < BaseService
+  class WorldpayPaymentService < BaseService
     def run(data)
       check_config
 

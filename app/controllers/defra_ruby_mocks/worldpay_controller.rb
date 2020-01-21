@@ -6,7 +6,7 @@ module DefraRubyMocks
     before_action :set_default_response_format
 
     def payments_service
-      response_values = WorldpayRequestService.run(request.body.read)
+      response_values = WorldpayPaymentService.run(request.body.read)
 
       @merchant_code = response_values[:merchant_code]
       @order_code = response_values[:order_code]

@@ -7,54 +7,57 @@ module DefraRubyMocks
     describe ".run" do
       after(:each) { Helpers::Configuration.reset_for_tests }
 
+      let(:merchant_code) { "MERCHME" }
+      let(:args) { { merchant_code: merchant_code, xml: xml } }
+
       context "when the mocks config is missing a worldpay domain" do
+        let(:xml) { nil }
+
         it "raises a 'InvalidConfigError'" do
-          expect { described_class.run(nil) }.to raise_error InvalidConfigError
+          expect { described_class.run(args) }.to raise_error InvalidConfigError
         end
       end
 
-      context "when the XML data is valid" do
+      context "when the XML is valid" do
         before(:each) do
           DefraRubyMocks.configure do |config|
             config.worldpay_domain = "http://localhost:3000/defra_ruby_mocks"
           end
         end
 
-        let(:data) { File.read("spec/fixtures/payment_request_valid.xml") }
+        let(:xml) { Nokogiri::XML(File.read("spec/fixtures/payment_request_valid.xml")) }
 
         context "the result it returns" do
           it "is a hash" do
-            expect(described_class.run(data)).to be_an_instance_of(Hash)
+            expect(described_class.run(args)).to be_an_instance_of(Hash)
           end
 
           it "contains 4 values" do
-            result = described_class.run(data).length
+            result = described_class.run(args).length
             expect(result).to eq(4)
           end
 
-          context "has values extracted from the XML data" do
-            it "a merchant code" do
-              result = described_class.run(data)[:merchant_code]
+          it "has an order code extracted from the XML" do
+            result = described_class.run(args)[:order_code]
 
-              expect(result).to eq("MERCHME")
-            end
+            expect(result).to eq("1577726052")
+          end
 
-            it "an order code" do
-              result = described_class.run(data)[:order_code]
+          it "has an order code extracted from the XML" do
+            result = described_class.run(args)[:order_code]
 
-              expect(result).to eq("1577726052")
-            end
+            expect(result).to eq("1577726052")
           end
 
           context "has a generated ID which is" do
             it "10 characters long" do
-              result = described_class.run(data)[:id]
+              result = described_class.run(args)[:id]
 
               expect(result.length).to eq(10)
             end
 
             it "only made up of the digits 0 to 9" do
-              result = described_class.run(data)[:id]
+              result = described_class.run(args)[:id]
 
               expect(result.scan(/\D/).empty?).to be_truthy
             end
@@ -62,7 +65,7 @@ module DefraRubyMocks
             it "different each time" do
               results = []
               3.times do
-                results << described_class.run(data)[:id]
+                results << described_class.run(args)[:id]
               end
 
               expect(results.uniq.length).to eq(results.length)
@@ -71,7 +74,7 @@ module DefraRubyMocks
 
           context "has a url" do
             it "based on the configured domain, and extracted merchant and order codes" do
-              result = described_class.run(data)[:url]
+              result = described_class.run(args)[:url]
 
               expect(result).to eq("http://localhost:3000/defra_ruby_mocks/worldpay/dispatcher?OrderKey=MERCHME%5E1577726052")
             end
@@ -80,11 +83,11 @@ module DefraRubyMocks
 
       end
 
-      context "when the data is invalid" do
-        let(:data) { File.read("spec/fixtures/worldpay_request_invalid.xml") }
+      context "when the XML is invalid" do
+        let(:xml) { Nokogiri::XML(File.read("spec/fixtures/payment_request_invalid.xml")) }
 
         it "raises an error" do
-          expect { described_class.run(data) }.to raise_error StandardError
+          expect { described_class.run(args) }.to raise_error StandardError
         end
       end
     end

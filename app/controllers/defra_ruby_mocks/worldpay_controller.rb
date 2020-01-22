@@ -6,7 +6,7 @@ module DefraRubyMocks
     before_action :set_default_response_format
 
     def payments_service
-      response_values = WorldpayPaymentService.run(request.body.read)
+      response_values = WorldpayRequestHandlerService.run(convert_request_body_to_xml)
 
       @merchant_code = response_values[:merchant_code]
       @order_code = response_values[:order_code]
@@ -26,6 +26,10 @@ module DefraRubyMocks
     end
 
     private
+
+    def convert_request_body_to_xml
+      Nokogiri::XML(request.body.read)
+    end
 
     def set_default_response_format
       request.format = :xml

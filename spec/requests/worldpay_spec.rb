@@ -41,6 +41,19 @@ module DefraRubyMocks
             end
           end
         end
+
+        context "when a refund request is received" do
+          context "and the request is valid" do
+            let(:data) { File.read("spec/fixtures/refund_request_valid.xml") }
+
+            it "returns an XML response with a 200 code" do
+              get path, {}, "RAW_POST_DATA" => data
+
+              expect(response.content_type).to eq("application/xml")
+              expect(response.code).to eq("200")
+            end
+          end
+        end
       end
 
       context "#dispatcher" do

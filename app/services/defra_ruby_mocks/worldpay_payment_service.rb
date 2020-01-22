@@ -2,11 +2,10 @@
 
 module DefraRubyMocks
   class WorldpayPaymentService < BaseService
-    def run(data)
+    def run(merchant_code:, xml:)
       check_config
 
-      xml = Nokogiri::XML(data)
-      @merchant_code = extract_merchant_code(xml)
+      @merchant_code = merchant_code
       @order_code = extract_order_code(xml)
 
       {
@@ -23,11 +22,6 @@ module DefraRubyMocks
       domain = DefraRubyMocks.configuration.worldpay_domain
 
       raise InvalidConfigError, :worldpay_domain if domain.blank?
-    end
-
-    def extract_merchant_code(xml)
-      payment_service = xml.at_xpath("//paymentService")
-      payment_service.attribute("merchantCode").text
     end
 
     def extract_order_code(xml)

@@ -108,6 +108,8 @@ The list of possible statuses was taken from
 
 When mounted into an app you can simulate interacting with the Worldpay hosted pages service.
 
+#### Payments
+
 Making a payment with Worldpay essentially comes in 2 stages
 
 1. The app sends an XML request to Worldpay asking it to prepare for a new payment. Worldpay responds with a reference and a URL to redirect the user to
@@ -119,6 +121,14 @@ This Worldpay mock replicates those 2 interactions with the following urls
 
 - `../worldpay/payments-service`
 - `../worldpay/dispatcher`
+
+#### Refunds
+
+Requesting a refund from Worldpay is a single step process.
+
+1. The app sends an XML request to Worldpay with details of the order to be refunded and the amount. Worldpay returns an XML response confirming the request has been received
+
+Like payments, refund requests are also sent to the same url `../worldpay/payments-service`. The mock handles determining what request is being made and returns the appropriate response.
 
 #### Configuration
 

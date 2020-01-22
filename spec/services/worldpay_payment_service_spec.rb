@@ -37,10 +37,10 @@ module DefraRubyMocks
             expect(result).to eq(4)
           end
 
-          it "has an order code extracted from the XML" do
-            result = described_class.run(args)[:order_code]
+          it "has the merchant code passed in" do
+            result = described_class.run(args)[:merchant_code]
 
-            expect(result).to eq("1577726052")
+            expect(result).to eq(merchant_code)
           end
 
           it "has an order code extracted from the XML" do

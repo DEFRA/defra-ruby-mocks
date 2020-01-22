@@ -28,6 +28,7 @@ module DefraRubyMocks
 
               expect(response.content_type).to eq("application/xml")
               expect(response.code).to eq("200")
+              expect(response.body).to be_xml
             end
           end
 
@@ -51,6 +52,7 @@ module DefraRubyMocks
 
               expect(response.content_type).to eq("application/xml")
               expect(response.code).to eq("200")
+              expect(response.body).to be_xml
             end
           end
         end

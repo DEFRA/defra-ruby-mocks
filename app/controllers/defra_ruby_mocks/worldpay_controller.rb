@@ -6,14 +6,10 @@ module DefraRubyMocks
     before_action :set_default_response_format
 
     def payments_service
-      response_values = WorldpayRequestHandlerService.run(convert_request_body_to_xml)
+      @values = WorldpayRequestHandlerService.run(convert_request_body_to_xml)
 
-      @merchant_code = response_values[:merchant_code]
-      @order_code = response_values[:order_code]
-      @worldpay_id = response_values[:id]
-      @worldpay_url = response_values[:url]
-
-      respond_to :xml
+      render_payment_response if @values[:request_type] == :payment
+      render_refund_response if @values[:request_type] == :refund
     rescue StandardError
       head 500
     end
@@ -27,12 +23,20 @@ module DefraRubyMocks
 
     private
 
+    def set_default_response_format
+      request.format = :xml
+    end
+
     def convert_request_body_to_xml
       Nokogiri::XML(request.body.read)
     end
 
-    def set_default_response_format
-      request.format = :xml
+    def render_payment_response
+      render "defra_ruby_mocks/worldpay/payment_request"
+    end
+
+    def render_refund_response
+      render "defra_ruby_mocks/worldpay/refund_request"
     end
 
   end

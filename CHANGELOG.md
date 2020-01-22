@@ -1,5 +1,17 @@
 # Changelog
 
+## [v1.2.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v1.2.0) (2020-01-22)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v1.1.0...v1.2.0)
+
+**Implemented enhancements:**
+
+- Add mock Worldpay refund functionality [\#14](https://github.com/DEFRA/defra-ruby-mocks/pull/14) ([Cruikshanks](https://github.com/Cruikshanks))
+
+**Merged pull requests:**
+
+- Bump nokogiri from 1.10.5 to 1.10.7 [\#13](https://github.com/DEFRA/defra-ruby-mocks/pull/13) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+
 ## [v1.1.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v1.1.0) (2020-01-20)
 
 [Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v1.0.0...v1.1.0)

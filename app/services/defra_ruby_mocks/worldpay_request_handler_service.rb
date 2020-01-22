@@ -19,8 +19,8 @@ module DefraRubyMocks
     end
 
     def generate_response(arguments)
-      return WorldpayPaymentService.run(arguments) if payment_request?(arguments[:xml])
-      return WorldpayRefundService.run(arguments) if refund_request?(arguments[:xml])
+      return WorldpayPaymentService.run(arguments).merge(request_type: :payment) if payment_request?(arguments[:xml])
+      return WorldpayRefundService.run(arguments).merge(request_type: :refund) if refund_request?(arguments[:xml])
 
       raise UnrecognisedWorldpayRequestError
     end

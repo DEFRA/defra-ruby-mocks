@@ -15,6 +15,7 @@ module DefraRubyMocks
 
           let(:xml) { Nokogiri::XML(File.read("spec/fixtures/payment_request_valid.xml")) }
           let(:order_id) { "1234567890" }
+          let(:request_type) { { request_type: :payment } }
           let(:response_values) do
             {
               merchant_code: merchant_code,
@@ -33,12 +34,13 @@ module DefraRubyMocks
           it "returns the values the controller needs to handle the request" do
             expect(WorldpayPaymentService).to receive(:run).with(args) { response_values }
 
-            expect(described_class.run(xml)).to eq(response_values)
+            expect(described_class.run(xml)).to eq(request_type.merge(response_values))
           end
         end
 
         context "and it's for a refund" do
           let(:xml) { Nokogiri::XML(File.read("spec/fixtures/refund_request_valid.xml")) }
+          let(:request_type) { { request_type: :refund } }
           let(:response_values) do
             {
               merchant_code: merchant_code,
@@ -58,7 +60,7 @@ module DefraRubyMocks
           it "returns the values the controller needs to handle the request" do
             expect(WorldpayRefundService).to receive(:run).with(args) { response_values }
 
-            expect(described_class.run(xml)).to eq(response_values)
+            expect(described_class.run(xml)).to eq(request_type.merge(response_values))
           end
         end
 

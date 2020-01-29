@@ -36,5 +36,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "defra_ruby_style"
   s.add_development_dependency "pry-byebug"
   s.add_development_dependency "rspec-rails", "~> 3.8.0"
-  s.add_development_dependency "simplecov"
+  s.add_development_dependency "simplecov", "~> 0.17.1"
 end

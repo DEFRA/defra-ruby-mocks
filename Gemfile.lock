@@ -184,7 +184,7 @@ DEPENDENCIES
   github_changelog_generator
   pry-byebug
   rspec-rails (~> 3.8.0)
-  simplecov
+  simplecov (~> 0.17.1)
 
 BUNDLED WITH
    1.17.3

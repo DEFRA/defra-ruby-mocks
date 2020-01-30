@@ -15,8 +15,10 @@ module DefraRubyMocks
     end
 
     def dispatcher
-      success_url = params[:successURL]
-      redirect_to WorldpayResponseService.run(success_url)
+      redirect_to WorldpayResponseService.run(
+        success_url: params[:successURL],
+        failure_url: params[:failureURL]
+      )
     rescue StandardError
       head 500
     end

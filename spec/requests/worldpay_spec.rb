@@ -60,7 +60,7 @@ module DefraRubyMocks
 
       context "#dispatcher" do
         let(:relation) { double(:relation, first: registration) }
-        let(:registration) { double(:registration, finance_details: finance_details) }
+        let(:registration) { double(:registration, finance_details: finance_details, company_name: "What a waste") }
         let(:finance_details) { double(:finance_details, orders: orders) }
         let(:orders) { double(:orders, order_by: sorted_orders) }
         let(:sorted_orders) { double(:sorted_orders, first: order) }

@@ -3,12 +3,12 @@
 module DefraRubyMocks
   class WorldpayResponseService < BaseService
 
-    def run(success_url)
+    def run(success_url:, failure_url:)
       parse_reference(success_url)
       locate_registration
       @order = last_order
 
-      response_url(success_url)
+      response_url(success_url, failure_url)
     end
 
     private
@@ -52,6 +52,10 @@ module DefraRubyMocks
       @registration.finance_details&.orders&.order_by(dateCreated: :desc)&.first
     end
 
+    def reject_payment?
+      @registration.company_name.downcase.include?("reject")
+    end
+
     def order_key
       [
         DefraRubyMocks.configuration.worldpay_admin_code,
@@ -76,10 +80,10 @@ module DefraRubyMocks
       Digest::MD5.hexdigest(data.join).to_s
     end
 
-    def query_string
+    def query_string(status)
       [
         "orderKey=#{order_key}",
-        "paymentStatus=AUTHORISED",
+        "paymentStatus=#{status}",
         "paymentAmount=#{order_value}",
         "paymentCurrency=GBP",
         "mac=#{generate_mac}",
@@ -87,12 +91,18 @@ module DefraRubyMocks
       ].join("&")
     end
 
-    def response_url(success_url)
-      if @url_format == :new
-        "#{success_url}?#{query_string}"
+    def response_url(success_url, failure_url)
+      separator = @url_format == :new ? "?" : "&"
+
+      if reject_payment?
+        url = failure_url
+        status = "REFUSED"
       else
-        "#{success_url}&#{query_string}"
+        url = success_url
+        status = "AUTHORISED"
       end
+
+      [url, separator, query_string(status)].join
     end
   end
 end

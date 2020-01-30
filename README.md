@@ -122,6 +122,14 @@ This Worldpay mock replicates those 2 interactions with the following urls
 - `../worldpay/payments-service`
 - `../worldpay/dispatcher`
 
+##### Refused payments
+
+The engine has the ability to also mock Worldpay refusing a payment. To have the mock refuse payment just ensure the registration's company name includes the word `reject` (case doesn't matter).
+
+If it does the engine will redirect back to the failure url instead of the success url provided, plus set the payment status to `REFUSED`.
+
+This allows us to test how the application handles both successful and unsucessful Worldpay payments.
+
 #### Refunds
 
 Requesting a refund from Worldpay is a single step process.

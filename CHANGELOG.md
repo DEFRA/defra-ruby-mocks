@@ -1,5 +1,19 @@
 # Changelog
 
+## [v1.3.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v1.3.0) (2020-01-31)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v1.2.0...v1.3.0)
+
+**Implemented enhancements:**
+
+- Add ability for Worldpay to reject payment [\#19](https://github.com/DEFRA/defra-ruby-mocks/pull/19) ([Cruikshanks](https://github.com/Cruikshanks))
+
+**Merged pull requests:**
+
+- Bump defra\_ruby\_style from 0.1.3 to 0.1.4 [\#18](https://github.com/DEFRA/defra-ruby-mocks/pull/18) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Temp. fix for cc-test-reporter & SimpleCov 0.18 [\#17](https://github.com/DEFRA/defra-ruby-mocks/pull/17) ([Cruikshanks](https://github.com/Cruikshanks))
+- Bump pry-byebug from 3.7.0 to 3.8.0 [\#15](https://github.com/DEFRA/defra-ruby-mocks/pull/15) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+
 ## [v1.2.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v1.2.0) (2020-01-22)
 
 [Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v1.1.0...v1.2.0)

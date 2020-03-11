@@ -1,8 +1,8 @@
 # Defra Ruby Mocks
 
 [![Build Status](https://travis-ci.com/DEFRA/defra-ruby-mocks.svg?branch=master)](https://travis-ci.com/DEFRA/defra-ruby-mocks)
-[![Maintainability](https://api.codeclimate.com/v1/badges/8b14cc1e0e1c1d6a33cc/maintainability)](https://codeclimate.com/github/DEFRA/defra-ruby-mocks/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/8b14cc1e0e1c1d6a33cc/test_coverage)](https://codeclimate.com/github/DEFRA/defra-ruby-mocks/test_coverage)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=DEFRA_defra-ruby-mocks&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=DEFRA_defra-ruby-mocks)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=DEFRA_defra-ruby-mocks&metric=coverage)](https://sonarcloud.io/dashboard?id=DEFRA_defra-ruby-mocks)
 [![security](https://hakiri.io/github/DEFRA/defra-ruby-mocks/master.svg)](https://hakiri.io/github/DEFRA/defra-ruby-mocks/master)
 [![Licence](https://img.shields.io/badge/Licence-OGLv3-blue.svg)](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3)
 

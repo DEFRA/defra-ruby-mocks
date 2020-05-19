@@ -5,7 +5,7 @@ module DefraRubyMocks
 
     def run(success_url:, failure_url:)
       parse_reference(success_url)
-      locate_registration
+      locate_resource
       @order = last_order
 
       response_url(success_url, failure_url)
@@ -28,10 +28,10 @@ module DefraRubyMocks
       end
     end
 
-    def locate_registration
-      @registration = locate_transient_registration || locate_completed_registration
+    def locate_resource
+      @resource = locate_transient_registration || locate_completed_registration
 
-      raise(MissingRegistrationError, @reference) if @registration.nil?
+      raise(MissingRegistrationError, @reference) if @resource.nil?
     end
 
     def locate_transient_registration
@@ -56,14 +56,14 @@ module DefraRubyMocks
     end
 
     def last_order
-      @registration.finance_details&.orders&.order_by(dateCreated: :desc)&.first
+      @resource.finance_details&.orders&.order_by(dateCreated: :desc)&.first
     end
 
     def reject_payment?
-      company_name = if @registration.is_a?(WasteCarriersEngine::OrderCopyCardsRegistration)
-                       locate_original_registration(@registration.reg_identifier).company_name
+      company_name = if @resource.is_a?(WasteCarriersEngine::OrderCopyCardsRegistration)
+                       locate_original_registration(@resource.reg_identifier).company_name
                      else
-                       @registration.company_name
+                       @resource.company_name
                      end
       company_name.downcase.include?("reject")
     end

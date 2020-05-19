@@ -68,12 +68,12 @@ module DefraRubyMocks
       @order.total_amount.to_s
     end
 
-    def generate_mac
+    def generate_mac(status)
       data = [
         order_key,
         order_value,
         "GBP",
-        "AUTHORISED",
+        status,
         DefraRubyMocks.configuration.worldpay_mac_secret
       ]
 
@@ -86,7 +86,7 @@ module DefraRubyMocks
         "paymentStatus=#{status}",
         "paymentAmount=#{order_value}",
         "paymentCurrency=GBP",
-        "mac=#{generate_mac}",
+        "mac=#{generate_mac(status)}",
         "source=WP"
       ].join("&")
     end

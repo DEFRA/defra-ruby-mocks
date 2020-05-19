@@ -21,6 +21,10 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 4.2.11.1"
 
+  # sprockets-4.0.0 requires ruby version >= 2.5.0, which is incompatible with
+  # the current version, ruby 2.4.2p198
+  s.add_dependency "sprockets", "~> 3.7.2"
+
   # Used to parse XML requests. Needed to support the Worldpay mock, as Worldpay
   # uses XML rather than JSON
   s.add_dependency "nokogiri"

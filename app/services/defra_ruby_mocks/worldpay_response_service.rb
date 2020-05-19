@@ -41,6 +41,13 @@ module DefraRubyMocks
         .first
     end
 
+    def locate_original_registration(reg_identifier)
+      "WasteCarriersEngine::Registration"
+        .constantize
+        .where(reg_identifier: reg_identifier)
+        .first
+    end
+
     def locate_completed_registration
       "WasteCarriersEngine::Registration"
         .constantize
@@ -53,7 +60,12 @@ module DefraRubyMocks
     end
 
     def reject_payment?
-      @registration.company_name.downcase.include?("reject")
+      company_name = if @registration.is_a?(WasteCarriersEngine::OrderCopyCardsRegistration)
+                       locate_original_registration(@registration.reg_identifier).company_name
+                     else
+                       @registration.company_name
+                     end
+      company_name.downcase.include?("reject")
     end
 
     def order_key

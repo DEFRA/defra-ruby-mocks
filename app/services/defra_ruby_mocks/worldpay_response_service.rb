@@ -60,11 +60,12 @@ module DefraRubyMocks
     end
 
     def reject_payment?
-      company_name = if @resource.is_a?(WasteCarriersEngine::OrderCopyCardsRegistration)
+      company_name = if @resource.class.to_s == "WasteCarriersEngine::OrderCopyCardsRegistration"
                        locate_original_registration(@resource.reg_identifier).company_name
                      else
                        @resource.company_name
                      end
+
       company_name.downcase.include?("reject")
     end
 

@@ -23,6 +23,7 @@ module DefraRubyMocks
     let(:order_code) { "54321" }
     let(:order_key) { "#{admin_code}^#{merchant_code}^#{order_code}" }
     let(:order_value) { 105_00 }
+    let(:payment_status) { "AUTHORISED" }
     let(:company_name) { "Pay for the thing" }
 
     let(:registration) { double(:registration, finance_details: finance_details, company_name: company_name) }
@@ -36,14 +37,12 @@ module DefraRubyMocks
         order_key,
         order_value,
         "GBP",
-        "AUTHORISED",
+        payment_status,
         mac_secret
       ]
 
       Digest::MD5.hexdigest(data.join).to_s
     end
-
-    let(:payment_status) { "AUTHORISED" }
 
     let(:query_string) do
       [

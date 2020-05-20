@@ -59,16 +59,6 @@ module DefraRubyMocks
       @resource.finance_details&.orders&.order_by(dateCreated: :desc)&.first
     end
 
-    def reject_payment?
-      company_name = if @resource.class.to_s == "WasteCarriersEngine::OrderCopyCardsRegistration"
-                       locate_original_registration(@resource.reg_identifier).company_name
-                     else
-                       @resource.company_name
-                     end
-
-      company_name.downcase.include?("reject")
-    end
-
     def order_key
       [
         DefraRubyMocks.configuration.worldpay_admin_code,
@@ -79,6 +69,23 @@ module DefraRubyMocks
 
     def order_value
       @order.total_amount.to_s
+    end
+
+    def company_name
+      if @resource.class.to_s == "WasteCarriersEngine::OrderCopyCardsRegistration"
+        locate_original_registration(@resource.reg_identifier).company_name.downcase
+      else
+        @resource.company_name.downcase
+      end
+    end
+
+    def payment_status
+      name = company_name
+
+      return "REFUSED" if name.include?("reject")
+      return nil if name.include?("stuck")
+
+      "AUTHORISED"
     end
 
     def generate_mac(status)
@@ -105,15 +112,12 @@ module DefraRubyMocks
     end
 
     def response_url(success_url, failure_url)
+      status = payment_status
+      return nil if status.nil?
+
       separator = @url_format == :new ? "?" : "&"
 
-      if reject_payment?
-        url = failure_url
-        status = "REFUSED"
-      else
-        url = success_url
-        status = "AUTHORISED"
-      end
+      url = status == "AUTHORISED" ? success_url : failure_url
 
       [url, separator, query_string(status)].join
     end

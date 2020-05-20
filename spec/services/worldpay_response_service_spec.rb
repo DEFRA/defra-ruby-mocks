@@ -101,6 +101,17 @@ module DefraRubyMocks
               expect(described_class.run(args)).to eq(expected_response)
             end
           end
+
+          context "and is for a stuck payment" do
+            let(:payment_status) { "REFUSED" }
+            let(:company_name) { "Give me a stuck thing" }
+
+            it "returns 'nil'" do
+              expected_response = nil
+
+              expect(described_class.run(args)).to eq(expected_response)
+            end
+          end
         end
 
         context "but the registration does not exist" do

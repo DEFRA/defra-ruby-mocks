@@ -57,10 +57,10 @@ module DefraRubyMocks
     end
 
     def payment_status
-      return "REFUSED" if @resource.company_name.include?("reject")
-      return "STUCK" if @resource.company_name.include?("stuck")
+      return :REFUSED if @resource.company_name.include?("reject")
+      return :STUCK if @resource.company_name.include?("stuck")
 
-      "AUTHORISED"
+      :AUTHORISED
     end
 
     def generate_mac(status)
@@ -79,7 +79,7 @@ module DefraRubyMocks
       status = payment_status
 
       WorldpayResponse.new(
-        status == "AUTHORISED" ? success_url : failure_url,
+        status == :AUTHORISED ? success_url : failure_url,
         @url_format == :new ? "?" : "&",
         order_key,
         generate_mac(status),

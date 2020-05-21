@@ -20,7 +20,7 @@ module DefraRubyMocks
         failure_url: params[:failureURL]
       )
 
-      if @response.status == "STUCK"
+      if @response.status == :STUCK
         render formats: :html, action: "stuck", layout: false
       else
         redirect_to @response.url

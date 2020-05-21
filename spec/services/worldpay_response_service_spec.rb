@@ -25,7 +25,7 @@ module DefraRubyMocks
     let(:order_code) { "54321" }
     let(:order_key) { "#{admin_code}^#{merchant_code}^#{order_code}" }
     let(:order_value) { 105_00 }
-    let(:payment_status) { "AUTHORISED" }
+    let(:payment_status) { :AUTHORISED }
     let(:company_name) { "Pay for the thing" }
 
     let(:order) { double(:order, order_code: order_code, total_amount: order_value) }
@@ -84,7 +84,7 @@ module DefraRubyMocks
           end
 
           context "and is for a rejected payment" do
-            let(:payment_status) { "REFUSED" }
+            let(:payment_status) { :REFUSED }
             let(:company_name) { "Reject for the thing" }
 
             it "returns a url in the expected format" do
@@ -97,8 +97,8 @@ module DefraRubyMocks
           context "and is for a stuck payment" do
             let(:company_name) { "Give me a stuck thing" }
 
-            it "returns a status of 'STUCK'" do
-              expect(described_class.run(args).status).to eq("STUCK")
+            it "returns a status of :STUCK" do
+              expect(described_class.run(args).status).to eq(:STUCK)
             end
           end
         end
@@ -132,7 +132,7 @@ module DefraRubyMocks
           end
 
           context "and is for a rejected payment" do
-            let(:payment_status) { "REFUSED" }
+            let(:payment_status) { :REFUSED }
             let(:company_name) { "Reject for the thing" }
 
             it "returns a url in the expected format" do
@@ -145,8 +145,8 @@ module DefraRubyMocks
           context "and is for a stuck payment" do
             let(:company_name) { "Give me a stuck thing" }
 
-            it "returns a status of 'STUCK'" do
-              expect(described_class.run(args).status).to eq("STUCK")
+            it "returns a status of :STUCK" do
+              expect(described_class.run(args).status).to eq(:STUCK)
             end
           end
         end

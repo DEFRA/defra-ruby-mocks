@@ -92,7 +92,7 @@ module DefraRubyMocks
           end
 
           context "and a response is not expected" do
-            let(:status) { "STUCK" }
+            let(:status) { :STUCK }
 
             it "renders the Worldpay stuck page" do
               get path

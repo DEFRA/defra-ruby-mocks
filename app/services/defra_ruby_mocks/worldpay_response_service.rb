@@ -5,13 +5,29 @@ module DefraRubyMocks
 
     def run(success_url:, failure_url:)
       parse_reference(success_url)
-      locate_resource
-      @order = last_order
+      @resource = WorldpayResourceService.run(reference: @reference)
 
-      response_url(success_url, failure_url)
+      generate_response(success_url, failure_url)
     end
 
     private
+
+    WorldpayResponse = Struct.new(:supplied_url, :separator, :order_key, :mac, :value, :status, :reference) do
+      def url
+        status.nil? ? "" : [supplied_url, separator, params].join
+      end
+
+      def params
+        [
+          "orderKey=#{order_key}",
+          "paymentStatus=#{status}",
+          "paymentAmount=#{value}",
+          "paymentCurrency=GBP",
+          "mac=#{mac}",
+          "source=WP"
+        ].join("&")
+      end
+    end
 
     def parse_reference(url)
       path = URI.parse(url).path
@@ -28,62 +44,21 @@ module DefraRubyMocks
       end
     end
 
-    def locate_resource
-      @resource = locate_transient_registration || locate_completed_registration
-
-      raise(MissingRegistrationError, @reference) if @resource.nil?
-    end
-
-    def locate_transient_registration
-      "WasteCarriersEngine::TransientRegistration"
-        .constantize
-        .where(token: @reference)
-        .first
-    end
-
-    def locate_original_registration(reg_identifier)
-      "WasteCarriersEngine::Registration"
-        .constantize
-        .where(reg_identifier: reg_identifier)
-        .first
-    end
-
-    def locate_completed_registration
-      "WasteCarriersEngine::Registration"
-        .constantize
-        .where(reg_uuid: @reference)
-        .first
-    end
-
-    def last_order
-      @resource.finance_details&.orders&.order_by(dateCreated: :desc)&.first
-    end
-
     def order_key
       [
         DefraRubyMocks.configuration.worldpay_admin_code,
         DefraRubyMocks.configuration.worldpay_merchant_code,
-        @order.order_code
+        @resource.order.order_code
       ].join("^")
     end
 
     def order_value
-      @order.total_amount.to_s
-    end
-
-    def company_name
-      if @resource.class.to_s == "WasteCarriersEngine::OrderCopyCardsRegistration"
-        locate_original_registration(@resource.reg_identifier).company_name.downcase
-      else
-        @resource.company_name.downcase
-      end
+      @resource.order.total_amount.to_s
     end
 
     def payment_status
-      name = company_name
-
-      return "REFUSED" if name.include?("reject")
-      return nil if name.include?("stuck")
+      return "REFUSED" if @resource.company_name.include?("reject")
+      return nil if @resource.company_name.include?("stuck")
 
       "AUTHORISED"
     end
@@ -100,26 +75,18 @@ module DefraRubyMocks
       Digest::MD5.hexdigest(data.join).to_s
     end
 
-    def query_string(status)
-      [
-        "orderKey=#{order_key}",
-        "paymentStatus=#{status}",
-        "paymentAmount=#{order_value}",
-        "paymentCurrency=GBP",
-        "mac=#{generate_mac(status)}",
-        "source=WP"
-      ].join("&")
-    end
-
-    def response_url(success_url, failure_url)
+    def generate_response(success_url, failure_url)
       status = payment_status
-      return nil if status.nil?
 
-      separator = @url_format == :new ? "?" : "&"
-
-      url = status == "AUTHORISED" ? success_url : failure_url
-
-      [url, separator, query_string(status)].join
+      WorldpayResponse.new(
+        status == "AUTHORISED" ? success_url : failure_url,
+        @url_format == :new ? "?" : "&",
+        order_key,
+        generate_mac(status),
+        order_value,
+        status,
+        @reference
+      )
     end
   end
 end

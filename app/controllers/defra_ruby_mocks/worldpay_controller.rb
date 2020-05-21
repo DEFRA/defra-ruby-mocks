@@ -15,10 +15,16 @@ module DefraRubyMocks
     end
 
     def dispatcher
-      redirect_to WorldpayResponseService.run(
+      @response = WorldpayResponseService.run(
         success_url: params[:successURL],
         failure_url: params[:failureURL]
       )
+
+      if @response.status == :STUCK
+        render formats: :html, action: "stuck", layout: false
+      else
+        redirect_to @response.url
+      end
     rescue StandardError
       head 500
     end

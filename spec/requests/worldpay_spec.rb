@@ -59,30 +59,53 @@ module DefraRubyMocks
       end
 
       context "#dispatcher" do
-        let(:relation) { double(:relation, first: registration) }
-        let(:registration) { double(:registration, finance_details: finance_details, company_name: "What a waste") }
-        let(:finance_details) { double(:finance_details, orders: orders) }
-        let(:orders) { double(:orders, order_by: sorted_orders) }
-        let(:sorted_orders) { double(:sorted_orders, first: order) }
-        let(:order) { double(:order, order_code: "987654", total_amount: 105_00) }
-
+        let(:response_url) { "#{success_url}?orderKey=admincode1^^987654&paymentStatus=#{status}&paymentAmount=10500&paymentCurrency=GBP&mac=0ba5271e1ed1b26f9bb428ef7fb536a4&source=WP" }
         let(:path) { "/defra_ruby_mocks/worldpay/dispatcher?successURL=#{CGI.escape(success_url)}" }
+        let(:service_response) do
+          double(
+            :response,
+            supplied_url: success_url,
+            url: response_url,
+            status: status,
+            separator: "?",
+            order_key: "admincode1",
+            mac: "e5bc7ce5dfe44d2000771ac2b157f0e9",
+            value: 154_00,
+            reference: "12345"
+          )
+        end
 
         context "and the request is valid" do
-          let(:response_params) { "orderKey=admincode1^^987654&paymentStatus=AUTHORISED&paymentAmount=10500&paymentCurrency=GBP&mac=0ba5271e1ed1b26f9bb428ef7fb536a4&source=WP" }
+          before(:each) { allow(WorldpayResponseService).to receive(:run) { service_response } }
+
           let(:success_url) { "http://example.com/fo/12345/worldpay/success" }
 
-          it "redirects the user with a 300 code" do
-            expect(::WasteCarriersEngine::TransientRegistration).to receive(:where) { relation }
+          context "and a response is expected" do
+            let(:status) { "AUTHORISED" }
 
-            get path
+            it "redirects the user with a 300 code" do
+              get path
 
-            expect(response).to redirect_to("#{success_url}?#{response_params}")
-            expect(response.code).to eq("302")
+              expect(response).to redirect_to(response_url)
+              expect(response.code).to eq("302")
+            end
+          end
+
+          context "and a response is not expected" do
+            let(:status) { :STUCK }
+
+            it "renders the Worldpay stuck page" do
+              get path
+
+              expect(response).to render_template(:stuck)
+              expect(response.code).to eq("200")
+            end
           end
         end
 
         context "and the request is invalid" do
+          before(:each) { allow(WorldpayResponseService).to receive(:run).and_raise(MissingResourceError.new("foo")) }
+
           context "because the success url is not in a recognised format" do
             let(:success_url) { "http://example.com/forthewin" }
 

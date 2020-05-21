@@ -130,6 +130,14 @@ If it does the engine will redirect back to the failure url instead of the succe
 
 This allows us to test how the application handles both successful and unsucessful Worldpay payments.
 
+##### Stuck payments
+
+The engine has the ability to also mock Worldpay not redirecting back to the service. This is the equivalent of a registration getting 'stuck at Worldpay'. To have the mock not respond just ensure the registration's company name includes the word `stuck` (case doesn't matter).
+
+If it does the engine will not redirect back to the service, but instead render a 'You're stuck!' page.
+
+This allows us to test how the application handles Worldpay not returning after we redirect a user to them.
+
 #### Refunds
 
 Requesting a refund from Worldpay is a single step process.

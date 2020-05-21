@@ -59,8 +59,21 @@ module DefraRubyMocks
       end
 
       context "#dispatcher" do
-        let(:service_response) { double(:response, url: response_url) }
+        let(:response_url) { "#{success_url}?orderKey=admincode1^^987654&paymentStatus=#{status}&paymentAmount=10500&paymentCurrency=GBP&mac=0ba5271e1ed1b26f9bb428ef7fb536a4&source=WP" }
         let(:path) { "/defra_ruby_mocks/worldpay/dispatcher?successURL=#{CGI.escape(success_url)}" }
+        let(:service_response) do
+          double(
+            :response,
+            supplied_url: success_url,
+            url: response_url,
+            status: status,
+            separator: "?",
+            order_key: "admincode1",
+            mac: "e5bc7ce5dfe44d2000771ac2b157f0e9",
+            value: 154_00,
+            reference: "12345"
+          )
+        end
 
         context "and the request is valid" do
           before(:each) { allow(WorldpayResponseService).to receive(:run) { service_response } }
@@ -68,20 +81,18 @@ module DefraRubyMocks
           let(:success_url) { "http://example.com/fo/12345/worldpay/success" }
 
           context "and a response is expected" do
-
-            let(:response_url) { "#{success_url}?#{response_params}" }
-            let(:response_params) { "orderKey=admincode1^^987654&paymentStatus=AUTHORISED&paymentAmount=10500&paymentCurrency=GBP&mac=0ba5271e1ed1b26f9bb428ef7fb536a4&source=WP" }
+            let(:status) { "AUTHORISED" }
 
             it "redirects the user with a 300 code" do
               get path
 
-              expect(response).to redirect_to("#{success_url}?#{response_params}")
+              expect(response).to redirect_to(response_url)
               expect(response.code).to eq("302")
             end
           end
 
           context "and a response is not expected" do
-            let(:response_url) { "" }
+            let(:status) { "STUCK" }
 
             it "renders the Worldpay stuck page" do
               get path

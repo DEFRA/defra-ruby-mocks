@@ -97,10 +97,8 @@ module DefraRubyMocks
           context "and is for a stuck payment" do
             let(:company_name) { "Give me a stuck thing" }
 
-            it "returns an empty url" do
-              expected_response_url = ""
-
-              expect(described_class.run(args).url).to eq(expected_response_url)
+            it "returns a status of 'STUCK'" do
+              expect(described_class.run(args).status).to eq("STUCK")
             end
           end
         end
@@ -147,10 +145,8 @@ module DefraRubyMocks
           context "and is for a stuck payment" do
             let(:company_name) { "Give me a stuck thing" }
 
-            it "returns an empty url" do
-              expected_response_url = ""
-
-              expect(described_class.run(args).url).to eq(expected_response_url)
+            it "returns a status of 'STUCK'" do
+              expect(described_class.run(args).status).to eq("STUCK")
             end
           end
         end

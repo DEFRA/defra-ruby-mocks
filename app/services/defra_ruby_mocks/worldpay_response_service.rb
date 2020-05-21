@@ -14,7 +14,7 @@ module DefraRubyMocks
 
     WorldpayResponse = Struct.new(:supplied_url, :separator, :order_key, :mac, :value, :status, :reference) do
       def url
-        status.nil? ? "" : [supplied_url, separator, params].join
+        [supplied_url, separator, params].join
       end
 
       def params
@@ -58,7 +58,7 @@ module DefraRubyMocks
 
     def payment_status
       return "REFUSED" if @resource.company_name.include?("reject")
-      return nil if @resource.company_name.include?("stuck")
+      return "STUCK" if @resource.company_name.include?("stuck")
 
       "AUTHORISED"
     end

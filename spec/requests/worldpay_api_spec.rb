@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module DefraRubyMocks
-  RSpec.describe "Worldpay", type: :request do
+  RSpec.describe "WorldpayApi", type: :request do
     after(:all) { Helpers::Configuration.reset_for_tests }
 
     context "when mocks are enabled" do

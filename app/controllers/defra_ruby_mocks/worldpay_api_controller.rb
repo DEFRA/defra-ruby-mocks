@@ -40,11 +40,11 @@ module DefraRubyMocks
     end
 
     def render_payment_response
-      render "defra_ruby_mocks/worldpay/payment_request"
+      render "defra_ruby_mocks/worldpay_api/payment_request"
     end
 
     def render_refund_response
-      render "defra_ruby_mocks/worldpay/refund_request"
+      render "defra_ruby_mocks/worldpay_api/refund_request"
     end
 
   end

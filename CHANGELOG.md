@@ -1,5 +1,31 @@
 # Changelog
 
+## [v1.4.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v1.4.0) (2020-05-22)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v1.3.0...v1.4.0)
+
+**Implemented enhancements:**
+
+- Add support for 'stuck' Worldpay payments [\#34](https://github.com/DEFRA/defra-ruby-mocks/pull/34) ([Cruikshanks](https://github.com/Cruikshanks))
+- Add support for copy card orders in WCR [\#32](https://github.com/DEFRA/defra-ruby-mocks/pull/32) ([Cruikshanks](https://github.com/Cruikshanks))
+
+**Fixed bugs:**
+
+- Fix generated MAC for refused payments [\#33](https://github.com/DEFRA/defra-ruby-mocks/pull/33) ([Cruikshanks](https://github.com/Cruikshanks))
+
+**Merged pull requests:**
+
+- Fix issue in travis with bundler args [\#31](https://github.com/DEFRA/defra-ruby-mocks/pull/31) ([Cruikshanks](https://github.com/Cruikshanks))
+- Bump rails from 4.2.11.1 to 4.2.11.3 [\#30](https://github.com/DEFRA/defra-ruby-mocks/pull/30) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Use multiple rubocop formats in Travis build [\#28](https://github.com/DEFRA/defra-ruby-mocks/pull/28) ([Cruikshanks](https://github.com/Cruikshanks))
+- Bump defra\_ruby\_style from 0.1.4 to 0.2.1 [\#27](https://github.com/DEFRA/defra-ruby-mocks/pull/27) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Bump github\_changelog\_generator from 1.15.1 to 1.15.2 [\#26](https://github.com/DEFRA/defra-ruby-mocks/pull/26) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Bump github\_changelog\_generator from 1.15.0 to 1.15.1 [\#25](https://github.com/DEFRA/defra-ruby-mocks/pull/25) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Bump pry-byebug from 3.8.0 to 3.9.0 [\#24](https://github.com/DEFRA/defra-ruby-mocks/pull/24) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Switch to SonarCloud from CodeClimate [\#23](https://github.com/DEFRA/defra-ruby-mocks/pull/23) ([Cruikshanks](https://github.com/Cruikshanks))
+- Bump nokogiri from 1.10.8 to 1.10.9 [\#22](https://github.com/DEFRA/defra-ruby-mocks/pull/22) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Bump nokogiri from 1.10.7 to 1.10.8 [\#21](https://github.com/DEFRA/defra-ruby-mocks/pull/21) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+
 ## [v1.3.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v1.3.0) (2020-01-31)
 
 [Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v1.2.0...v1.3.0)

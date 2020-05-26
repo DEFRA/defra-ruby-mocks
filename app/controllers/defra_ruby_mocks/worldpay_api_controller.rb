@@ -21,7 +21,8 @@ module DefraRubyMocks
       )
 
       if @response.status == :STUCK
-        render formats: :html, action: "stuck", layout: false
+        cookies[:worldpay_mock] = @response.to_h.to_json
+        redirect_to worldpay_stuck_url
       else
         redirect_to @response.url
       end

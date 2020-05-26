@@ -4,32 +4,45 @@
 <head>
   <meta charset="utf-8">
 
-  <title>You is stuck</title>
-  <meta name="description" content="Thw Worldpay stuck page">
+  <title>Stuck in Worldpay</title>
+  <meta name="description" content="The defra-ruby-mocks Worldpay stuck page">
   <meta name="author" content="Defra">
+
+  <style type="text/css">
+    body {
+      font-family: Verdana, Geneva, sans-serif;
+    }
+  </style>
 </head>
 
 <body>
   <main>
-    <div id="message">
-      <h1>Stuck!</h1>
-      <p>Looks like your registration has gotten stuck whilst paying for it using Worldpay.</p>
-      <p>We hope that's what you expected to happen.</p>
-      <p>Regards, the Ruby Services Team</p>
-    </div>
     <% if @response %>
+      <div id="message">
+        <h1>Stuck!</h1>
+        <p>Looks like your registration has gotten stuck whilst paying for it using Worldpay.</p>
+        <p>We hope that's what you expected to happen.</p>
+        <p>Regards, the Ruby Services Team</p>
+      </div>
       <div id="debug">
-        <h2>Debug</h2>
+        <h2>Debug info</h2>
         <ul>
-          <li><strong>Supplied URL</strong> <code><%= @response.supplied_url %></code></li>
-          <li><strong>Separator</strong> <code><%= @response.separator %></code></li>
-          <li><strong>Order key</strong> <code><%= @response.order_key %></code></li>
-          <li><strong>Mac</strong> <code><%= @response.mac %></code></li>
-          <li><strong>Value</strong> <code><%= @response.value %></code></li>
-          <li><strong>Status</strong> <code><%= @response.status %></code></li>
-          <li><strong>Reference</strong> <code><%= @response.reference %></code></li>
-          <li><strong>Url</strong> <code><%= @response.url %></code></li>
+          <li><strong>Supplied URL</strong> <code><%= @response["supplied_url"] %></code></li>
+          <li><strong>Separator</strong> <code><%= @response["separator"] %></code></li>
+          <li><strong>Order key</strong> <code><%= @response["order_key"] %></code></li>
+          <li><strong>Mac</strong> <code><%= @response["mac"] %></code></li>
+          <li><strong>Value</strong> <code><%= @response["value"] %></code></li>
+          <li><strong>Status</strong> <code><%= @response["status"] %></code></li>
+          <li><strong>Reference</strong> <code><%= @response["reference"] %></code></li>
+          <li><strong>Url</strong> <code><%= @response["url"] %></code></li>
         </ul>
+      </div>
+    <% else %>
+      <div id="message">
+        <h1>Stuck?</h1>
+        <p>Looks like you something requested this stuck page. But we can't see any info about the request.</p>
+        <p>Are you sure you're meant to be here?</p>
+        <p>Regards, the Ruby Services Team</p>
       </div>
     <% end %>
   </main>

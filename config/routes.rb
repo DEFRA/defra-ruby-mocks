@@ -16,4 +16,8 @@ DefraRubyMocks::Engine.routes.draw do
       as: "worldpay_api_dispatcher",
       constraints: ->(_request) { DefraRubyMocks.configuration.enabled? }
 
+  get "/worldpay/stuck",
+      to: "worldpay#stuck",
+      as: "worldpay_stuck",
+      constraints: ->(_request) { DefraRubyMocks.configuration.enabled? }
 end

@@ -71,7 +71,8 @@ module DefraRubyMocks
             order_key: "admincode1",
             mac: "e5bc7ce5dfe44d2000771ac2b157f0e9",
             value: 154_00,
-            reference: "12345"
+            reference: "12345",
+            to_h: {}
           )
         end
 
@@ -94,11 +95,10 @@ module DefraRubyMocks
           context "and a response is not expected" do
             let(:status) { :STUCK }
 
-            it "renders the Worldpay stuck page" do
+            it "redirects the user to the Worldpay stuck page with a 300 code" do
               get path
-
-              expect(response).to render_template(:stuck)
-              expect(response.code).to eq("200")
+              expect(response).to redirect_to(defra_ruby_mocks.worldpay_stuck_path)
+              expect(response.code).to eq("302")
             end
           end
         end

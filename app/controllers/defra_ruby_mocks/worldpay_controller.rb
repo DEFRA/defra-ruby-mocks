@@ -4,7 +4,7 @@ module DefraRubyMocks
   class WorldpayController < ApplicationController
 
     def stuck
-      @response = cookies[:worldpay_mock].blank? ? nil : JSON.parse(cookies[:worldpay_mock])
+      @response = cookies[:defra_ruby_mocks].blank? ? nil : JSON.parse(cookies[:defra_ruby_mocks])
 
       render formats: :html, action: "stuck", layout: false
     rescue StandardError

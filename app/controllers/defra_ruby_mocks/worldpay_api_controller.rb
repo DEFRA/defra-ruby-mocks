@@ -21,7 +21,7 @@ module DefraRubyMocks
       )
 
       if @response.status == :STUCK
-        cookies[:worldpay_mock] = @response.to_h.to_json
+        cookies[:defra_ruby_mocks] = @response.to_h.to_json
         redirect_to worldpay_stuck_url
       else
         redirect_to @response.url

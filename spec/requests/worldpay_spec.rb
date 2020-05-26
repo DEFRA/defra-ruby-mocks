@@ -31,7 +31,7 @@ module DefraRubyMocks
 
         context "when we redirect to it from the worldpay dispatcher" do
           before(:each) do
-            cookies[:worldpay_mock] = {
+            cookies[:defra_ruby_mocks] = {
               supplied_url: supplied_url,
               separator: "?",
               order_key: "ok",

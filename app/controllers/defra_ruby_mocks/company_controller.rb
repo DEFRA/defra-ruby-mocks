@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module DefraRubyMocks
-  class CompanyController < ApplicationController
+  class CompanyController < ::DefraRubyMocks::ApplicationController
 
     before_action :set_default_response_format
 

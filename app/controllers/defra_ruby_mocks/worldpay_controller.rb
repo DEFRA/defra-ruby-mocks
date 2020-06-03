@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module DefraRubyMocks
-  class WorldpayController < ApplicationController
+  class WorldpayController < ::DefraRubyMocks::ApplicationController
 
     before_action :set_default_response_format
 

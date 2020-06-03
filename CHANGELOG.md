@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.4.1](https://github.com/DEFRA/defra-ruby-mocks/tree/v1.4.1) (2020-06-03)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v1.4.0...v1.4.1)
+
+**Fixed bugs:**
+
+- Fix issue with intermittent auth issues [\#35](https://github.com/DEFRA/defra-ruby-mocks/pull/35) ([Cruikshanks](https://github.com/Cruikshanks))
+
 ## [v1.4.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v1.4.0) (2020-05-22)
 
 [Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v1.3.0...v1.4.0)

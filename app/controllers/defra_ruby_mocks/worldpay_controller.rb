@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module DefraRubyMocks
-  class WorldpayController < ApplicationController
+  class WorldpayController < ::DefraRubyMocks::ApplicationController
 
     def stuck
       @response = cookies[:defra_ruby_mocks].blank? ? nil : JSON.parse(cookies[:defra_ruby_mocks])

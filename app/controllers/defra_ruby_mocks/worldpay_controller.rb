@@ -10,7 +10,8 @@ module DefraRubyMocks
 
       render_payment_response if @values[:request_type] == :payment
       render_refund_response if @values[:request_type] == :refund
-    rescue StandardError
+    rescue StandardError => e
+      Rails.logger.error("MOCKS: Worldpay payments service error: #{e.message}")
       head 500
     end
 
@@ -28,7 +29,8 @@ module DefraRubyMocks
       else
         redirect_to @response.url
       end
-    rescue StandardError
+    rescue StandardError => e
+      Rails.logger.error("MOCKs: Worldpay dispatcher error: #{e.message}")
       head 500
     end
 

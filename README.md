@@ -126,17 +126,17 @@ This Worldpay mock replicates those 2 interactions with the following urls
 
 The engine has the ability to mock a user cancelling a payment when on the Worldpay site. To have the mock return a cancelled payment response just ensure the registration's company name includes the word `cancel` (case doesn't matter).
 
-If it does the engine will redirect back to the pending url instead of the success url provided, plus set the payment status to `CANCELLED`.
+If it does the engine will redirect back to the cancelled url instead of the success url provided, plus set the payment status to `CANCELLED`.
 
 This allows us to test how the application handles Worldpay responding with a cancelled payment response.
 
-##### Refused payments
+##### Errored payments
 
-The engine has the ability to also mock Worldpay refusing a payment. To have the mock refuse payment just ensure the registration's company name includes the word `reject` (case doesn't matter).
+The engine has the ability to Worldpay erroring during a payment. To have the mock return an errored payment response just ensure the registration's company name includes the word `error` (case doesn't matter).
 
-If it does the engine will redirect back to the failure url instead of the success url provided, plus set the payment status to `REFUSED`.
+If it does the engine will redirect back to the error url instead of the success url provided, plus set the payment status to `ERROR`.
 
-This allows us to test how the application handles both successful and unsucessful Worldpay payments.
+This allows us to test how the application handles Worldpay responding with an errored payment response.
 
 ##### Pending payments
 
@@ -145,6 +145,14 @@ The engine has the ability to also mock Worldpay marking a payment as pending. T
 If it does the engine will redirect back to the pending url instead of the success url provided, plus set the payment status to `SENT_FOR_AUTHORISATION`.
 
 This allows us to test how the application handles Worldpay responding with a payment pending response.
+
+##### Refused payments
+
+The engine has the ability to also mock Worldpay refusing a payment. To have the mock refuse payment just ensure the registration's company name includes the word `reject` (case doesn't matter).
+
+If it does the engine will redirect back to the failure url instead of the success url provided, plus set the payment status to `REFUSED`.
+
+This allows us to test how the application handles both successful and unsucessful Worldpay payments.
 
 ##### Stuck payments
 

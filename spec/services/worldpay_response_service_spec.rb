@@ -48,7 +48,8 @@ module DefraRubyMocks
         success_url: success_url,
         failure_url: failure_url,
         pending_url: pending_url,
-        cancel_url: cancel_url
+        cancel_url: cancel_url,
+        error_url: error_url
       }
     end
 
@@ -58,6 +59,7 @@ module DefraRubyMocks
         let(:failure_url) { "http://example.com/fo/#{reference}/worldpay/failure" }
         let(:pending_url) { "http://example.com/fo/#{reference}/worldpay/pending" }
         let(:cancel_url) { "http://example.com/fo/#{reference}/worldpay/cancel" }
+        let(:error_url) { "http://example.com/fo/#{reference}/worldpay/error" }
 
         context "and is valid" do
           let(:relation) { double(:relation, first: registration) }
@@ -142,6 +144,21 @@ module DefraRubyMocks
               expect(described_class.run(args).url).to eq(expected_response_url)
             end
           end
+
+          context "and is for an errored payment" do
+            let(:payment_status) { :ERROR }
+            let(:company_name) { "Error the thing" }
+
+            it "can generate a valid mac" do
+              expect(described_class.run(args).mac).to eq(mac)
+            end
+
+            it "returns a url in the expected format" do
+              expected_response_url = "#{error_url}?#{query_string}"
+
+              expect(described_class.run(args).url).to eq(expected_response_url)
+            end
+          end
         end
       end
 
@@ -150,6 +167,7 @@ module DefraRubyMocks
         let(:failure_url) { "http://example.com/your-registration/#{reference}/worldpay/failure/54321/NEWREG?locale=en" }
         let(:pending_url) { "http://example.com/your-registration/#{reference}/worldpay/pending/54321/NEWREG?locale=en" }
         let(:cancel_url) { "http://example.com/your-registration/#{reference}/worldpay/cancel/54321/NEWREG?locale=en" }
+        let(:error_url) { "http://example.com/your-registration/#{reference}/worldpay/error/54321/NEWREG?locale=en" }
 
         context "and is valid" do
           let(:relation) { double(:relation, first: registration) }
@@ -229,6 +247,21 @@ module DefraRubyMocks
 
             it "returns a url in the expected format" do
               expected_response_url = "#{cancel_url}&#{query_string}"
+
+              expect(described_class.run(args).url).to eq(expected_response_url)
+            end
+          end
+
+          context "and is for an errored payment" do
+            let(:payment_status) { :ERROR }
+            let(:company_name) { "Error the thing" }
+
+            it "can generate a valid mac" do
+              expect(described_class.run(args).mac).to eq(mac)
+            end
+
+            it "returns a url in the expected format" do
+              expected_response_url = "#{error_url}&#{query_string}"
 
               expect(described_class.run(args).url).to eq(expected_response_url)
             end

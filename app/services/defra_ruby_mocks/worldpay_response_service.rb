@@ -3,11 +3,17 @@
 module DefraRubyMocks
   class WorldpayResponseService < BaseService
 
-    def run(success_url:, failure_url:)
-      parse_reference(success_url)
+    def run(success_url:, failure_url:, pending_url:)
+      urls = {
+        success: success_url,
+        failure: failure_url,
+        pending: pending_url
+      }
+
+      parse_reference(urls[:success])
       @resource = WorldpayResourceService.run(reference: @reference)
 
-      generate_response(success_url, failure_url)
+      generate_response(urls)
     end
 
     private
@@ -59,8 +65,16 @@ module DefraRubyMocks
     def payment_status
       return :REFUSED if @resource.company_name.include?("reject")
       return :STUCK if @resource.company_name.include?("stuck")
+      return :SENT_FOR_AUTHORISATION if @resource.company_name.include?("pending")
 
       :AUTHORISED
+    end
+
+    def url(payment_status, urls)
+      return urls[:failure] if %i[REFUSED STUCK].include?(payment_status)
+      return urls[:pending] if payment_status == :SENT_FOR_AUTHORISATION
+
+      urls[:success]
     end
 
     def generate_mac(status)
@@ -75,11 +89,11 @@ module DefraRubyMocks
       Digest::MD5.hexdigest(data.join).to_s
     end
 
-    def generate_response(success_url, failure_url)
+    def generate_response(urls)
       status = payment_status
 
       WorldpayResponse.new(
-        status == :AUTHORISED ? success_url : failure_url,
+        url(status, urls),
         @url_format == :new ? "?" : "&",
         order_key,
         generate_mac(status),

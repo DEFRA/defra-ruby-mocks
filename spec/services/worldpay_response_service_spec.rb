@@ -30,17 +30,7 @@ module DefraRubyMocks
 
     let(:order) { double(:order, order_code: order_code, total_amount: order_value) }
 
-    let(:mac) do
-      data = [
-        order_key,
-        order_value,
-        "GBP",
-        payment_status,
-        mac_secret
-      ]
-
-      Digest::MD5.hexdigest(data.join).to_s
-    end
+    let(:mac) { Digest::MD5.hexdigest(mac_data.join).to_s }
 
     let(:query_string) do
       [
@@ -53,16 +43,25 @@ module DefraRubyMocks
       ].join("&")
     end
 
-    let(:args) { { success_url: success_url, failure_url: failure_url, pending_url: pending_url } }
+    let(:args) do
+      {
+        success_url: success_url,
+        failure_url: failure_url,
+        pending_url: pending_url,
+        cancel_url: cancel_url
+      }
+    end
 
     describe ".run" do
       context "when the request comes from the waste-carriers-front-office" do
         let(:success_url) { "http://example.com/fo/#{reference}/worldpay/success" }
         let(:failure_url) { "http://example.com/fo/#{reference}/worldpay/failure" }
         let(:pending_url) { "http://example.com/fo/#{reference}/worldpay/pending" }
+        let(:cancel_url) { "http://example.com/fo/#{reference}/worldpay/cancel" }
 
         context "and is valid" do
           let(:relation) { double(:relation, first: registration) }
+          let(:mac_data) { [order_key, order_value, "GBP", payment_status, mac_secret] }
 
           it "can extract the reference from the `success_url`" do
             expect(described_class.run(args).reference).to eq(reference)
@@ -72,11 +71,12 @@ module DefraRubyMocks
             expect(described_class.run(args).order_key).to eq(order_key)
           end
 
-          it "can generate a valid mac" do
-            expect(described_class.run(args).mac).to eq(mac)
-          end
-
           context "and is for a successful payment" do
+            it "can generate a valid mac" do
+              puts "Test data #{mac_data.join}"
+              expect(described_class.run(args).mac).to eq(mac)
+            end
+
             it "returns a url in the expected format" do
               expected_response_url = "#{success_url}?#{query_string}"
 
@@ -88,6 +88,10 @@ module DefraRubyMocks
             let(:payment_status) { :REFUSED }
             let(:company_name) { "Reject for the thing" }
 
+            it "can generate a valid mac" do
+              expect(described_class.run(args).mac).to eq(mac)
+            end
+
             it "returns a url in the expected format" do
               expected_response_url = "#{failure_url}?#{query_string}"
 
@@ -96,7 +100,12 @@ module DefraRubyMocks
           end
 
           context "and is for a stuck payment" do
+            let(:payment_status) { :STUCK }
             let(:company_name) { "Give me a stuck thing" }
+
+            it "can generate a valid mac" do
+              expect(described_class.run(args).mac).to eq(mac)
+            end
 
             it "returns a status of :STUCK" do
               expect(described_class.run(args).status).to eq(:STUCK)
@@ -107,8 +116,28 @@ module DefraRubyMocks
             let(:payment_status) { :SENT_FOR_AUTHORISATION }
             let(:company_name) { "Pending for the thing" }
 
+            it "can generate a valid mac" do
+              expect(described_class.run(args).mac).to eq(mac)
+            end
+
             it "returns a url in the expected format" do
               expected_response_url = "#{pending_url}?#{query_string}"
+
+              expect(described_class.run(args).url).to eq(expected_response_url)
+            end
+          end
+
+          context "and is for a cancelled payment" do
+            let(:payment_status) { :CANCELLED }
+            let(:company_name) { "Cancel the thing" }
+            let(:mac_data) { [order_key, order_value, "GBP", mac_secret] }
+
+            it "can generate a valid mac" do
+              expect(described_class.run(args).mac).to eq(mac)
+            end
+
+            it "returns a url in the expected format" do
+              expected_response_url = "#{cancel_url}?#{query_string}"
 
               expect(described_class.run(args).url).to eq(expected_response_url)
             end
@@ -120,9 +149,11 @@ module DefraRubyMocks
         let(:success_url) { "http://example.com/your-registration/#{reference}/worldpay/success/54321/NEWREG?locale=en" }
         let(:failure_url) { "http://example.com/your-registration/#{reference}/worldpay/failure/54321/NEWREG?locale=en" }
         let(:pending_url) { "http://example.com/your-registration/#{reference}/worldpay/pending/54321/NEWREG?locale=en" }
+        let(:cancel_url) { "http://example.com/your-registration/#{reference}/worldpay/cancel/54321/NEWREG?locale=en" }
 
         context "and is valid" do
           let(:relation) { double(:relation, first: registration) }
+          let(:mac_data) { [order_key, order_value, "GBP", payment_status, mac_secret] }
 
           it "can extract the reference from the `success_url`" do
             expect(described_class.run(args).reference).to eq(reference)
@@ -132,11 +163,11 @@ module DefraRubyMocks
             expect(described_class.run(args).order_key).to eq(order_key)
           end
 
-          it "can generate a valid mac" do
-            expect(described_class.run(args).mac).to eq(mac)
-          end
-
           context "and is for a successful payment" do
+            it "can generate a valid mac" do
+              expect(described_class.run(args).mac).to eq(mac)
+            end
+
             it "returns a url in the expected format" do
               expected_response_url = "#{success_url}&#{query_string}"
 
@@ -148,6 +179,10 @@ module DefraRubyMocks
             let(:payment_status) { :REFUSED }
             let(:company_name) { "Reject for the thing" }
 
+            it "can generate a valid mac" do
+              expect(described_class.run(args).mac).to eq(mac)
+            end
+
             it "returns a url in the expected format" do
               expected_response_url = "#{failure_url}&#{query_string}"
 
@@ -156,7 +191,12 @@ module DefraRubyMocks
           end
 
           context "and is for a stuck payment" do
+            let(:payment_status) { :STUCK }
             let(:company_name) { "Give me a stuck thing" }
+
+            it "can generate a valid mac" do
+              expect(described_class.run(args).mac).to eq(mac)
+            end
 
             it "returns a status of :STUCK" do
               expect(described_class.run(args).status).to eq(:STUCK)
@@ -167,8 +207,28 @@ module DefraRubyMocks
             let(:payment_status) { :SENT_FOR_AUTHORISATION }
             let(:company_name) { "Pending for the thing" }
 
+            it "can generate a valid mac" do
+              expect(described_class.run(args).mac).to eq(mac)
+            end
+
             it "returns a url in the expected format" do
               expected_response_url = "#{pending_url}&#{query_string}"
+
+              expect(described_class.run(args).url).to eq(expected_response_url)
+            end
+          end
+
+          context "and is for a cancelled payment" do
+            let(:payment_status) { :CANCELLED }
+            let(:company_name) { "Cancel the thing" }
+            let(:mac_data) { [order_key, order_value, "GBP", mac_secret] }
+
+            it "can generate a valid mac" do
+              expect(described_class.run(args).mac).to eq(mac)
+            end
+
+            it "returns a url in the expected format" do
+              expected_response_url = "#{cancel_url}&#{query_string}"
 
               expect(described_class.run(args).url).to eq(expected_response_url)
             end

@@ -30,7 +30,7 @@ module DefraRubyMocks
         redirect_to @response.url
       end
     rescue StandardError => e
-      Rails.logger.error("MOCKs: Worldpay dispatcher error: #{e.message}")
+      Rails.logger.error("MOCKS: Worldpay dispatcher error: #{e.message}")
       head 500
     end
 

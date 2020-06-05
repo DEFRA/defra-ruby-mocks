@@ -19,7 +19,8 @@ module DefraRubyMocks
         success_url: params[:successURL],
         failure_url: params[:failureURL],
         pending_url: params[:pendingURL],
-        cancel_url: params[:cancelURL]
+        cancel_url: params[:cancelURL],
+        error_url: params[:errorURL]
       )
 
       if @response.status == :STUCK

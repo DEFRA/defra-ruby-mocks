@@ -3,12 +3,13 @@
 module DefraRubyMocks
   class WorldpayResponseService < BaseService
 
-    def run(success_url:, failure_url:, pending_url:, cancel_url:)
+    def run(success_url:, failure_url:, pending_url:, cancel_url:, error_url:)
       urls = {
         success: success_url,
         failure: failure_url,
         pending: pending_url,
-        cancel: cancel_url
+        cancel: cancel_url,
+        error: error_url
       }
 
       parse_reference(urls[:success])
@@ -68,6 +69,7 @@ module DefraRubyMocks
       return :STUCK if @resource.company_name.include?("stuck")
       return :SENT_FOR_AUTHORISATION if @resource.company_name.include?("pending")
       return :CANCELLED if @resource.company_name.include?("cancel")
+      return :ERROR if @resource.company_name.include?("error")
 
       :AUTHORISED
     end
@@ -76,6 +78,7 @@ module DefraRubyMocks
       return urls[:failure] if %i[REFUSED STUCK].include?(payment_status)
       return urls[:pending] if payment_status == :SENT_FOR_AUTHORISATION
       return urls[:cancel] if payment_status == :CANCELLED
+      return urls[:error] if payment_status == :ERROR
 
       urls[:success]
     end

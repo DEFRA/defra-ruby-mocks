@@ -59,8 +59,18 @@ module DefraRubyMocks
       end
 
       context "#dispatcher" do
+        let(:success_url) { "http://example.com/fo/12345/worldpay/success" }
+        let(:failure_url) { "http://example.com/fo/12345/worldpay/failure" }
+        let(:pending_url) { "http://example.com/fo/12345/worldpay/pending" }
         let(:response_url) { "#{success_url}?orderKey=admincode1^^987654&paymentStatus=#{status}&paymentAmount=10500&paymentCurrency=GBP&mac=0ba5271e1ed1b26f9bb428ef7fb536a4&source=WP" }
-        let(:path) { "/defra_ruby_mocks/worldpay/dispatcher?successURL=#{CGI.escape(success_url)}" }
+        let(:path) do
+          root = "/defra_ruby_mocks/worldpay/dispatcher"
+          escaped_success = CGI.escape(success_url)
+          escaped_failure = CGI.escape(failure_url)
+          escaped_pending = CGI.escape(pending_url)
+
+          "#{root}?successURL=#{escaped_success}&failureURL=#{escaped_failure}&pendingURL=#{escaped_pending}"
+        end
         let(:service_response) do
           double(
             :response,
@@ -76,9 +86,14 @@ module DefraRubyMocks
         end
 
         context "and the request is valid" do
-          before(:each) { allow(WorldpayResponseService).to receive(:run) { service_response } }
-
-          let(:success_url) { "http://example.com/fo/12345/worldpay/success" }
+          before(:each) do
+            allow(WorldpayResponseService).to receive(:run)
+              .with(
+                success_url: success_url,
+                failure_url: failure_url,
+                pending_url: pending_url
+              ) { service_response }
+          end
 
           context "and a response is expected" do
             let(:status) { "AUTHORISED" }

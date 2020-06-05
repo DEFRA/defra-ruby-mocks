@@ -17,7 +17,8 @@ module DefraRubyMocks
     def dispatcher
       @response = WorldpayResponseService.run(
         success_url: params[:successURL],
-        failure_url: params[:failureURL]
+        failure_url: params[:failureURL],
+        pending_url: params[:pendingURL]
       )
 
       if @response.status == :STUCK

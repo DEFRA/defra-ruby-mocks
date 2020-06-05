@@ -53,12 +53,13 @@ module DefraRubyMocks
       ].join("&")
     end
 
-    let(:args) { { success_url: success_url, failure_url: failure_url } }
+    let(:args) { { success_url: success_url, failure_url: failure_url, pending_url: pending_url } }
 
     describe ".run" do
       context "when the request comes from the waste-carriers-front-office" do
         let(:success_url) { "http://example.com/fo/#{reference}/worldpay/success" }
         let(:failure_url) { "http://example.com/fo/#{reference}/worldpay/failure" }
+        let(:pending_url) { "http://example.com/fo/#{reference}/worldpay/pending" }
 
         context "and is valid" do
           let(:relation) { double(:relation, first: registration) }
@@ -101,12 +102,24 @@ module DefraRubyMocks
               expect(described_class.run(args).status).to eq(:STUCK)
             end
           end
+
+          context "and is for a pending payment" do
+            let(:payment_status) { :SENT_FOR_AUTHORISATION }
+            let(:company_name) { "Pending for the thing" }
+
+            it "returns a url in the expected format" do
+              expected_response_url = "#{pending_url}?#{query_string}"
+
+              expect(described_class.run(args).url).to eq(expected_response_url)
+            end
+          end
         end
       end
 
       context "when the request comes from the waste-carriers-frontend" do
         let(:success_url) { "http://example.com/your-registration/#{reference}/worldpay/success/54321/NEWREG?locale=en" }
         let(:failure_url) { "http://example.com/your-registration/#{reference}/worldpay/failure/54321/NEWREG?locale=en" }
+        let(:pending_url) { "http://example.com/your-registration/#{reference}/worldpay/pending/54321/NEWREG?locale=en" }
 
         context "and is valid" do
           let(:relation) { double(:relation, first: registration) }
@@ -147,6 +160,17 @@ module DefraRubyMocks
 
             it "returns a status of :STUCK" do
               expect(described_class.run(args).status).to eq(:STUCK)
+            end
+          end
+
+          context "and is for a pending payment" do
+            let(:payment_status) { :SENT_FOR_AUTHORISATION }
+            let(:company_name) { "Pending for the thing" }
+
+            it "returns a url in the expected format" do
+              expected_response_url = "#{pending_url}&#{query_string}"
+
+              expect(described_class.run(args).url).to eq(expected_response_url)
             end
           end
         end

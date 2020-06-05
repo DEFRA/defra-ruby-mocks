@@ -130,6 +130,14 @@ If it does the engine will redirect back to the failure url instead of the succe
 
 This allows us to test how the application handles both successful and unsucessful Worldpay payments.
 
+##### Pending payments
+
+The engine has the ability to also mock Worldpay marking a payment as pending. To have the mock return a payment pending response just ensure the registration's company name includes the word `pending` (case doesn't matter).
+
+If it does the engine will redirect back to the pending url instead of the success url provided, plus set the payment status to `SENT_FOR_AUTHORISATION`.
+
+This allows us to test how the application handles Worldpay responding with a payment pending response.
+
 ##### Stuck payments
 
 The engine has the ability to also mock Worldpay not redirecting back to the service. This is the equivalent of a registration getting 'stuck at Worldpay'. To have the mock not respond just ensure the registration's company name includes the word `stuck` (case doesn't matter).

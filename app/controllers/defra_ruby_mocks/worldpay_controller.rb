@@ -18,7 +18,8 @@ module DefraRubyMocks
       @response = WorldpayResponseService.run(
         success_url: params[:successURL],
         failure_url: params[:failureURL],
-        pending_url: params[:pendingURL]
+        pending_url: params[:pendingURL],
+        cancel_url: params[:cancelURL]
       )
 
       if @response.status == :STUCK

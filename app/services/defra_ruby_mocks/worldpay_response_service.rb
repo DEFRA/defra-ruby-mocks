@@ -3,11 +3,12 @@
 module DefraRubyMocks
   class WorldpayResponseService < BaseService
 
-    def run(success_url:, failure_url:, pending_url:)
+    def run(success_url:, failure_url:, pending_url:, cancel_url:)
       urls = {
         success: success_url,
         failure: failure_url,
-        pending: pending_url
+        pending: pending_url,
+        cancel: cancel_url
       }
 
       parse_reference(urls[:success])
@@ -66,6 +67,7 @@ module DefraRubyMocks
       return :REFUSED if @resource.company_name.include?("reject")
       return :STUCK if @resource.company_name.include?("stuck")
       return :SENT_FOR_AUTHORISATION if @resource.company_name.include?("pending")
+      return :CANCELLED if @resource.company_name.include?("cancel")
 
       :AUTHORISED
     end
@@ -73,18 +75,24 @@ module DefraRubyMocks
     def url(payment_status, urls)
       return urls[:failure] if %i[REFUSED STUCK].include?(payment_status)
       return urls[:pending] if payment_status == :SENT_FOR_AUTHORISATION
+      return urls[:cancel] if payment_status == :CANCELLED
 
       urls[:success]
     end
 
+    # Generate a mac that matches what Worldpay would generate
+    #
+    # For whatever reason, if the payment is cancelled by the user Worldpay does
+    # not include the payment status in the mac it generates. Plus the order of
+    # things in the array is important.
     def generate_mac(status)
       data = [
         order_key,
         order_value,
-        "GBP",
-        status,
-        DefraRubyMocks.configuration.worldpay_mac_secret
+        "GBP"
       ]
+      data << status unless status == :CANCELLED
+      data << DefraRubyMocks.configuration.worldpay_mac_secret
 
       Digest::MD5.hexdigest(data.join).to_s
     end

@@ -1,5 +1,21 @@
 # Changelog
 
+## [v1.5.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v1.5.0) (2020-06-05)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v1.4.1...v1.5.0)
+
+**Implemented enhancements:**
+
+- Log errors in worldpay controller [\#41](https://github.com/DEFRA/defra-ruby-mocks/pull/41) ([Cruikshanks](https://github.com/Cruikshanks))
+- Add mocking of errored Worldpay payments [\#40](https://github.com/DEFRA/defra-ruby-mocks/pull/40) ([Cruikshanks](https://github.com/Cruikshanks))
+- Add mocking of cancelled Worldpay payments [\#39](https://github.com/DEFRA/defra-ruby-mocks/pull/39) ([Cruikshanks](https://github.com/Cruikshanks))
+- Add mocking of pending Worldpay payments [\#38](https://github.com/DEFRA/defra-ruby-mocks/pull/38) ([Cruikshanks](https://github.com/Cruikshanks))
+
+**Merged pull requests:**
+
+- Revert "Refactor worldpay controller" [\#37](https://github.com/DEFRA/defra-ruby-mocks/pull/37) ([Cruikshanks](https://github.com/Cruikshanks))
+- Refactor worldpay controller [\#36](https://github.com/DEFRA/defra-ruby-mocks/pull/36) ([Cruikshanks](https://github.com/Cruikshanks))
+
 ## [v1.4.1](https://github.com/DEFRA/defra-ruby-mocks/tree/v1.4.1) (2020-06-03)
 
 [Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v1.4.0...v1.4.1)

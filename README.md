@@ -1,9 +1,9 @@
 # Defra Ruby Mocks
 
-[![Build Status](https://travis-ci.com/DEFRA/defra-ruby-mocks.svg?branch=master)](https://travis-ci.com/DEFRA/defra-ruby-mocks)
+[![Build Status](https://travis-ci.com/DEFRA/defra-ruby-mocks.svg?branch=main)](https://travis-ci.com/DEFRA/defra-ruby-mocks)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=DEFRA_defra-ruby-mocks&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=DEFRA_defra-ruby-mocks)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=DEFRA_defra-ruby-mocks&metric=coverage)](https://sonarcloud.io/dashboard?id=DEFRA_defra-ruby-mocks)
-[![security](https://hakiri.io/github/DEFRA/defra-ruby-mocks/master.svg)](https://hakiri.io/github/DEFRA/defra-ruby-mocks/master)
+[![security](https://hakiri.io/github/DEFRA/defra-ruby-mocks/main.svg)](https://hakiri.io/github/DEFRA/defra-ruby-mocks/main)
 [![Licence](https://img.shields.io/badge/Licence-OGLv3-blue.svg)](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3)
 
 A Rails Engine used by the [Ruby services team](https://github.com/DEFRA/ruby-services-team) in their digital services.

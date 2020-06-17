@@ -18,7 +18,7 @@ module DefraRubyMocks
           get "#{path}/#{company_number}"
           content = JSON.parse(response.body)
 
-          expect(response.content_type).to eq("application/json")
+          expect(response.media_type).to eq("application/json")
           expect(response.code).to eq("404")
           expect(content).to include("errors")
         end
@@ -31,7 +31,7 @@ module DefraRubyMocks
           get "#{path}/#{company_number}"
           company_status = JSON.parse(response.body)["company_status"]
 
-          expect(response.content_type).to eq("application/json")
+          expect(response.media_type).to eq("application/json")
           expect(response.code).to eq("200")
           expect(company_status).not_to eq("active")
         end
@@ -45,7 +45,7 @@ module DefraRubyMocks
             get "#{path}/#{company_number}"
             company_status = JSON.parse(response.body)["company_status"]
 
-            expect(response.content_type).to eq("application/json")
+            expect(response.media_type).to eq("application/json")
             expect(response.code).to eq("200")
             expect(company_status).to eq("active")
           end
@@ -58,7 +58,7 @@ module DefraRubyMocks
             get "#{path}/#{company_number}"
             content = JSON.parse(response.body)
 
-            expect(response.content_type).to eq("application/json")
+            expect(response.media_type).to eq("application/json")
             expect(response.code).to eq("404")
             expect(content).to include("errors")
           end

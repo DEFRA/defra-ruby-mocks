@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    defra_ruby_mocks (1.5.0)
+    defra_ruby_mocks (2.0.0)
       nokogiri
       rails (~> 6.0.3.1)
       sprockets (~> 3.7.2)

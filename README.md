@@ -21,7 +21,7 @@ Things to note
 
 Make sure you already have:
 
-- Ruby 2.4.2
+- Ruby 2.7.1
 - [Bundler](http://bundler.io/) – for installing Ruby gems
 
 ## Mounting the engine

@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["spec/**/*"]
 
-  s.add_dependency "rails", "~> 4.2.11.1"
+  s.add_dependency "rails", "~> 6.0.3.1"
 
   # sprockets-4.0.0 requires ruby version >= 2.5.0, which is incompatible with
   # the current version, ruby 2.4.2p198
@@ -39,6 +39,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "defra_ruby_style"
   s.add_development_dependency "pry-byebug"
-  s.add_development_dependency "rspec-rails", "~> 3.8.0"
+  s.add_development_dependency "rails-controller-testing"
+  s.add_development_dependency "rspec-rails"
   s.add_development_dependency "simplecov", "~> 0.17.1"
 end

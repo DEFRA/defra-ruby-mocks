@@ -1,5 +1,17 @@
 # Changelog
 
+## [v2.0.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v2.0.0) (2020-06-26)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v1.5.0...v2.0.0)
+
+**Implemented enhancements:**
+
+- Upgrade rails and ruby [\#43](https://github.com/DEFRA/defra-ruby-mocks/pull/43) ([cintamani](https://github.com/cintamani))
+
+**Merged pull requests:**
+
+- Bump defra\_ruby\_style from 0.2.1 to 0.2.2 [\#42](https://github.com/DEFRA/defra-ruby-mocks/pull/42) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+
 ## [v1.5.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v1.5.0) (2020-06-05)
 
 [Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v1.4.1...v1.5.0)
@@ -60,7 +72,6 @@
 
 **Merged pull requests:**
 
-- Bump defra\_ruby\_style from 0.1.3 to 0.1.4 [\#18](https://github.com/DEFRA/defra-ruby-mocks/pull/18) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
 - Temp. fix for cc-test-reporter & SimpleCov 0.18 [\#17](https://github.com/DEFRA/defra-ruby-mocks/pull/17) ([Cruikshanks](https://github.com/Cruikshanks))
 - Bump pry-byebug from 3.7.0 to 3.8.0 [\#15](https://github.com/DEFRA/defra-ruby-mocks/pull/15) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
 
@@ -87,6 +98,10 @@
 **Fixed bugs:**
 
 - Fix simplecov setup in project [\#12](https://github.com/DEFRA/defra-ruby-mocks/pull/12) ([Cruikshanks](https://github.com/Cruikshanks))
+
+**Merged pull requests:**
+
+- Bump defra\_ruby\_style from 0.1.3 to 0.1.4 [\#18](https://github.com/DEFRA/defra-ruby-mocks/pull/18) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
 
 ## [v1.0.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v1.0.0) (2019-12-30)
 

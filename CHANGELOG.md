@@ -1,5 +1,45 @@
 # Changelog
 
+## [v2.1.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v2.1.0) (2021-08-31)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v2.0.0...v2.1.0)
+
+**Merged pull requests:**
+
+- Bump nokogiri from 1.12.3 to 1.12.4 [\#81](https://github.com/DEFRA/defra-ruby-mocks/pull/81) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Enable Rails 6.0/1 [\#80](https://github.com/DEFRA/defra-ruby-mocks/pull/80) ([tobyprivett](https://github.com/tobyprivett))
+- Bump rspec-rails from 5.0.1 to 5.0.2 [\#79](https://github.com/DEFRA/defra-ruby-mocks/pull/79) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump nokogiri from 1.12.2 to 1.12.3 [\#78](https://github.com/DEFRA/defra-ruby-mocks/pull/78) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump nokogiri from 1.12.0 to 1.12.2 [\#77](https://github.com/DEFRA/defra-ruby-mocks/pull/77) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump nokogiri from 1.11.7 to 1.12.0 [\#75](https://github.com/DEFRA/defra-ruby-mocks/pull/75) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump addressable from 2.7.0 to 2.8.0 [\#74](https://github.com/DEFRA/defra-ruby-mocks/pull/74) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump github\_changelog\_generator from 1.16.3 to 1.16.4 [\#73](https://github.com/DEFRA/defra-ruby-mocks/pull/73) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump nokogiri from 1.11.6 to 1.11.7 [\#72](https://github.com/DEFRA/defra-ruby-mocks/pull/72) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump nokogiri from 1.11.5 to 1.11.6 [\#71](https://github.com/DEFRA/defra-ruby-mocks/pull/71) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump nokogiri from 1.11.4 to 1.11.5 [\#70](https://github.com/DEFRA/defra-ruby-mocks/pull/70) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump github\_changelog\_generator from 1.16.2 to 1.16.3 [\#69](https://github.com/DEFRA/defra-ruby-mocks/pull/69) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump nokogiri from 1.11.3 to 1.11.4 [\#68](https://github.com/DEFRA/defra-ruby-mocks/pull/68) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump rails from 6.0.3.6 to 6.0.3.7 [\#67](https://github.com/DEFRA/defra-ruby-mocks/pull/67) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump rexml from 3.2.4 to 3.2.5 [\#65](https://github.com/DEFRA/defra-ruby-mocks/pull/65) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump github\_changelog\_generator from 1.16.1 to 1.16.2 [\#64](https://github.com/DEFRA/defra-ruby-mocks/pull/64) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump nokogiri from 1.11.2 to 1.11.3 [\#63](https://github.com/DEFRA/defra-ruby-mocks/pull/63) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump rails from 6.0.3.5 to 6.0.3.6 [\#62](https://github.com/DEFRA/defra-ruby-mocks/pull/62) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump github\_changelog\_generator from 1.15.2 to 1.16.1 [\#61](https://github.com/DEFRA/defra-ruby-mocks/pull/61) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump rspec-rails from 5.0.0 to 5.0.1 [\#59](https://github.com/DEFRA/defra-ruby-mocks/pull/59) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump nokogiri from 1.11.1 to 1.11.2 [\#58](https://github.com/DEFRA/defra-ruby-mocks/pull/58) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump rspec-rails from 4.1.0 to 5.0.0 [\#57](https://github.com/DEFRA/defra-ruby-mocks/pull/57) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump rspec-rails from 4.0.2 to 4.1.0 [\#56](https://github.com/DEFRA/defra-ruby-mocks/pull/56) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump rails from 6.0.3.4 to 6.0.3.5 [\#55](https://github.com/DEFRA/defra-ruby-mocks/pull/55) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump nokogiri from 1.11.0 to 1.11.1 [\#54](https://github.com/DEFRA/defra-ruby-mocks/pull/54) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump nokogiri from 1.10.10 to 1.11.0 [\#53](https://github.com/DEFRA/defra-ruby-mocks/pull/53) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump rspec-rails from 4.0.1 to 4.0.2 [\#52](https://github.com/DEFRA/defra-ruby-mocks/pull/52) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Switch from Travis CI to GitHub Actions [\#51](https://github.com/DEFRA/defra-ruby-mocks/pull/51) ([irisfaraway](https://github.com/irisfaraway))
+- Create Dependabot config file [\#50](https://github.com/DEFRA/defra-ruby-mocks/pull/50) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Bump rails from 6.0.3.3 to 6.0.3.4 [\#49](https://github.com/DEFRA/defra-ruby-mocks/pull/49) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Bump rails from 6.0.3.2 to 6.0.3.3 [\#47](https://github.com/DEFRA/defra-ruby-mocks/pull/47) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Bump nokogiri from 1.10.9 to 1.10.10 [\#45](https://github.com/DEFRA/defra-ruby-mocks/pull/45) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Bump rails-controller-testing from 1.0.4 to 1.0.5 [\#44](https://github.com/DEFRA/defra-ruby-mocks/pull/44) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+
 ## [v2.0.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v2.0.0) (2020-06-26)
 
 [Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v1.5.0...v2.0.0)
@@ -7,17 +47,6 @@
 **Implemented enhancements:**
 
 - Upgrade rails and ruby [\#43](https://github.com/DEFRA/defra-ruby-mocks/pull/43) ([cintamani](https://github.com/cintamani))
-
-**Merged pull requests:**
-
-- Bump defra\_ruby\_style from 0.2.1 to 0.2.2 [\#42](https://github.com/DEFRA/defra-ruby-mocks/pull/42) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
-
-## [v1.5.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v1.5.0) (2020-06-05)
-
-[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v1.4.1...v1.5.0)
-
-**Implemented enhancements:**
-
 - Log errors in worldpay controller [\#41](https://github.com/DEFRA/defra-ruby-mocks/pull/41) ([Cruikshanks](https://github.com/Cruikshanks))
 - Add mocking of errored Worldpay payments [\#40](https://github.com/DEFRA/defra-ruby-mocks/pull/40) ([Cruikshanks](https://github.com/Cruikshanks))
 - Add mocking of cancelled Worldpay payments [\#39](https://github.com/DEFRA/defra-ruby-mocks/pull/39) ([Cruikshanks](https://github.com/Cruikshanks))
@@ -25,8 +54,13 @@
 
 **Merged pull requests:**
 
+- Bump defra\_ruby\_style from 0.2.1 to 0.2.2 [\#42](https://github.com/DEFRA/defra-ruby-mocks/pull/42) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
 - Revert "Refactor worldpay controller" [\#37](https://github.com/DEFRA/defra-ruby-mocks/pull/37) ([Cruikshanks](https://github.com/Cruikshanks))
 - Refactor worldpay controller [\#36](https://github.com/DEFRA/defra-ruby-mocks/pull/36) ([Cruikshanks](https://github.com/Cruikshanks))
+
+## [v1.5.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v1.5.0) (2020-06-05)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v1.4.1...v1.5.0)
 
 ## [v1.4.1](https://github.com/DEFRA/defra-ruby-mocks/tree/v1.4.1) (2020-06-03)
 
@@ -72,6 +106,7 @@
 
 **Merged pull requests:**
 
+- Bump defra\_ruby\_style from 0.1.3 to 0.1.4 [\#18](https://github.com/DEFRA/defra-ruby-mocks/pull/18) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
 - Temp. fix for cc-test-reporter & SimpleCov 0.18 [\#17](https://github.com/DEFRA/defra-ruby-mocks/pull/17) ([Cruikshanks](https://github.com/Cruikshanks))
 - Bump pry-byebug from 3.7.0 to 3.8.0 [\#15](https://github.com/DEFRA/defra-ruby-mocks/pull/15) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
 
@@ -98,10 +133,6 @@
 **Fixed bugs:**
 
 - Fix simplecov setup in project [\#12](https://github.com/DEFRA/defra-ruby-mocks/pull/12) ([Cruikshanks](https://github.com/Cruikshanks))
-
-**Merged pull requests:**
-
-- Bump defra\_ruby\_style from 0.1.3 to 0.1.4 [\#18](https://github.com/DEFRA/defra-ruby-mocks/pull/18) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
 
 ## [v1.0.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v1.0.0) (2019-12-30)
 

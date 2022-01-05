@@ -6,7 +6,10 @@ module DefraRubyMocks
     before_action :set_default_response_format
 
     def show
-      @status = CompaniesHouseService.run(params[:id])
+      service = CompaniesHouseService.run(params[:id])
+
+      @company_status = service.company_status
+      @company_type = service.company_type
 
       respond_to :json
     rescue NotFoundError

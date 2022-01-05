@@ -71,14 +71,15 @@ The project currently mocks the following services.
 
 When mounted into an app you can make requests to `/mocks/company/[company number]` to get a response that matches what our apps expect.
 
-This is an important distinction to note. When our apps like the [Waste Exemptions front office](https://github.com/DEFRA/waste-exemptions-front-office) make a real request to Companies House, they get a lot more information back in the JSON reponse. However the only thing they are interested in is the value of `"company_status"`.
+This is an important distinction to note. When our apps like the [Waste Exemptions front office](https://github.com/DEFRA/waste-exemptions-front-office) make a real request to Companies House, they get a lot more information back in the JSON reponse. However the only things they are interested in are the value of `"company_status"` and `"company_type"`.
 
-So rather than maintain a lot of unused JSON data, the mock just returns that bit of the JSON.
+So rather than maintain a lot of unused JSON data, the mock just returns those bits of the JSON.
 
 ```bash
 curl http://localhost:3000/mocks/company/SC123456
 {
-    "company_status": "active"
+    "company_status": "active",
+    "company_type": "ltd"
 }
 ```
 
@@ -98,6 +99,11 @@ The exceptions to this are the 'special' numbers listed below. Use them if you a
 - `44444444` will return `"insolvency-proceedings"`
 - `33333333` will return `"open"`
 - `22222222` will return `"closed"`
+
+Additionally, an `"active"` LLP company can be retrieved by using the following registration numbers:
+
+- `XX999999`
+- `YY999999`
 
 The list of possible statuses was taken from
 

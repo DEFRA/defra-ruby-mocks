@@ -44,10 +44,12 @@ module DefraRubyMocks
           it "returns a JSON response with a 200 code and a status of 'active'" do
             get "#{path}/#{company_number}"
             company_status = JSON.parse(response.body)["company_status"]
+            company_type = JSON.parse(response.body)["type"]
 
             expect(response.media_type).to eq("application/json")
             expect(response.code).to eq("200")
             expect(company_status).to eq("active")
+            expect(company_type).to eq("ltd")
           end
         end
 

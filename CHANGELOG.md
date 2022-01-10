@@ -1,5 +1,17 @@
 # Changelog
 
+## [v2.2.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v2.2.0) (2022-01-10)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v2.1.0...v2.2.0)
+
+**Merged pull requests:**
+
+- Bump nokogiri from 1.12.5 to 1.13.0 [\#87](https://github.com/DEFRA/defra-ruby-mocks/pull/87) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Update Companies house mock [\#86](https://github.com/DEFRA/defra-ruby-mocks/pull/86) ([tobyprivett](https://github.com/tobyprivett))
+- Bump rails from 6.1.4.1 to 6.1.4.4 [\#85](https://github.com/DEFRA/defra-ruby-mocks/pull/85) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump nokogiri from 1.12.4 to 1.12.5 [\#83](https://github.com/DEFRA/defra-ruby-mocks/pull/83) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump nokogiri from 1.12.3 to 1.12.4 [\#82](https://github.com/DEFRA/defra-ruby-mocks/pull/82) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v2.1.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v2.1.0) (2021-08-31)
 
 [Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v2.0.0...v2.1.0)

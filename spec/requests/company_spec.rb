@@ -29,11 +29,20 @@ module DefraRubyMocks
 
         it "returns a JSON response with a 200 code and a status that isn't 'active'" do
           get "#{path}/#{company_number}"
-          company_status = JSON.parse(response.body)["company_status"]
 
           expect(response.media_type).to eq("application/json")
           expect(response.code).to eq("200")
-          expect(company_status).not_to eq("active")
+          expect(JSON.parse(response.body).deep_symbolize_keys).to eq(
+            company_name: "Acme Industries",
+            company_status: "dissolved",
+            type: "ltd",
+            registered_office_address: {
+              address_line_1: "10 Downing St",
+              address_line_2: "Horizon House",
+              locality: "Bristol",
+              postal_code: "BS1 5AH"
+            }
+          )
         end
       end
 
@@ -44,10 +53,12 @@ module DefraRubyMocks
           it "returns a JSON response with a 200 code and a status of 'active'" do
             get "#{path}/#{company_number}"
             company_status = JSON.parse(response.body)["company_status"]
+            company_type = JSON.parse(response.body)["type"]
 
             expect(response.media_type).to eq("application/json")
             expect(response.code).to eq("200")
             expect(company_status).to eq("active")
+            expect(company_type).to eq("ltd")
           end
         end
 

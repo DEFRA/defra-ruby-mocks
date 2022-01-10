@@ -31,14 +31,21 @@ module DefraRubyMocks
       }
     end
 
+    def self.llp_company_numbers
+      %w[XX999999 YY999999]
+    end
+
     def run(company_number)
       raise NotFoundError unless valid_company_number?(company_number)
       raise NotFoundError if company_number == NOT_FOUND
 
-      return specials[company_number] if specials.key?(company_number)
+      @company_status = specials[company_number] || "active"
+      @company_type = llps.include?(company_number) ? "llp" : "ltd"
 
-      "active"
+      self
     end
+
+    attr_reader :company_status, :company_type
 
     private
 
@@ -50,5 +57,8 @@ module DefraRubyMocks
       self.class.special_company_numbers
     end
 
+    def llps
+      self.class.llp_company_numbers
+    end
   end
 end

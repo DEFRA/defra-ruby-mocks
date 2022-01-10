@@ -71,15 +71,38 @@ The project currently mocks the following services.
 
 When mounted into an app you can make requests to `/mocks/company/[company number]` to get a response that matches what our apps expect.
 
-This is an important distinction to note. When our apps like the [Waste Exemptions front office](https://github.com/DEFRA/waste-exemptions-front-office) make a real request to Companies House, they get a lot more information back in the JSON reponse. However the only things they are interested in are the value of `"company_status"` and `"company_type"`.
+This is an important distinction to note. When our apps like the [Waste Exemptions front office](https://github.com/DEFRA/waste-exemptions-front-office) make a real request to Companies House, they get a lot more information back in the JSON reponse. However the only things they are interested in are the value of `"company_name"`, `"company_status"`, `"company_type"` and `"registered_office"`, .
 
 So rather than maintain a lot of unused JSON data, the mock just returns those bits of the JSON.
 
 ```bash
 curl http://localhost:3000/mocks/company/SC123456
 {
+    "company_name": "Acme Industries",
     "company_status": "active",
-    "company_type": "ltd"
+    "company_type": "ltd",
+    "registered_office_address": {
+        "address_line_1": "10 Downing St",
+        "address_line_2": "Horizon House",
+        "locality": "Bristol",
+        "postal_code": "BS1 5AH"
+    }
+}
+```
+
+Additionally, an Officers endpoint is available at `/mocks/company/[company number]/officers`. This returns a list of partial Officer data, eg:
+```bash
+curl http://localhost:3000/mocks/company/SC123456/officers
+{
+   "items": [
+    {
+      "name": "APPLE, Alice",
+      "officer_role": "director"
+    },
+    {
+      "name": "BANANA, Bob",
+      "officer_role": "director"
+    },...
 }
 ```
 

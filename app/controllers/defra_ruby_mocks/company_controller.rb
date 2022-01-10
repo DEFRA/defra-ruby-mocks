@@ -16,6 +16,10 @@ module DefraRubyMocks
       render "not_found", status: 404
     end
 
+    def officers
+      respond_to :json
+    end
+
     private
 
     def set_default_response_format

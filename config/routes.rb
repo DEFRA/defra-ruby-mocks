@@ -12,9 +12,9 @@ DefraRubyMocks::Engine.routes.draw do
       constraints: ->(_request) { DefraRubyMocks.configuration.enabled? }
 
   post "/worldpay/payments-service",
-      to: "worldpay#payments_service",
-      as: "worldpay_payments_service",
-      constraints: ->(_request) { DefraRubyMocks.configuration.enabled? }
+       to: "worldpay#payments_service",
+       as: "worldpay_payments_service",
+       constraints: ->(_request) { DefraRubyMocks.configuration.enabled? }
 
   get "/worldpay/dispatcher",
       to: "worldpay#dispatcher",

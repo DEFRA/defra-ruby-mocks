@@ -75,7 +75,6 @@ module DefraRubyMocks
 
           context "and is for a successful payment" do
             it "can generate a valid mac" do
-              puts "Test data #{mac_data.join}"
               expect(described_class.run(args).mac).to eq(mac)
             end
 

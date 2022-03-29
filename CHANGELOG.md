@@ -1,5 +1,18 @@
 # Changelog
 
+## [v2.3.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v2.3.0) (2022-03-29)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v2.2.0...v2.3.0)
+
+**Implemented enhancements:**
+
+- Worldpay mock expects POST request, not GET [\#98](https://github.com/DEFRA/defra-ruby-mocks/pull/98) ([tobyprivett](https://github.com/tobyprivett))
+
+**Merged pull requests:**
+
+- Bump rspec-rails from 5.0.2 to 5.1.0 [\#89](https://github.com/DEFRA/defra-ruby-mocks/pull/89) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump nokogiri from 1.13.0 to 1.13.1 [\#88](https://github.com/DEFRA/defra-ruby-mocks/pull/88) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v2.2.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v2.2.0) (2022-01-10)
 
 [Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v2.1.0...v2.2.0)

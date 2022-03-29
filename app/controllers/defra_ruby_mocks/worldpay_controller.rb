@@ -2,6 +2,7 @@
 
 module DefraRubyMocks
   class WorldpayController < ::DefraRubyMocks::ApplicationController
+    protect_from_forgery with: :exception, except: [:payments_service]
 
     before_action :set_default_response_format
 

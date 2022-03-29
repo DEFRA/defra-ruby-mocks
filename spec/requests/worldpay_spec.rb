@@ -24,7 +24,7 @@ module DefraRubyMocks
             let(:data) { File.read("spec/fixtures/payment_request_valid.xml") }
 
             it "returns an XML response with a 200 code" do
-              get path, headers: { "RAW_POST_DATA" => data }
+              post path, headers: { "RAW_POST_DATA" => data }
 
               expect(response.media_type).to eq("application/xml")
               expect(response.code).to eq("200")
@@ -36,7 +36,7 @@ module DefraRubyMocks
             let(:data) { File.read("spec/fixtures/payment_request_invalid.xml") }
 
             it "returns a response with a 500 code" do
-              get path, headers: { "RAW_POST_DATA" => data }
+              post path, headers: { "RAW_POST_DATA" => data }
 
               expect(response.code).to eq("500")
             end
@@ -48,7 +48,7 @@ module DefraRubyMocks
             let(:data) { File.read("spec/fixtures/refund_request_valid.xml") }
 
             it "returns an XML response with a 200 code" do
-              get path, headers: { "RAW_POST_DATA" => data }
+              post path, headers: { "RAW_POST_DATA" => data }
 
               expect(response.media_type).to eq("application/xml")
               expect(response.code).to eq("200")

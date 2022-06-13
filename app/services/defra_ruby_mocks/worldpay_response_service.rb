@@ -65,11 +65,11 @@ module DefraRubyMocks
     end
 
     def payment_status
-      return :REFUSED if @resource.company_name.include?("reject")
-      return :STUCK if @resource.company_name.include?("stuck")
-      return :SENT_FOR_AUTHORISATION if @resource.company_name.include?("pending")
-      return :CANCELLED if @resource.company_name.include?("cancel")
-      return :ERROR if @resource.company_name.include?("error")
+      return :REFUSED if @resource.company_name&.include?("reject")
+      return :STUCK if @resource.company_name&.include?("stuck")
+      return :SENT_FOR_AUTHORISATION if @resource.company_name&.include?("pending")
+      return :CANCELLED if @resource.company_name&.include?("cancel")
+      return :ERROR if @resource.company_name&.include?("error")
 
       :AUTHORISED
     end

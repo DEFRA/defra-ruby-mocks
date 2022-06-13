@@ -44,6 +44,14 @@ module DefraRubyMocks
         it "returns an object with the expected company name" do
           expect(described_class.run(args).company_name).to eq(company_name.downcase)
         end
+
+        context "when the company name is not populated" do
+          let(:company_name) { nil }
+
+          it "returns the object" do
+            expect(described_class.run(args).resource).to eq(resource)
+          end
+        end
       end
 
       context "when the resource is a Registration" do

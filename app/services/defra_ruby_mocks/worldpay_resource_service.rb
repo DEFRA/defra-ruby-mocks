@@ -46,9 +46,9 @@ module DefraRubyMocks
 
     def company_name
       if resource.class.to_s == "WasteCarriersEngine::OrderCopyCardsRegistration"
-        locate_original_registration(resource.reg_identifier).company_name.downcase
+        locate_original_registration(resource.reg_identifier).company_name&.downcase
       else
-        resource.company_name.downcase
+        resource.company_name&.downcase
       end
     end
   end

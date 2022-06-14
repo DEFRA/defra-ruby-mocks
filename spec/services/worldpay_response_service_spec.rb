@@ -16,7 +16,7 @@ module DefraRubyMocks
       allow(WorldpayResourceService).to receive(:run) { resource }
     end
 
-    let(:resource) { double(:resource, order: order, company_name: company_name.downcase) }
+    let(:resource) { double(:resource, order: order, company_name: company_name&.downcase) }
 
     let(:admin_code) { "admincode1" }
     let(:merchant_code) { "merchantcode1" }
@@ -82,6 +82,14 @@ module DefraRubyMocks
               expected_response_url = "#{success_url}?#{query_string}"
 
               expect(described_class.run(args).url).to eq(expected_response_url)
+            end
+
+            context "and the company name is blank" do
+              let(:company_name) { nil }
+
+              it "can extract the reference from the `success_url`" do
+                expect(described_class.run(args).reference).to eq(reference)
+              end
             end
           end
 

@@ -20,37 +20,36 @@ module DefraRubyMocks
         # Use an example from the Govpay documentation
         let(:payment_request) do
           {
-            amount: 14500,
+            amount: 14_500,
             reference: "12345",
             description: "Pay your council tax",
             return_url: "https://your.service.gov.uk/completed"
           }
         end
 
-          context "when the request is valid" do
+        context "when the request is valid" do
 
-            it "returns a valid success response" do
-              post path, params: payment_request.as_json
+          it "returns a valid success response" do
+            post path, params: payment_request.as_json
 
-              expect(response.media_type).to eq("application/json")
-              expect(response.code).to eq("200")
-              expect(JSON.parse(response.body)).to include(
-                "reference" => payment_request[:reference],
-                "amount" => payment_request[:amount],
-                "description" => payment_request[:description],
-                "return_url" => payment_request[:return_url]
-              )
-            end
+            expect(response.media_type).to eq("application/json")
+            expect(response.code).to eq("200")
+            response_json = JSON.parse(response.body)
+            expect(response_json["reference"]).to eq payment_request[:reference]
+            expect(response_json["amount"]).to eq payment_request[:amount]
+            expect(response_json["description"]).to eq payment_request[:description]
+            expect(response_json["_links"]["next_url"]["href"]).to eq payment_request[:return_url]
           end
+        end
 
-          context "when the request is missing a mandatory parameter" do
-            before { payment_request[:amount] = nil }
+        context "when the request is missing a mandatory parameter" do
+          before { payment_request[:amount] = nil }
 
-            it "returns a HTTP 500 responseß" do
-              post path, params: payment_request.as_json
+          it "returns a HTTP 500 responseß" do
+            post path, params: payment_request.as_json
 
-              expect(response.code).to eq "500"
-            end
+            expect(response.code).to eq "500"
+          end
         end
       end
 

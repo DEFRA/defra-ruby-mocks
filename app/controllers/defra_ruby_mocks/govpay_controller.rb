@@ -3,7 +3,7 @@
 module DefraRubyMocks
   class GovpayController < ::DefraRubyMocks::ApplicationController
     protect_from_forgery with: :null_session
-  
+
     def create_payment
       valid_create_params
       render json: GovpayCreatePaymentService.new.run(
@@ -25,11 +25,13 @@ module DefraRubyMocks
     end
 
     def valid_create_params
-      params.require([:amount, :description, :return_url])
+      params.require(%i[amount description return_url])
     end
 
     def valid_payment_id
-      raise StandardError.new("Invalid Govpay payment ID #{params[:payment_id]}") unless params[:payment_id].length > 20 && params[:payment_id].match(/\A[a-zA-Z0-9]*\z/)
+      return true if params[:payment_id].length > 20 && params[:payment_id].match(/\A[a-zA-Z0-9]*\z/)
+
+      raise ArgumentError, "Invalid Govpay payment ID #{params[:payment_id]}"
     end
   end
 end

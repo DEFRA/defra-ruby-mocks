@@ -25,7 +25,7 @@ module DefraRubyMocks
         total_amount: amount,
         payment_provider: "worldpay",
         provider_id: "10987654321"
-      }    
+      }
     end
 
   end

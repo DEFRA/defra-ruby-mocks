@@ -65,6 +65,8 @@ module DefraRubyMocks
     end
 
     def payment_status
+      return :AUTHORISED unless @resource.company_name
+
       return :REFUSED if @resource.company_name.include?("reject")
       return :STUCK if @resource.company_name.include?("stuck")
       return :SENT_FOR_AUTHORISATION if @resource.company_name.include?("pending")

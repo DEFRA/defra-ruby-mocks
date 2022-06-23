@@ -21,4 +21,13 @@ DefraRubyMocks::Engine.routes.draw do
       as: "worldpay_dispatcher",
       constraints: ->(_request) { DefraRubyMocks.configuration.enabled? }
 
+  post "/govpay/v1/payments",
+       to: "govpay#create_payment",
+       as: "govpay_create_payment",
+       constraints: ->(_request) { DefraRubyMocks.configuration.enabled? }
+
+  get "/govpay/v1/payments/:payment_id",
+      to: "govpay#payment_details",
+      as: "govpay_payment_details",
+      constraints: ->(_request) { DefraRubyMocks.configuration.enabled? }
 end

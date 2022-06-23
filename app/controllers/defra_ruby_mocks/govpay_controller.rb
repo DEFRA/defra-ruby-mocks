@@ -3,8 +3,7 @@
 module DefraRubyMocks
   class GovpayController < ::DefraRubyMocks::ApplicationController
 
-    # These are mock endpoints so verification is not necessary
-    skip_before_action :verify_authenticity_token
+    protect_from_forgery with: :exception, except: [:create_payemnt]
 
     def create_payment
       valid_create_params

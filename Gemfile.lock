@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    defra_ruby_mocks (2.3.0)
+    defra_ruby_mocks (2.3.2)
       nokogiri
       rails (~> 6.0)
       sprockets (~> 3.7.2)
@@ -158,6 +158,8 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.13.4)
       mini_portile2 (~> 2.8.0)
+      racc (~> 1.4)
+    nokogiri (1.13.4-x86_64-darwin)
       racc (~> 1.4)
     octokit (4.22.0)
       faraday (>= 0.9)

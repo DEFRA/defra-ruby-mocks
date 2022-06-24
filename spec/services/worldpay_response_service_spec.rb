@@ -13,7 +13,7 @@ module DefraRubyMocks
         config.worldpay_mac_secret = mac_secret
       end
 
-      allow(WorldpayResourceService).to receive(:run) { resource }
+      allow(WasteCarriersResourceService).to receive(:run) { resource }
     end
 
     let(:resource) { double(:resource, order: order, company_name: company_name&.downcase) }

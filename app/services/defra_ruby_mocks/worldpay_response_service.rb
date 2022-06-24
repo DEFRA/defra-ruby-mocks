@@ -13,7 +13,7 @@ module DefraRubyMocks
       }
 
       parse_reference(urls[:success])
-      @resource = WorldpayResourceService.run(reference: @reference)
+      @resource = WasteCarriersResourceService.run(reference: @reference)
 
       generate_response(urls)
     end

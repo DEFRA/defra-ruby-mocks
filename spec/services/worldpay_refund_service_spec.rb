@@ -11,7 +11,7 @@ module DefraRubyMocks
 
       context "when the XML is valid" do
 
-        let(:xml) { Nokogiri::XML(File.read("spec/fixtures/refund_request_valid.xml")) }
+        let(:xml) { Nokogiri::XML(File.read("spec/fixtures/files/worldpay/refund_request_valid.xml")) }
 
         context "the result it returns" do
           it "is a hash" do
@@ -57,7 +57,7 @@ module DefraRubyMocks
       end
 
       context "when the XML is invalid" do
-        let(:xml) { Nokogiri::XML(File.read("spec/fixtures/refund_request_invalid.xml")) }
+        let(:xml) { Nokogiri::XML(File.read("spec/fixtures/files/worldpay/refund_request_invalid.xml")) }
 
         it "raises an error" do
           expect { described_class.run(args) }.to raise_error StandardError

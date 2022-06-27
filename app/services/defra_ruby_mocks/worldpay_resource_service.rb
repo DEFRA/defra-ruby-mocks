@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
 module DefraRubyMocks
-  class WasteCarriersResourceService < BaseService
+  class WorldpayResourceService < BaseService
 
     def run(reference:)
       @reference = reference
 
       raise(MissingResourceError, @reference) if resource.nil?
 
-      WasteCarriersResource.new(resource, order, company_name)
+      WorldpayResource.new(resource, order, company_name)
     end
 
     private
 
-    WasteCarriersResource = Struct.new(:resource, :order, :company_name)
+    WorldpayResource = Struct.new(:resource, :order, :company_name)
 
     def resource
       @_resource ||= locate_transient_registration || locate_completed_registration

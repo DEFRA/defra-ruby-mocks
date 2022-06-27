@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module DefraRubyMocks
-  RSpec.describe WasteCarriersResourceService do
+  RSpec.describe WorldpayResourceService do
     before(:each) do
       allow(::WasteCarriersEngine::TransientRegistration).to receive(:where) { transient_relation }
       allow(::WasteCarriersEngine::Registration).to receive(:where) { registration_relation }

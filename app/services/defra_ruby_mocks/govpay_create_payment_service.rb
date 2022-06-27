@@ -6,19 +6,17 @@ module DefraRubyMocks
   class GovpayCreatePaymentService < BaseService
 
     def run(amount:, description:, return_url:)
-      {
-        created_date: Time.current,
-        state: { status: "created", finished: false },
-        _links: {
-          self: { href: "#{base_url}/#{payment_id}", method: "GET" },
-          next_url: { href: return_url, method: "GET" }
-        },
-        amount: amount.to_i,
-        reference: "12345",
-        description: description,
-        payment_id: payment_id,
-        payment_provider: "sandbox"
-      }
+      JSON.parse(File.read("spec/fixtures/files/govpay/create_payment_created_response.json")).merge(
+        {
+          _links: {
+            self: { href: "#{base_url}/#{payment_id}", method: "GET" },
+            next_url: { href: return_url, method: "GET" }
+          },
+          amount: amount.to_i,
+          description: description,
+          payment_id: payment_id
+        }
+      )
     end
 
     private

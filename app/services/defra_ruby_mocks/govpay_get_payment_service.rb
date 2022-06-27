@@ -6,27 +6,41 @@ module DefraRubyMocks
   class GovpayGetPaymentService < BaseService
 
     def run(payment_id:, amount: Random.rand(100..1_000), created_at: Time.current)
-      {
+      response_attributes = {
         created_date: created_at,
         amount: amount,
-        state: {
-          status: "success",
-          finished: true
-        },
-        description: "Your waste carriers registration fee",
-        reference: "12345",
-        language: "en",
         payment_id: payment_id,
-        refund_summary: {
-          status: "available",
-          amount_available: amount - 100,
-          amount_submitted: 0
-        },
-        total_amount: amount,
-        payment_provider: "worldpay",
-        provider_id: "10987654321"
+        total_amount: amount
       }
+
+      case requested_status(payment_id)
+      when "failure"
+        response_json("failure").merge(amount: amount)
+      when "created"
+        response_json("created").merge(response_attributes)
+      when "cancelled"
+        response_json("cancelled").merge(response_attributes)
+      when "error"
+        response_json("error")
+      else
+        response_json("success").merge(response_attributes)
+      end
     end
 
+    private
+
+    def response_json(status)
+      JSON.parse(File.read("spec/fixtures/files/govpay/get_payment_response_#{status}.json"))
+    end
+
+    # Allow the consumer to trigger simulated failures by including keywords in the payment id.
+    def requested_status(payment_id)
+      return "failure" if payment_id.include?("reject")
+      return "created" if payment_id.include?("pending")
+      return "cancelled" if payment_id.include?("cancel")
+      return "error" if payment_id.include?("error")
+
+      "success"
+    end
   end
 end

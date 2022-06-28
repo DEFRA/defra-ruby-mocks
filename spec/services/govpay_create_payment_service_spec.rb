@@ -5,6 +5,7 @@ require "rails_helper"
 module DefraRubyMocks
 
   RSpec.describe GovpayCreatePaymentService do
+
     before(:each) do
       Helpers::Configuration.prep_for_tests
       DefraRubyMocks.configure do |config|

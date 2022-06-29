@@ -40,6 +40,11 @@ module DefraRubyMocks
             expect(response_json["description"]).to eq payment_request[:description]
             expect(response_json["_links"]["next_url"]["href"]).to eq payment_request[:return_url]
           end
+
+          it "enqueues a job to perform the payment callback" do
+            ActiveJob::Base.queue_adapter = :test
+            expect { post path, params: payment_request.as_json }.to have_enqueued_job(GovpayPaymentCallbackJob)
+          end
         end
 
         context "when the request is missing a mandatory parameter" do
@@ -55,8 +60,16 @@ module DefraRubyMocks
 
       describe "#payment_details" do
         let(:path) { "/defra_ruby_mocks/govpay/v1/payments/#{payment_id}" }
+
         context "when the payment id is valid" do
+          before do
+            allow(GovpayGetPaymentService).to receive(:run)
+              .with(payment_id)
+              .and_return(JSON.parse(File.read("spec/fixtures/files/govpay/get_payment_response_success.json")))
+          end
+
           let(:payment_id) { "12345678901234567890123456" }
+
           it "returns a valid success response" do
             get path
 
@@ -65,7 +78,14 @@ module DefraRubyMocks
         end
 
         context "when the payment id is not valid" do
+          before do
+            allow(GovpayGetPaymentService).to receive(:run)
+              .with(payment_id)
+              .and_return(JSON.parse(File.read("spec/fixtures/files/govpay/get_payment_response_error.json")))
+          end
+
           let(:payment_id) { "0" }
+
           it "returns a 422 response" do
             get path
 

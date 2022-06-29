@@ -3,16 +3,19 @@
 module DefraRubyMocks
   class GovpayController < ::DefraRubyMocks::ApplicationController
 
-    protect_from_forgery with: :exception, except: [:create_payemnt]
+    skip_before_action :verify_authenticity_token
 
     def create_payment
       valid_create_params
+
+      # Enqueue the payment callback to run after the controller responds
+      DefraRubyMocks::GovpayPaymentCallbackJob.perform_later(params[:return_url])
+
       render json: GovpayCreatePaymentService.new.run(
         amount: params[:amount], description: params[:description], return_url: params[:return_url]
       )
     rescue StandardError => e
       Rails.logger.error("MOCKS: Govpay payment creation error: #{e.message}")
-      Rails.logger.error e.backtrace
       head 500
     end
 
@@ -21,7 +24,6 @@ module DefraRubyMocks
       render json: GovpayGetPaymentService.new.run(payment_id: params[:payment_id])
     rescue StandardError => e
       Rails.logger.error("MOCKS: Govpay payment details error: #{e.message}")
-      Rails.logger.error e.backtrace
       head 422
     end
 

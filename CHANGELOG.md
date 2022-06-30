@@ -1,15 +1,18 @@
 # Changelog
 
-## [Unreleased](https://github.com/DEFRA/defra-ruby-mocks/tree/HEAD)
+## [v2.3.3](https://github.com/DEFRA/defra-ruby-mocks/tree/v2.3.3) (2022-06-29)
 
-[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v2.3.2...HEAD)
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v2.3.2...v2.3.3)
 
 **Implemented enhancements:**
 
+- Mock govpay succesful payment [\#107](https://github.com/DEFRA/defra-ruby-mocks/pull/107) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
 - Add Govpay mocks [\#104](https://github.com/DEFRA/defra-ruby-mocks/pull/104) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
 
 **Merged pull requests:**
 
+- Release v2.3.2 [\#106](https://github.com/DEFRA/defra-ruby-mocks/pull/106) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+- Release v2.3.2 [\#105](https://github.com/DEFRA/defra-ruby-mocks/pull/105) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
 - Version 2.3.1 [\#103](https://github.com/DEFRA/defra-ruby-mocks/pull/103) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
 
 ## [v2.3.2](https://github.com/DEFRA/defra-ruby-mocks/tree/v2.3.2) (2022-06-23)

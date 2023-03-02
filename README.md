@@ -132,117 +132,52 @@ The list of possible statuses was taken from
 - [Companies House API](https://developer.companieshouse.gov.uk/api/docs/company/company_number/companyProfile-resource.html)
 - [Companies House API enumerations](https://github.com/companieshouse/api-enumerations/blob/master/constants.yml)
 
-### Worldpay
+### Govpay
 
-When mounted into an app you can simulate interacting with the Worldpay hosted pages service.
+When mounted into an app you can simulate interacting with the Govpay hosted pages service.
 
 #### Payments
 
-Making a payment with Worldpay essentially comes in 2 stages
+Making a payment with Govpay essentially comes in 2 stages
 
-1. The app sends an XML request to Worldpay asking it to prepare for a new payment. Worldpay responds with a reference and a URL to redirect the user to
-2. The app redirects the user to the URL and adds to it query params that tell Worldpay where to redirect the user to when the payment is complete
+1. The app sends a JSON request to Govpay asking it to prepare for a new payment, and providing a unique identifier and a callback URL.
+2. Govpay subsequently invokes the callback URL, passing a Govpay URL to which the user should be redirected.
+2. The app redirects the user to the Govpay URL with params that tell Govpay where to redirect the user to when the payment is complete.
 
-For more details check out [Making a payment with WorldPay](https://github.com/DEFRA/ruby-services-team/blob/master/services/wcr/payment_with_worldpay.md)
-
-This Worldpay mock replicates those 2 interactions with the following urls
-
-- `../worldpay/payments-service`
-- `../worldpay/dispatcher`
-
-##### Cancelled payments
-
-The engine has the ability to mock a user cancelling a payment when on the Worldpay site. To have the mock return a cancelled payment response just ensure the registration's company name includes the word `cancel` (case doesn't matter).
-
-If it does the engine will redirect back to the cancelled url instead of the success url provided, plus set the payment status to `CANCELLED`.
-
-This allows us to test how the application handles Worldpay responding with a cancelled payment response.
-
-##### Errored payments
-
-The engine has the ability to Worldpay erroring during a payment. To have the mock return an errored payment response just ensure the registration's company name includes the word `error` (case doesn't matter).
-
-If it does the engine will redirect back to the error url instead of the success url provided, plus set the payment status to `ERROR`.
-
-This allows us to test how the application handles Worldpay responding with an errored payment response.
-
-##### Pending payments
-
-The engine has the ability to also mock Worldpay marking a payment as pending. To have the mock return a payment pending response just ensure the registration's company name includes the word `pending` (case doesn't matter).
-
-If it does the engine will redirect back to the pending url instead of the success url provided, plus set the payment status to `SENT_FOR_AUTHORISATION`.
-
-This allows us to test how the application handles Worldpay responding with a payment pending response.
-
-##### Refused payments
-
-The engine has the ability to also mock Worldpay refusing a payment. To have the mock refuse payment just ensure the registration's company name includes the word `reject` (case doesn't matter).
-
-If it does the engine will redirect back to the failure url instead of the success url provided, plus set the payment status to `REFUSED`.
-
-This allows us to test how the application handles both successful and unsucessful Worldpay payments.
-
-##### Stuck payments
-
-The engine has the ability to also mock Worldpay not redirecting back to the service. This is the equivalent of a registration getting 'stuck at Worldpay'. To have the mock not respond just ensure the registration's company name includes the word `stuck` (case doesn't matter).
-
-If it does the engine will not redirect back to the service, but instead render a 'You're stuck!' page.
-
-This allows us to test how the application handles Worldpay not returning after we redirect a user to them.
-
-#### Refunds
-
-Requesting a refund from Worldpay is a single step process.
-
-1. The app sends an XML request to Worldpay with details of the order to be refunded and the amount. Worldpay returns an XML response confirming the request has been received
-
-Like payments, refund requests are also sent to the same url `../worldpay/payments-service`. The mock handles determining what request is being made and returns the appropriate response.
+This Govpay mock replicates those 2 interactions with the following url
+- `../govpay/v1/payments`
 
 #### Configuration
 
-In order to use the Worldpay mock you'll need to provide additional configuration details
+In order to use the govpay mock you'll need to provide additional configuration details
 
 ```ruby
 # config/initializers/defra_ruby_mocks.rb
 require "defra_ruby_mocks"
 
 DefraRubyMocks.configure do |config|
-  config.enable = true
-  config.delay = 1000
-
-  config.worldpay_admin_code = "admincode1"
-  config.worldpay_mac_secret = "macsecret1"
-  config.worldpay_merchant_code = "merchantcode1"
-  config.worldpay_domain = "http://localhost:3000/mocks"
+  config.govpay_domain = File.join(ENV["WCRS_GOVPAY_DOMAIN"] || "http://localhost:3002", "/fo/mocks/govpay/v1")
 end
 ```
 
-It's important that the admin code, mac secret and merchant code are the same as used by the apps calling the Worldpay mock. These values are used when generating the responses and are validated by the apps so it's important they match.
-
-The domain is used when generating the URL we tell the app to redirect users to. As this is just an engine and not a standalone service, we need to tell it what domain it is running from. For example, if the engine is mounted into the app like this
+The domain is used when generating the URL we tell the app to redirect users to. As this is just an engine and not a standalone service, we need to tell it what domain it is running from.
 
 ```ruby
 mount DefraRubyMocks::Engine => "/mocks"
 ```
 
-And the app is running at `http://localhost:3000`, this engine can then use that information to tell the app to redirect users to `http://localhost:3000/mocks/worldpay/dispatcher` as part of the `payments-service` response.
-
 #### Only for Waste Carriers
 
-At this time there is only one digital service built using Ruby on Rails that uses Worldpay; the [Waste Carriers Registration service](https://github.com/DEFRA/ruby-services-team/tree/master/services/wcr). So the Worldpay mock has been written with the assumption it will only be mounted into one of the Waste Carriers apps.
+At this time there is only one digital service built using Ruby on Rails that uses Govpay; the [Waste Carriers Registration service](https://github.com/DEFRA/ruby-services-team/tree/master/services/wcr). So the Govpay mock has been written with the assumption it will only be mounted into one of the Waste Carriers apps.
 
 A critical aspect of this is the expectation that the following classes will be loaded and available when the engine is mounted and the app is running
 
 - `WasteCarriersEngine::TransientRegistration`
 - `WasteCarriersEngine::Registration`
 
-We need these classes so we can use them to query the database for the registration the payment is being made against. We only get the registration reference in the request made to `/worldpay/dispatcher`, not the order code. As the response needs to include the order code we need access to these ActiveRecord models to locate the last order added.
-
-In the live Worldpay service this information (along with the amount to be paid) is saved after the initial request to `/payments-service`. The mock however isn't persisting anything to reduce complexity. So instead it needs to be able to query the database for the information it needs via ActiveRecord.
-
 #### Payment pages are not mocked
 
-The actual Worldpay service presents payment pages that display a form where users are able to enter their credit card details and confirm the payment is correct. This mock does **not** replicate the UI of Worldpay, only the API. Bear this in mind when building any automated acceptance tests.
+The actual Govpay service presents payment pages that display a form where users are able to enter their credit card details and confirm the payment is correct. This mock does **not** replicate the UI of Govpay, only the API. Bear this in mind when building any automated acceptance tests.
 
 ## Installation
 

@@ -17,4 +17,5 @@ gemspec
 
 group :test do
   gem "faker"
+  gem "timecop"
 end

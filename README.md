@@ -134,11 +134,33 @@ The list of possible statuses was taken from
 
 ### Govpay
 
-When mounted into an app you can simulate interacting with the Govpay hosted pages service.
+When mounted into an app you can simulate interacting with the Govpay hosted pages service. The following endpoints are supported:
+
+- `POST /govpay/v1/payments`
+  - Create a payment. In its current form it always returns a fixed (success) response regardless of the input parameters.
+- `GET /govpay/v1/payments/:payment_id`
+  - Get details of an existing payment. The response includes the payment_id from the input parameters, a random amount, and the current time as created_at value.
+- `POST /govpay/v1/payments/:payment_id/refunds`
+  - Request a refund. The response includes the amount from the input parameters and a status of "submitted", meaning that the refund is pending. It also writes the current time to a temporary file to support refund details checking - see *Govpay refund status* below.
+- `GET /govpay/v1/payments/:payment_id/refunds/:refund_id`
+  - Get the details of an existing refund. This currently returns a fixed response, with the exception of the `status` value. See *Govpay refund status* below.
+
+#### Govpay refund status
+The Govpay service behaves differently in production and in test (sandbox) modes.
+- In **production**, a refund is initially assigned a status of `submitted` and this is the `status` value that will be received in the response to a successful create refund request. When the payment provider processes the refund, the status within the Govpayservice will be updated to `success`. 
+- In **sandbox** mode, a refund will be assigned a status of `success` as soon as it is created.
+
+This causes issues for testing, as it is not possible to test behaviour around `submitted` (i.e. pending) refunds. To mitigate this, the mock API for getting refund details behaves as follows:
+- Default: Return success
+- If the environment variable `GOVPAY_REFUND_SUBMITTED_SUCCESS_LAG` is set (integer value):
+  - If fewer than that number of seconds has elapsed since the most recent refund request, return submitted
+  - If greater than that number of seconds has elapsed since the most recent refund request, return success
+
+So setting the `GOVPAY_REFUND_SUBMITTED_SUCCESS_LAG` variable should allow a developer or tester to simulate production behaviour. The iniital response will be `submitted`; checking the refund status before the specified lag has passed will also return `submitted`; and checking the refund status after the lag has passed will return `success`.
 
 #### Payments
 
-Making a payment with Govpay essentially comes in 2 stages
+Making a payment with Govpay requires three steps:
 
 1. The app sends a JSON request to Govpay asking it to prepare for a new payment, and providing a unique identifier and a callback URL.
 2. Govpay subsequently invokes the callback URL, passing a Govpay URL to which the user should be redirected.

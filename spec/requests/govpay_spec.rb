@@ -50,7 +50,7 @@ module DefraRubyMocks
         context "when the request is missing a mandatory parameter" do
           before { payment_request[:amount] = nil }
 
-          it "returns a HTTP 500 responseß" do
+          it "returns a HTTP 500 response" do
             post path, params: payment_request.as_json
 
             expect(response.code).to eq "500"
@@ -90,6 +90,49 @@ module DefraRubyMocks
             get path
 
             expect(response.code).to eq "422"
+          end
+        end
+      end
+
+      describe "#create_refund" do
+        let(:payment_id) { "12345678901234567890123456" }
+        let(:path) { "/defra_ruby_mocks/govpay/v1/payments/#{payment_id}/refunds" }
+        let(:refund_request) do
+          {
+            "amount": 2000,
+            "refund_amount_available": 5000
+          }
+        end
+
+        context "when the request is missing a mandatory parameter" do
+          before { refund_request[:refund_amount_available] = nil }
+
+          it "returns a HTTP 500 response" do
+            post path, params: refund_request.as_json
+
+            expect(response.code).to eq "500"
+          end
+        end
+
+        context "with a valid request" do
+          it "returns a valid success response" do
+            post path, params: refund_request.as_json
+
+            expect(response.code).to eq "200"
+          end
+        end
+      end
+
+      describe "#refund_details" do
+        let(:payment_id) { "12345678901234567890123456" }
+        let(:refund_id) { "j6se0f2o427g28g8yg3u3i" }
+        let(:path) { "/defra_ruby_mocks/govpay/v1/payments/#{payment_id}/refunds/#{refund_id}" }
+
+        context "with a valid request" do
+          it "returns a valid success response" do
+            get path
+
+            expect(response.code).to eq "200"
           end
         end
       end

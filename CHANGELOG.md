@@ -1,5 +1,18 @@
 # Changelog
 
+## [Unreleased](https://github.com/DEFRA/defra-ruby-mocks/tree/HEAD)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v2.3.3...HEAD)
+
+**Implemented enhancements:**
+
+- Add support for govpay refunds [\#112](https://github.com/DEFRA/defra-ruby-mocks/pull/112) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+
+**Merged pull requests:**
+
+- Remove redundant Worldpay mocks [\#110](https://github.com/DEFRA/defra-ruby-mocks/pull/110) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+- Release 2.3.3 [\#108](https://github.com/DEFRA/defra-ruby-mocks/pull/108) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+
 ## [v2.3.3](https://github.com/DEFRA/defra-ruby-mocks/tree/v2.3.3) (2022-06-29)
 
 [Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v2.3.2...v2.3.3)

@@ -10,7 +10,7 @@ module DefraRubyMocks
       {
         "amount": amount,
         "created_date": "2019-09-19T16:53:03.213Z",
-        "refund_id": "j6se0f2o427g28g8yg3u3i",
+        "refund_id": SecureRandom.hex(22),
         "status": "submitted"
       }
     end

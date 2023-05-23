@@ -7,7 +7,7 @@ module DefraRubyMocks
       {
         "amount": 2000,
         "created_date": "2019-09-19T16:53:03.213Z",
-        "refund_id": "j6se0f2o427g28g8yg3u3i",
+        "refund_id": refund_id,
         "status": status,
         "settlement_summary": {
           "settled_date": "2019-09-21"

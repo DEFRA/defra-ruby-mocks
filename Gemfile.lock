@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    defra_ruby_mocks (2.4.0)
+    defra_ruby_mocks (2.4.1)
       rails (~> 6.0)
       sprockets (~> 3.7.2)
 

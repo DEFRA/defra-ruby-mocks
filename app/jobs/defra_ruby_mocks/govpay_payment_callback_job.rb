@@ -6,7 +6,7 @@ module DefraRubyMocks
 
     def perform(*response_url)
       Rails.logger.debug "GovpayPaymentCallbackJob calling response URL #{response_url}"
-      RestClient::Request.execute(method: :GET, url: response_url)
+      RestClient::Request.execute(method: :GET, url: response_url[0])
     rescue RestClient::ExceptionWithResponse => e
       Rails.logger.debug "GovpayPaymentCallbackJob: RestClient received response: #{e}"
     rescue StandardError => e

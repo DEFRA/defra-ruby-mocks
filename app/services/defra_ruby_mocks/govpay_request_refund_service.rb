@@ -8,10 +8,10 @@ module DefraRubyMocks
 
       # This currently supports only "submitted" status:
       {
-        "amount": amount,
-        "created_date": "2019-09-19T16:53:03.213Z",
-        "refund_id": SecureRandom.hex(22),
-        "status": "submitted"
+        amount: amount,
+        created_date: "2019-09-19T16:53:03.213Z",
+        refund_id: SecureRandom.hex(22),
+        status: "submitted"
       }
     end
 

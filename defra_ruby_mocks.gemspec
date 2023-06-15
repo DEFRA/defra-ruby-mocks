@@ -17,7 +17,6 @@ Gem::Specification.new do |s|
   s.license     = "The Open Government Licence (OGL) Version 3"
 
   s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
-  s.test_files = Dir["spec/**/*"]
 
   s.required_ruby_version = ">= 3.2.2"
 
@@ -26,6 +25,7 @@ Gem::Specification.new do |s|
   # sprockets-4.0.0 requires ruby version >= 2.5.0, which is incompatible with
   # the current version, ruby 2.4.2p198
   s.add_dependency "sprockets"
+  s.add_dependency "sprockets-rails"
 
   # Allows us to automatically generate the change log from the tags, issues,
   # labels and pull requests on GitHub. Added as a dependency so all dev's have
@@ -33,11 +33,5 @@ Gem::Specification.new do |s|
   # New dev's should first create GitHub personal app token and add it to their
   # ~/.bash_profile (or equivalent)
   # https://github.com/skywinder/github-changelog-generator#github-token
-  s.add_development_dependency "github_changelog_generator"
-
-  s.add_development_dependency "defra_ruby_style"
-  s.add_development_dependency "pry-byebug"
-  s.add_development_dependency "rails-controller-testing"
-  s.add_development_dependency "rspec-rails"
-  s.add_development_dependency "simplecov"
+  s.metadata["rubygems_mfa_required"] = "true"
 end

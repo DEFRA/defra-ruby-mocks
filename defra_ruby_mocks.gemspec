@@ -19,13 +19,13 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["spec/**/*"]
 
-  s.required_ruby_version = ">= 2.4"
+  s.required_ruby_version = ">= 3.2.2"
 
   s.add_dependency "rails", "~> 7.0"
 
   # sprockets-4.0.0 requires ruby version >= 2.5.0, which is incompatible with
   # the current version, ruby 2.4.2p198
-  s.add_dependency "sprockets", "~> 3.7.2"
+  s.add_dependency "sprockets"
 
   # Allows us to automatically generate the change log from the tags, issues,
   # labels and pull requests on GitHub. Added as a dependency so all dev's have
@@ -39,5 +39,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "pry-byebug"
   s.add_development_dependency "rails-controller-testing"
   s.add_development_dependency "rspec-rails"
-  s.add_development_dependency "simplecov", "~> 0.17.1"
+  s.add_development_dependency "simplecov"
 end

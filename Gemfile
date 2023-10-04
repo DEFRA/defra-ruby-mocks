@@ -15,7 +15,19 @@ gemspec
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
+group :development do
+  gem "defra_ruby_style"
+  gem "github_changelog_generator"
+  gem "pry-byebug"
+end
+
+group :development, :test do
+  gem "rspec-rails"
+end
+
 group :test do
   gem "faker"
+  gem "rails-controller-testing"
+  gem "simplecov"
   gem "timecop"
 end

@@ -99,8 +99,8 @@ module DefraRubyMocks
         let(:path) { "/defra_ruby_mocks/govpay/v1/payments/#{payment_id}/refunds" }
         let(:refund_request) do
           {
-            "amount": 2000,
-            "refund_amount_available": 5000
+            amount: 2000,
+            refund_amount_available: 5000
           }
         end
 

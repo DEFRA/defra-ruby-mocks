@@ -5,12 +5,12 @@ module DefraRubyMocks
 
     def run(payment_id:, refund_id:) # rubocop:disable Lint/UnusedMethodArgument
       {
-        "amount": 2000,
-        "created_date": "2019-09-19T16:53:03.213Z",
-        "refund_id": refund_id,
-        "status": status,
-        "settlement_summary": {
-          "settled_date": "2019-09-21"
+        amount: 2000,
+        created_date: "2019-09-19T16:53:03.213Z",
+        refund_id: refund_id,
+        status: status,
+        settlement_summary: {
+          settled_date: "2019-09-21"
         }
       }
     end

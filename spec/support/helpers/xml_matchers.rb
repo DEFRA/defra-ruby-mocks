@@ -4,13 +4,13 @@ require "rspec/expectations"
 
 RSpec::Matchers.define :be_xml do
   match do
-    begin
-      Nokogiri::XML(actual, &:strict)
 
-      true
-    rescue Nokogiri::XML::SyntaxError
-      false
-    end
+    Nokogiri::XML(actual, &:strict)
+
+    true
+  rescue Nokogiri::XML::SyntaxError
+    false
+
   end
 
   failure_message do |actual|

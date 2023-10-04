@@ -11,9 +11,7 @@ module DefraRubyMocks
     # SC534714, CE000958
     # IP00141R, IP27702R, SP02252R
     # https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/426891/uniformResourceIdentifiersCustomerGuide.pdf
-    VALID_COMPANIES_HOUSE_REGISTRATION_NUMBER_REGEX = Regexp.new(
-      /\A(\d{8,8}$)|([a-zA-Z]{2}\d{6}$)|([a-zA-Z]{2}\d{5}[a-zA-Z]{1}$)\z/i
-    ).freeze
+    VALID_COMPANIES_HOUSE_REGISTRATION_NUMBER_REGEX = /\A(\d{8,8}$)|([a-zA-Z]{2}\d{6}$)|([a-zA-Z]{2}\d{5}[a-zA-Z]{1}$)\z/i
 
     NOT_FOUND = "99999999"
 

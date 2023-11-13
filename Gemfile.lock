@@ -125,7 +125,7 @@ GEM
     drb (2.2.0)
       ruby2_keywords
     erubi (1.12.0)
-    faker (3.2.0)
+    faker (3.2.2)
       i18n (>= 1.8.11, < 2)
     faraday (2.7.6)
       faraday-net_http (>= 2.0, < 3.1)

@@ -15,7 +15,9 @@ module DefraRubyMocks
       let(:create_request_time) { Time.zone.now }
       let(:submitted_success_lag) { "10" }
 
-      subject { described_class.run(payment_id: payment_id, refund_id: refund_id).deep_symbolize_keys }
+      subject(:run_service) do
+        described_class.run(payment_id: payment_id, refund_id: refund_id).deep_symbolize_keys
+      end
 
       # the service shoud return "submitted" for up to GOVPAY_REFUND_SUBMITTED_SUCCESS_LAG seconds, "success" thereafter
       before do
@@ -25,7 +27,7 @@ module DefraRubyMocks
       end
 
       context "when no refund timestamp file exists" do
-        it { expect(subject[:status]).to eq "success" }
+        it { expect(run_service[:status]).to eq "success" }
       end
 
       context "when a refund has been requested" do
@@ -36,13 +38,13 @@ module DefraRubyMocks
         context "when less than 10 seconds has elapsed since the last create request" do
           before { Timecop.freeze(create_request_time + (submitted_success_lag.to_i - 8).seconds) }
 
-          it { expect(subject[:status]).to eq "submitted" }
+          it { expect(run_service[:status]).to eq "submitted" }
         end
 
         context "when 10 seconds has elapsed since the last create request" do
           before { Timecop.freeze(create_request_time + (submitted_success_lag.to_i + 8).seconds) }
 
-          it { expect(subject[:status]).to eq "success" }
+          it { expect(run_service[:status]).to eq "success" }
         end
 
         context "when GOVPAY_REFUND_SUBMITTED_SUCCESS_LAG is not set" do
@@ -50,7 +52,7 @@ module DefraRubyMocks
 
           before { Timecop.freeze(create_request_time + 1.hour) }
 
-          it { expect(subject[:status]).to eq "success" }
+          it { expect(run_service[:status]).to eq "success" }
         end
       end
     end

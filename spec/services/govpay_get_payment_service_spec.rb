@@ -13,16 +13,18 @@ module DefraRubyMocks
     # Note that the service currently supports only success responses.
     describe ".run" do
 
-      subject { described_class.run(payment_id: payment_id, amount: order_value).deep_symbolize_keys }
+      subject(:run_service) do
+        described_class.run(payment_id: payment_id, amount: order_value).deep_symbolize_keys
+      end
 
       context "when the payment is successful" do
 
         it "returns a payment with the order amount" do
-          expect(subject[:amount]).to eq(order_value)
+          expect(run_service[:amount]).to eq(order_value)
         end
 
         it "returns the expected status" do
-          expect(subject[:state][:status]).to eq("success")
+          expect(run_service[:state][:status]).to eq("success")
         end
       end
     end

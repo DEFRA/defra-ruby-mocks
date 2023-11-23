@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-DefraRubyMocks::Engine.routes.draw do
+DefraRubyMocks::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
   get "/company/:id",
       to: "company#show",
       as: "company",
@@ -15,6 +15,11 @@ DefraRubyMocks::Engine.routes.draw do
        to: "govpay#create_payment",
        as: "govpay_create_payment",
        constraints: ->(_request) { DefraRubyMocks.configuration.enabled? }
+
+  get "/govpay/v1/payments/secure/:uuid",
+      to: "govpay#next_url",
+      as: "govpay_next_url",
+      constraints: ->(_request) { DefraRubyMocks.configuration.enabled? }
 
   get "/govpay/v1/payments/:payment_id",
       to: "govpay#payment_details",

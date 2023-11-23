@@ -2,11 +2,42 @@
 
 ## [Unreleased](https://github.com/DEFRA/defra-ruby-mocks/tree/HEAD)
 
-[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v2.4.1...HEAD)
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v4.0.0...HEAD)
+
+**Fixed bugs:**
+
+- Fix/next url [\#137](https://github.com/DEFRA/defra-ruby-mocks/pull/137) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+
+**Merged pull requests:**
+
+- Bump timecop from 0.9.6 to 0.9.8 [\#138](https://github.com/DEFRA/defra-ruby-mocks/pull/138) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump rails from 7.0.5 to 7.1.2 [\#135](https://github.com/DEFRA/defra-ruby-mocks/pull/135) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump faker from 3.2.0 to 3.2.2 [\#134](https://github.com/DEFRA/defra-ruby-mocks/pull/134) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump defra\_ruby\_style from 0.3.0 to 0.4.0 [\#133](https://github.com/DEFRA/defra-ruby-mocks/pull/133) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump activesupport from 7.0.5 to 7.1.0 [\#131](https://github.com/DEFRA/defra-ruby-mocks/pull/131) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump actionpack from 7.0.5 to 7.1.0 [\#130](https://github.com/DEFRA/defra-ruby-mocks/pull/130) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump version to 4.0.0 [\#128](https://github.com/DEFRA/defra-ruby-mocks/pull/128) ([jjromeo](https://github.com/jjromeo))
+- Bump sprockets from 4.2.0 to 4.2.1 [\#127](https://github.com/DEFRA/defra-ruby-mocks/pull/127) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump timecop from 0.9.6 to 0.9.8 [\#126](https://github.com/DEFRA/defra-ruby-mocks/pull/126) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump protocol-http1 from 0.15.0 to 0.15.1 [\#122](https://github.com/DEFRA/defra-ruby-mocks/pull/122) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Upgrade to rails 7 [\#120](https://github.com/DEFRA/defra-ruby-mocks/pull/120) ([jjromeo](https://github.com/jjromeo))
+- Bump rails-html-sanitizer from 1.4.2 to 1.4.3 [\#109](https://github.com/DEFRA/defra-ruby-mocks/pull/109) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [v4.0.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v4.0.0) (2023-10-05)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v2.4.2...v4.0.0)
+
+## [v2.4.2](https://github.com/DEFRA/defra-ruby-mocks/tree/v2.4.2) (2023-06-06)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v2.4.1...v2.4.2)
 
 **Fixed bugs:**
 
 - Fix parameter handling in GovpayPaymentCallbackJob [\#118](https://github.com/DEFRA/defra-ruby-mocks/pull/118) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+
+**Merged pull requests:**
+
+- Release/v2.4.2 [\#119](https://github.com/DEFRA/defra-ruby-mocks/pull/119) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
 
 ## [v2.4.1](https://github.com/DEFRA/defra-ruby-mocks/tree/v2.4.1) (2023-05-23)
 

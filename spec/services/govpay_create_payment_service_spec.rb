@@ -6,7 +6,7 @@ module DefraRubyMocks
 
   RSpec.describe GovpayCreatePaymentService do
 
-    before(:each) do
+    before do
       Helpers::Configuration.prep_for_tests
       DefraRubyMocks.configure do |config|
         config.govpay_domain = "http://localhost:3000/defra_ruby_mocks"
@@ -19,24 +19,26 @@ module DefraRubyMocks
 
     describe ".run" do
 
-      subject { described_class.run(amount: amount, description: description, return_url: return_url).deep_symbolize_keys }
+      subject(:run_service) do
+        described_class.run(amount: amount, description: description).deep_symbolize_keys
+      end
 
-      context "for a valid payment request" do
+      context "with a valid payment request" do
 
         it "returns a payment response with the order amount" do
-          expect(subject[:amount]).to eq(amount)
+          expect(run_service[:amount]).to eq(amount)
         end
 
         it "returns a payment response with the description" do
-          expect(subject[:description]).to eq(description)
+          expect(run_service[:description]).to eq(description)
         end
 
         it "returns a payment response with the return_url" do
-          expect(subject[:_links][:next_url][:href]).to eq(return_url)
+          expect(run_service[:_links][:next_url][:href]).to eq(return_url)
         end
 
         it "returns the expected status" do
-          expect(subject[:state][:status]).to eq("created")
+          expect(run_service[:state][:status]).to eq("created")
         end
       end
     end

@@ -5,7 +5,7 @@ require "securerandom"
 module DefraRubyMocks
   class GovpayCreatePaymentService < BaseService
 
-    def run(amount:, description:, return_url:)
+    def run(amount:, description:)
       success_response.merge(
         {
           _links: {

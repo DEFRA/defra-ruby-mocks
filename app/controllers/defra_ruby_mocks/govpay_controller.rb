@@ -11,7 +11,7 @@ module DefraRubyMocks
       store_return_url(params[:return_url])
 
       render json: GovpayCreatePaymentService.new.run(
-        amount: params[:amount], description: params[:description], return_url: params[:return_url]
+        amount: params[:amount], description: params[:description]
       )
     rescue StandardError => e
       Rails.logger.error("MOCKS: Govpay payment creation error: #{e.message}")
@@ -19,7 +19,7 @@ module DefraRubyMocks
     end
 
     # This mocks the Govpay route which presents the payment details page to the user.
-    # We don't mock the actual payment details and payment confirmation pages - we go 
+    # We don't mock the actual payment details and payment confirmation pages - we go
     # straight to the application callback route.
     def next_url
       response_url = retrieve_return_url

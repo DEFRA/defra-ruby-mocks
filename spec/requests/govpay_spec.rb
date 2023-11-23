@@ -3,11 +3,11 @@
 require "rails_helper"
 
 module DefraRubyMocks
-  RSpec.describe "Govpay", type: :request do
-    after(:all) { Helpers::Configuration.reset_for_tests }
+  RSpec.describe "Govpay" do
+    after(:all) { Helpers::Configuration.reset_for_tests } # rubocop:disable RSpec/BeforeAfterAll
 
     context "when mocks are enabled" do
-      before(:each) do
+      before do
         Helpers::Configuration.prep_for_tests
         DefraRubyMocks.configure do |config|
           config.govpay_domain = "http://localhost:3000/defra_ruby_mocks"
@@ -15,7 +15,7 @@ module DefraRubyMocks
 
       end
 
-      context "#create_payment" do
+      describe "#create_payment" do
         let(:path) { "/defra_ruby_mocks/govpay/v1/payments" }
         # Use an example from the Govpay documentation
         let(:payment_request) do
@@ -28,24 +28,28 @@ module DefraRubyMocks
         end
 
         context "when the request is valid" do
+          let(:response_json) { JSON.parse(response.body) }
 
           before { post path, params: payment_request.as_json }
 
           it "returns a valid success response" do
             aggregate_failures do
               expect(response.media_type).to eq("application/json")
-              expect(response.code).to eq("200")
+              expect(response).to have_http_status(:ok)
             end
           end
 
           it "returns the expected payload values" do
-            response_json = JSON.parse(response.body)
-            aggregate_failures do
-              expect(response_json["reference"]).to eq payment_request[:reference]
-              expect(response_json["amount"]).to eq payment_request[:amount]
-              expect(response_json["description"]).to eq payment_request[:description]
-              expect(response_json["_links"]["next_url"]["href"]).to eq File.join(DefraRubyMocks.configuration.govpay_domain, "/payments/secure/next-url-uuid-abc123")
-            end
+            expect(response_json).to include(
+              "reference" => payment_request[:reference],
+              "amount" => payment_request[:amount],
+              "description" => payment_request[:description]
+            )
+          end
+
+          it "returns the correct next_url value" do
+            expect(response_json["_links"]["next_url"]["href"])
+              .to eq File.join(DefraRubyMocks.configuration.govpay_domain, "/payments/secure/next-url-uuid-abc123")
           end
         end
 
@@ -55,7 +59,7 @@ module DefraRubyMocks
           it "returns a HTTP 500 response" do
             post path, params: payment_request.as_json
 
-            expect(response.code).to eq "500"
+            expect(response).to have_http_status :internal_server_error
           end
         end
       end
@@ -75,7 +79,7 @@ module DefraRubyMocks
           it "returns a valid success response" do
             get path
 
-            expect(response.code).to eq "200"
+            expect(response).to have_http_status :ok
           end
         end
 
@@ -91,7 +95,7 @@ module DefraRubyMocks
           it "returns a 422 response" do
             get path
 
-            expect(response.code).to eq "422"
+            expect(response).to have_http_status :unprocessable_entity
           end
         end
       end
@@ -112,7 +116,7 @@ module DefraRubyMocks
           it "returns a HTTP 500 response" do
             post path, params: refund_request.as_json
 
-            expect(response.code).to eq "500"
+            expect(response).to have_http_status :internal_server_error
           end
         end
 
@@ -120,7 +124,7 @@ module DefraRubyMocks
           it "returns a valid success response" do
             post path, params: refund_request.as_json
 
-            expect(response.code).to eq "200"
+            expect(response).to have_http_status :ok
           end
         end
       end
@@ -134,17 +138,18 @@ module DefraRubyMocks
           it "returns a valid success response" do
             get path
 
-            expect(response.code).to eq "200"
+            expect(response).to have_http_status :ok
           end
         end
       end
     end
 
     context "when mocks are disabled" do
-      before(:each) { DefraRubyMocks.configuration.enable = false }
+      before { DefraRubyMocks.configuration.enable = false }
+
       let(:payment_id) { Faker::Alphanumeric.alphanumeric(number: 26) }
 
-      context "POST #govpay_payments" do
+      context "with POST #govpay_payments" do
         let(:path) { "/defra_ruby_mocks/govpay/payments" }
 
         it "cannot load the page" do
@@ -152,7 +157,7 @@ module DefraRubyMocks
         end
       end
 
-      context "GET #govpay_payments" do
+      context "with GET #govpay_payments" do
         let(:path) { "/defra_ruby_mocks/govpay/payments/#{payment_id}" }
 
         it "cannot load the page" do
@@ -160,7 +165,7 @@ module DefraRubyMocks
         end
       end
 
-      context "#govpay_refunds" do
+      describe "with #govpay_refunds" do
         let(:path) { "/defra_ruby_mocks/govpay/#{payment_id}/refunds" }
 
         it "cannot load the page" do

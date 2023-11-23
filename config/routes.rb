@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-DefraRubyMocks::Engine.routes.draw do
+DefraRubyMocks::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
   get "/company/:id",
       to: "company#show",
       as: "company",

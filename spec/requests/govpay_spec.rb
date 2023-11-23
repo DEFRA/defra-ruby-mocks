@@ -29,21 +29,23 @@ module DefraRubyMocks
 
         context "when the request is valid" do
 
-          it "returns a valid success response" do
-            post path, params: payment_request.as_json
+          before { post path, params: payment_request.as_json }
 
-            expect(response.media_type).to eq("application/json")
-            expect(response.code).to eq("200")
-            response_json = JSON.parse(response.body)
-            expect(response_json["reference"]).to eq payment_request[:reference]
-            expect(response_json["amount"]).to eq payment_request[:amount]
-            expect(response_json["description"]).to eq payment_request[:description]
-            expect(response_json["_links"]["next_url"]["href"]).to eq payment_request[:return_url]
+          it "returns a valid success response" do
+            aggregate_failures do
+              expect(response.media_type).to eq("application/json")
+              expect(response.code).to eq("200")
+            end
           end
 
-          it "enqueues a job to perform the payment callback" do
-            ActiveJob::Base.queue_adapter = :test
-            expect { post path, params: payment_request.as_json }.to have_enqueued_job(GovpayPaymentCallbackJob)
+          it "returns the expected payload values" do
+            response_json = JSON.parse(response.body)
+            aggregate_failures do
+              expect(response_json["reference"]).to eq payment_request[:reference]
+              expect(response_json["amount"]).to eq payment_request[:amount]
+              expect(response_json["description"]).to eq payment_request[:description]
+              expect(response_json["_links"]["next_url"]["href"]).to eq File.join(DefraRubyMocks.configuration.govpay_domain, "/payments/secure/next-url-uuid-abc123")
+            end
           end
         end
 

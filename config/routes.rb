@@ -16,6 +16,11 @@ DefraRubyMocks::Engine.routes.draw do
        as: "govpay_create_payment",
        constraints: ->(_request) { DefraRubyMocks.configuration.enabled? }
 
+  get "/govpay/v1/payments/secure/:uuid",
+      to: "govpay#next_url",
+      as: "govpay_next_url",
+      constraints: ->(_request) { DefraRubyMocks.configuration.enabled? }
+
   get "/govpay/v1/payments/:payment_id",
       to: "govpay#payment_details",
       as: "govpay_payment_details",

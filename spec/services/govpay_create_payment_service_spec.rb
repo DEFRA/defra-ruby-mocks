@@ -15,7 +15,7 @@ module DefraRubyMocks
 
     let(:amount) { Faker::Number.number(digits: 4) }
     let(:description) { Faker::Lorem.sentence }
-    let(:return_url) { Faker::Internet.url }
+    let(:return_url) { File.join(DefraRubyMocks.configuration.govpay_domain, "/payments/secure/next-url-uuid-abc123") }
 
     describe ".run" do
 

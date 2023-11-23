@@ -8,8 +8,7 @@ module DefraRubyMocks
     def create_payment
       valid_create_params
 
-      # Enqueue the payment callback to run after the controller responds
-      DefraRubyMocks::GovpayPaymentCallbackJob.perform_later(params[:return_url])
+      store_return_url(params[:return_url])
 
       render json: GovpayCreatePaymentService.new.run(
         amount: params[:amount], description: params[:description], return_url: params[:return_url]
@@ -17,6 +16,21 @@ module DefraRubyMocks
     rescue StandardError => e
       Rails.logger.error("MOCKS: Govpay payment creation error: #{e.message}")
       head 500
+    end
+
+    # This mocks the Govpay route which presents the payment details page to the user.
+    # We don't mock the actual payment details and payment confirmation pages - we go 
+    # straight to the application callback route.
+    def next_url
+      response_url = retrieve_return_url
+      Rails.logger.warn "Govpay mock calling response URL #{response_url}"
+      redirect_to response_url
+      # RestClient::Request.execute(method: :GET, url: response_url)
+    rescue RestClient::ExceptionWithResponse => e
+      Rails.logger.warn "Govpay mock: RestClient received response: #{e}"
+    rescue StandardError => e
+      Rails.logger.error("Govpay mock: Error sending request to govpay: #{e}")
+      Airbrake.notify(e, message: "Error on govpay request")
     end
 
     def payment_details
@@ -42,6 +56,22 @@ module DefraRubyMocks
     rescue StandardError => e
       Rails.logger.error("MOCKS: Govpay refund error: #{e.message}")
       head 500
+    end
+
+    private
+
+    # We need to persist the return_url between the initial payment creation request and the execution of next_url
+    def return_url_filepath
+      "#{Dir.tmpdir}/last_return_url"
+    end
+
+    def store_return_url(return_url)
+      Rails.logger.warn ":::::: storing return_url #{return_url}"
+      File.write(return_url_filepath, return_url)
+    end
+
+    def retrieve_return_url
+      File.read(return_url_filepath)
     end
 
     def valid_create_params

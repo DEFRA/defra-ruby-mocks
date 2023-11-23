@@ -5,12 +5,12 @@ require "securerandom"
 module DefraRubyMocks
   class GovpayCreatePaymentService < BaseService
 
-    def run(amount:, description:, return_url:)
+    def run(amount:, description:)
       success_response.merge(
         {
           _links: {
             self: { href: "#{base_url}/#{payment_id}", method: "GET" },
-            next_url: { href: return_url, method: "GET" }
+            next_url: { href: "#{base_url}/secure/next-url-uuid-abc123", method: "GET" }
           },
           amount: amount.to_i,
           description: description,

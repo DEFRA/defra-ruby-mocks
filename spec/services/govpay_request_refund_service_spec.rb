@@ -14,16 +14,18 @@ module DefraRubyMocks
     # Note that the service currently supports only "submitted" responses.
     describe ".run" do
 
-      subject { described_class.run(payment_id: payment_id, amount: amount, refund_amount_available: refund_amount_available).deep_symbolize_keys }
+      subject(:run_service) do
+        described_class.run(payment_id: payment_id, amount: amount, refund_amount_available: refund_amount_available).deep_symbolize_keys
+      end
 
       context "when the refund has been successfully submitted" do
 
         it "returns a response with the expected status" do
-          expect(subject[:status]).to eq("submitted")
+          expect(run_service[:status]).to eq("submitted")
         end
 
         it "returns a response with the expected amount" do
-          expect(subject[:amount]).to eq(amount)
+          expect(run_service[:amount]).to eq(amount)
         end
       end
     end

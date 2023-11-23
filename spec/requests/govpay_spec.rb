@@ -4,8 +4,6 @@ require "rails_helper"
 
 module DefraRubyMocks
   RSpec.describe "Govpay" do
-    after(:all) { Helpers::Configuration.reset_for_tests } # rubocop:disable RSpec/BeforeAfterAll
-
     context "when mocks are enabled" do
       before do
         Helpers::Configuration.prep_for_tests

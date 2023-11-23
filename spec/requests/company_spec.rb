@@ -4,8 +4,6 @@ require "rails_helper"
 
 module DefraRubyMocks
   RSpec.describe "Company" do
-    after(:all) { Helpers::Configuration.reset_for_tests } # rubocop:disable RSpec/BeforeAfterAll
-
     let(:path) { "/defra_ruby_mocks/company" }
 
     context "when mocks are enabled" do
@@ -95,7 +93,7 @@ module DefraRubyMocks
     end
 
     context "when mocks are disabled" do
-      before(:all) { DefraRubyMocks.configuration.enable = false } # rubocop:disable RSpec/BeforeAfterAll
+      before { DefraRubyMocks.configuration.enable = false }
 
       let(:company_number) { "SC247974" }
 

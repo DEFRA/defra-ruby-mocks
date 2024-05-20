@@ -24,7 +24,7 @@ module DefraRubyMocks
     def next_url
       response_url = retrieve_return_url
       Rails.logger.warn "Govpay mock calling response URL #{response_url}"
-      redirect_to response_url
+      redirect_to response_url, allow_other_host: true
     rescue RestClient::ExceptionWithResponse => e
       Rails.logger.warn "Govpay mock: RestClient received response: #{e}"
     rescue StandardError => e

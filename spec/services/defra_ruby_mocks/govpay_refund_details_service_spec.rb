@@ -12,8 +12,8 @@ module DefraRubyMocks
 
     # Note that the service currently supports only success responses.
     describe ".run" do
-      let(:create_request_time) { Time.zone.now }
       let(:submitted_success_lag) { "10" }
+      let(:aws_bucket_service) { instance_double(AwsBucketService) }
 
       subject(:run_service) do
         described_class.run(payment_id: payment_id, refund_id: refund_id).deep_symbolize_keys
@@ -21,9 +21,11 @@ module DefraRubyMocks
 
       # the service shoud return "submitted" for up to GOVPAY_REFUND_SUBMITTED_SUCCESS_LAG seconds, "success" thereafter
       before do
-        Timecop.freeze(create_request_time)
+        allow(ENV).to receive(:fetch)
         allow(ENV).to receive(:fetch).with("GOVPAY_REFUND_SUBMITTED_SUCCESS_LAG", any_args).and_return(submitted_success_lag)
-        FileUtils.rm_rf("#{Dir.tmpdir}/govpay_request_refund_service_last_run_time")
+        allow(AwsBucketService).to receive(:new).and_return(aws_bucket_service)
+        allow(aws_bucket_service).to receive(:write)
+        allow(aws_bucket_service).to receive(:read)
       end
 
       context "when no refund timestamp file exists" do
@@ -31,26 +33,32 @@ module DefraRubyMocks
       end
 
       context "when a refund has been requested" do
+
         before do
-          GovpayRequestRefundService.run(payment_id: payment_id, amount: 100, refund_amount_available: 100).deep_symbolize_keys
+          Timecop.freeze(last_request_time) do
+            GovpayRequestRefundService.run(payment_id: payment_id, amount: 100, refund_amount_available: 100).deep_symbolize_keys
+          end
+          allow(aws_bucket_service).to receive(:read).and_return(last_request_time.to_s)
         end
 
         context "when less than 10 seconds has elapsed since the last create request" do
-          before { Timecop.freeze(create_request_time + (submitted_success_lag.to_i - 8).seconds) }
+          let(:last_request_time) { Time.zone.now - 8.seconds }
 
           it { expect(run_service[:status]).to eq "submitted" }
         end
 
         context "when 10 seconds has elapsed since the last create request" do
-          before { Timecop.freeze(create_request_time + (submitted_success_lag.to_i + 8).seconds) }
+          let(:last_request_time) { Time.zone.now - 11.seconds }
 
-          it { expect(run_service[:status]).to eq "success" }
+          it do
+            puts "spec time now #{Time.zone.now}"
+            expect(run_service[:status]).to eq "success"
+          end
         end
 
         context "when GOVPAY_REFUND_SUBMITTED_SUCCESS_LAG is not set" do
+          let(:last_request_time) { nil }
           let(:submitted_success_lag) { nil }
-
-          before { Timecop.freeze(create_request_time + 1.hour) }
 
           it { expect(run_service[:status]).to eq "success" }
         end

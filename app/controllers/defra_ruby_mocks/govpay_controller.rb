@@ -25,7 +25,6 @@ module DefraRubyMocks
       response_url = retrieve_return_url
       Rails.logger.warn "Govpay mock calling response URL #{response_url}"
       redirect_to response_url
-      # RestClient::Request.execute(method: :GET, url: response_url)
     rescue RestClient::ExceptionWithResponse => e
       Rails.logger.warn "Govpay mock: RestClient received response: #{e}"
     rescue StandardError => e
@@ -60,18 +59,23 @@ module DefraRubyMocks
 
     private
 
-    # We need to persist the return_url between the initial payment creation request and the execution of next_url
-    def return_url_filepath
-      "#{Dir.tmpdir}/last_return_url"
+    def s3_bucket_name
+      @s3_bucket_name = ENV.fetch("GOVPAY_MOCKS_BUCKET", "defra-ruby-mocks-s3bkt001")
     end
 
+    def return_url_file_name
+      @return_url_file_name = "return_url_file"
+    end
+
+    # We need to persist the return_url between the initial payment creation request and the execution of next_url.
+    # We can't use tmp for multi-server environments so we load the temp file to AWS S3.
     def store_return_url(return_url)
       Rails.logger.warn ":::::: storing return_url #{return_url}"
-      File.write(return_url_filepath, return_url)
+      AwsBucketService.write(s3_bucket_name, return_url_file_name, return_url)
     end
 
     def retrieve_return_url
-      File.read(return_url_filepath)
+      AwsBucketService.read(s3_bucket_name, return_url_file_name)
     end
 
     def valid_create_params

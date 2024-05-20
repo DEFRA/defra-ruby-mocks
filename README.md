@@ -178,7 +178,7 @@ In order to use the govpay mock you'll need to provide additional configuration 
 require "defra_ruby_mocks"
 
 DefraRubyMocks.configure do |config|
-  config.govpay_domain = File.join(ENV["WCRS_GOVPAY_DOMAIN"] || "http://localhost:3002", "/fo/mocks/govpay/v1")
+  config.govpay_domain = File.join(ENV["WCRS_GOVPAY_MOCK_DOMAIN"] || "http://localhost:3002", "/fo/mocks/govpay/v1")
 end
 ```
 

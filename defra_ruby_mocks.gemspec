@@ -22,12 +22,10 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 7.0"
 
-  # sprockets-4.0.0 requires ruby version >= 2.5.0, which is incompatible with
-  # the current version, ruby 2.4.2p198
-  s.add_dependency "sprockets"
-  s.add_dependency "sprockets-rails"
+  s.add_dependency "sprockets", "~> 4.0"
+  s.add_dependency "sprockets-rails", "~> 3.0"
 
-  s.add_dependency "defra_ruby_aws"
+  s.add_dependency "defra_ruby_aws", "~> 0.5"
 
   s.metadata["rubygems_mfa_required"] = "true"
 end

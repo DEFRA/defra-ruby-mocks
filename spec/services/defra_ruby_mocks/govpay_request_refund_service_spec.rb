@@ -8,8 +8,13 @@ module DefraRubyMocks
     let(:payment_id) { SecureRandom.hex(26) }
     let(:amount) { 2000 }
     let(:refund_amount_available) { amount }
+    let(:aws_bucket_service) { instance_double(AwsBucketService) }
 
-    before { Helpers::Configuration.prep_for_tests }
+    before do
+      Helpers::Configuration.prep_for_tests
+      allow(AwsBucketService).to receive(:write)
+      allow(AwsBucketService).to receive(:read)
+    end
 
     # Note that the service currently supports only "submitted" responses.
     describe ".run" do

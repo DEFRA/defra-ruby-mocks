@@ -2,11 +2,23 @@
 
 ## [Unreleased](https://github.com/DEFRA/defra-ruby-mocks/tree/HEAD)
 
-[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v4.1.0...HEAD)
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v4.2.0...HEAD)
+
+**Merged pull requests:**
+
+- Fix/require defra ruby aws [\#157](https://github.com/DEFRA/defra-ruby-mocks/pull/157) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+
+## [v4.2.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v4.2.0) (2024-05-21)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v4.1.0...v4.2.0)
 
 **Fixed bugs:**
 
 - Fix/govpay mocks [\#155](https://github.com/DEFRA/defra-ruby-mocks/pull/155) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+
+**Merged pull requests:**
+
+- Release/v4.2.0 [\#156](https://github.com/DEFRA/defra-ruby-mocks/pull/156) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
 
 ## [v4.1.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v4.1.0) (2023-11-24)
 

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "defra_ruby/aws"
+
 module DefraRubyMocks
   class AwsBucketService
 

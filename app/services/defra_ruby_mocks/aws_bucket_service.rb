@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "aws-sdk-s3"
 require "defra_ruby/aws"
 
 module DefraRubyMocks
@@ -18,6 +19,7 @@ module DefraRubyMocks
     def write(bucket_name, file_name, content)
       @bucket_name = bucket_name
       @file_name = file_name
+      Rails.logger.debug ":::::: mocks writing to S3"
 
       write_temp_file(content)
 
@@ -27,12 +29,18 @@ module DefraRubyMocks
     end
 
     def read(bucket_name, file_name)
-      Rails.logger.warn ":::::: reading from S3"
+      @bucket_name = bucket_name
+      @file_name = file_name
+      Rails.logger.debug ":::::: mocks reading from S3"
 
-      s3 = Aws::S3::Client.new
-      s3.get_object(bucket: bucket_name, key: file_name)
-    rescue Aws::S3::NoSuchBucket => e
-      raise StandardError, e
+      s3 = Aws::S3::Client.new(
+        region: ENV.fetch("AWS_REGION", nil),
+        credentials: Aws::Credentials.new(
+          ENV.fetch("AWS_WEEKLY_EXPORT_ACCESS_KEY_ID", nil),
+          ENV.fetch("AWS_WEEKLY_EXPORT_SECRET_ACCESS_KEY", nil)
+        )
+      )
+      s3.get_object(bucket: bucket_name, key: file_name).body.read
     end
 
     private
@@ -42,12 +50,12 @@ module DefraRubyMocks
     end
 
     def write_temp_file(content)
-      Rails.logger.warn ":::::: creating temp file for #{content}"
+      Rails.logger.debug ":::::: mocks creating temp file for #{content}"
       File.write(temp_filepath, content)
     end
 
     def load_temp_file_to_s3
-      Rails.logger.warn ":::::: loading temp file to S3"
+      Rails.logger.debug ":::::: mocks loading temp file to S3 bucket #{bucket_name}"
 
       result = nil
 

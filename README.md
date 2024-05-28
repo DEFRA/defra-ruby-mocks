@@ -171,10 +171,10 @@ This Govpay mock replicates those 2 interactions with the following url
 
 #### Configuration
 
-In order to use the govpay mock you'll need to provide additional configuration details
+In order to use the govpay mock you'll need to provide additional configuration details:
 
 ```ruby
-# config/initializers/defra_ruby_mocks.rb
+config/initializers/defra_ruby_mocks.rb
 require "defra_ruby_mocks"
 
 DefraRubyMocks.configure do |config|
@@ -183,6 +183,26 @@ end
 ```
 
 The domain is used when generating the URL we tell the app to redirect users to. As this is just an engine and not a standalone service, we need to tell it what domain it is running from.
+
+You'll also need to provide AWS configuration details for the mocks, for example:
+
+```ruby
+require "defra_ruby/aws"
+
+DefraRuby::Aws.configure do |c|
+  govpay_mocks_bucket = {
+    name: ENV.fetch("AWS_DEFRA_RUBY_MOCKS_BUCKET", nil),
+    region: ENV.fetch("AWS_REGION", nil),
+    credentials: {
+      access_key_id: ENV.fetch("AWS_DEFRA_RUBY_MOCKS_ACCESS_KEY_ID", nil),
+      secret_access_key: ENV.fetch("AWS_DEFRA_RUBY_MOCKS_SECRET_ACCESS_KEY", nil)
+    },
+    encrypt_with_kms: ENV.fetch("AWS_DEFRA_RUBY_MOCKS_ENCRYPT_WITH_KMS", nil)
+  }
+
+  c.buckets = [govpay_mocks_bucket]
+end
+```
 
 ```ruby
 mount DefraRubyMocks::Engine => "/mocks"

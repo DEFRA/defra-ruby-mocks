@@ -2,10 +2,19 @@
 
 ## [Unreleased](https://github.com/DEFRA/defra-ruby-mocks/tree/HEAD)
 
-[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v4.2.0...HEAD)
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v4.2.1...HEAD)
+
+**Fixed bugs:**
+
+- fix/RUBY-2919\_aws\_credentials [\#159](https://github.com/DEFRA/defra-ruby-mocks/pull/159) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+
+## [v4.2.1](https://github.com/DEFRA/defra-ruby-mocks/tree/v4.2.1) (2024-05-23)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v4.2.0...v4.2.1)
 
 **Merged pull requests:**
 
+- Release/v4.2.1 [\#158](https://github.com/DEFRA/defra-ruby-mocks/pull/158) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
 - Fix/require defra ruby aws [\#157](https://github.com/DEFRA/defra-ruby-mocks/pull/157) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
 
 ## [v4.2.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v4.2.0) (2024-05-21)

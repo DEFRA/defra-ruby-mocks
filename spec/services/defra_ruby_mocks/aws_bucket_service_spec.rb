@@ -34,6 +34,7 @@ module DefraRubyMocks
 
     describe ".read" do
       let(:expected_content) { Faker::Lorem.sentence }
+      let(:aws_response) { instance_double(Aws::S3::Types::GetObjectOutput, body: StringIO.new(expected_content)) }
       let(:s3_client) { instance_double(Aws::S3::Client) }
 
       subject(:read_bucket) { described_class.read(s3_bucket_name, "a_file_name") }
@@ -47,7 +48,7 @@ module DefraRubyMocks
       end
 
       context "when bucket#read succeeds" do
-        before { allow(s3_client).to receive(:get_object).and_return(expected_content) }
+        before { allow(s3_client).to receive(:get_object).and_return(aws_response) }
 
         it { expect(read_bucket).to eq(expected_content) }
       end

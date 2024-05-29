@@ -36,8 +36,8 @@ module DefraRubyMocks
       s3 = Aws::S3::Client.new(
         region: ENV.fetch("AWS_REGION", nil),
         credentials: Aws::Credentials.new(
-          ENV.fetch("AWS_WEEKLY_EXPORT_ACCESS_KEY_ID", nil),
-          ENV.fetch("AWS_WEEKLY_EXPORT_SECRET_ACCESS_KEY", nil)
+          ENV.fetch("AWS_DEFRA_RUBY_MOCKS_ACCESS_KEY_ID", nil),
+          ENV.fetch("AWS_DEFRA_RUBY_MOCKS_SECRET_ACCESS_KEY", nil)
         )
       )
       s3.get_object(bucket: bucket_name, key: file_name).body.read

@@ -6,6 +6,10 @@ jobs:
   build:
     # You must use a Linux environment when using service containers or container jobs
     runs-on: ubuntu-latest
+    env:
+      AWS_DEFRA_RUBY_MOCKS_BUCKET: 6543
+      AWS_DEFRA_RUBY_MOCKS_SECRET_ACCESS_KEY: 123
+      AWS_DEFRA_RUBY_MOCKS_ACCESS_KEY_ID: 234
 
     steps:
       # Downloads a copy of the code in your repository before running CI tests

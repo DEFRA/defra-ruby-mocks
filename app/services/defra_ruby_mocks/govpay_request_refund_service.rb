@@ -19,9 +19,16 @@ module DefraRubyMocks
 
     # let the refund details service know how long since the refund was requested
     def write_timestamp
-      filepath = "#{Dir.tmpdir}/govpay_request_refund_service_last_run_time"
-      # FileUtils.touch seems unreliable in VM so need to write/read the actual time
-      File.write(filepath, Time.zone.now)
+      Rails.logger.warn ":::::: storing refund request timestamp"
+      AwsBucketService.write(s3_bucket_name, timestamp_file_name, Time.zone.now.to_s)
+    end
+
+    def s3_bucket_name
+      @s3_bucket_name = ENV.fetch("AWS_DEFRA_RUBY_MOCKS_BUCKET", nil)
+    end
+
+    def timestamp_file_name
+      @timestamp_file_name = "govpay_request_refund_service_last_run_time"
     end
   end
 end

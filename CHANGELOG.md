@@ -2,7 +2,48 @@
 
 ## [Unreleased](https://github.com/DEFRA/defra-ruby-mocks/tree/HEAD)
 
-[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v4.0.0...HEAD)
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v4.2.2...HEAD)
+
+**Fixed bugs:**
+
+- \[RUBY-3230\] Fix incorrect environment variable for S3 bucket in Defra Ruby Mocks [\#178](https://github.com/DEFRA/defra-ruby-mocks/pull/178) ([jjromeo](https://github.com/jjromeo))
+
+## [v4.2.2](https://github.com/DEFRA/defra-ruby-mocks/tree/v4.2.2) (2024-05-29)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v4.2.1...v4.2.2)
+
+**Fixed bugs:**
+
+- fix/RUBY-2919\_aws\_credentials [\#159](https://github.com/DEFRA/defra-ruby-mocks/pull/159) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+
+**Merged pull requests:**
+
+- Release/v4.2.2 [\#160](https://github.com/DEFRA/defra-ruby-mocks/pull/160) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+
+## [v4.2.1](https://github.com/DEFRA/defra-ruby-mocks/tree/v4.2.1) (2024-05-23)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v4.2.0...v4.2.1)
+
+**Merged pull requests:**
+
+- Release/v4.2.1 [\#158](https://github.com/DEFRA/defra-ruby-mocks/pull/158) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+- Fix/require defra ruby aws [\#157](https://github.com/DEFRA/defra-ruby-mocks/pull/157) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+
+## [v4.2.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v4.2.0) (2024-05-21)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v4.1.0...v4.2.0)
+
+**Fixed bugs:**
+
+- Fix/govpay mocks [\#155](https://github.com/DEFRA/defra-ruby-mocks/pull/155) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+
+**Merged pull requests:**
+
+- Release/v4.2.0 [\#156](https://github.com/DEFRA/defra-ruby-mocks/pull/156) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+
+## [v4.1.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v4.1.0) (2023-11-24)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v4.0.0...v4.1.0)
 
 **Fixed bugs:**
 
@@ -10,6 +51,7 @@
 
 **Merged pull requests:**
 
+- Release/v4.1.0 [\#139](https://github.com/DEFRA/defra-ruby-mocks/pull/139) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
 - Bump timecop from 0.9.6 to 0.9.8 [\#138](https://github.com/DEFRA/defra-ruby-mocks/pull/138) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump rails from 7.0.5 to 7.1.2 [\#135](https://github.com/DEFRA/defra-ruby-mocks/pull/135) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump faker from 3.2.0 to 3.2.2 [\#134](https://github.com/DEFRA/defra-ruby-mocks/pull/134) ([dependabot[bot]](https://github.com/apps/dependabot))

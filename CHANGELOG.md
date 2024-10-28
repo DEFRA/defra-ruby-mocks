@@ -2,11 +2,23 @@
 
 ## [Unreleased](https://github.com/DEFRA/defra-ruby-mocks/tree/HEAD)
 
-[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v4.2.1...HEAD)
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v4.2.2...HEAD)
+
+**Fixed bugs:**
+
+- \[RUBY-3230\] Fix incorrect environment variable for S3 bucket in Defra Ruby Mocks [\#178](https://github.com/DEFRA/defra-ruby-mocks/pull/178) ([jjromeo](https://github.com/jjromeo))
+
+## [v4.2.2](https://github.com/DEFRA/defra-ruby-mocks/tree/v4.2.2) (2024-05-29)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v4.2.1...v4.2.2)
 
 **Fixed bugs:**
 
 - fix/RUBY-2919\_aws\_credentials [\#159](https://github.com/DEFRA/defra-ruby-mocks/pull/159) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+
+**Merged pull requests:**
+
+- Release/v4.2.2 [\#160](https://github.com/DEFRA/defra-ruby-mocks/pull/160) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
 
 ## [v4.2.1](https://github.com/DEFRA/defra-ruby-mocks/tree/v4.2.1) (2024-05-23)
 

@@ -40,7 +40,7 @@ module DefraRubyMocks
     end
 
     def s3_bucket_name
-      @s3_bucket_name = ENV.fetch("GOVPAY_MOCKS_BUCKET", "defra-ruby-mocks-s3bkt001")
+      @s3_bucket_name = ENV.fetch("AWS_DEFRA_RUBY_MOCKS_BUCKET", nil)
     end
 
     def timestamp_file_name

@@ -2,8 +2,13 @@
 
 require "rails_helper"
 
+# for url_encode:
+require "erb"
+
 module DefraRubyMocks
   RSpec.describe "Govpay" do
+    include ERB::Util
+
     let(:base_mocks_url) { File.join(DefraRubyMocks.configuration.govpay_domain, "/govpay/v1/payments") }
 
     context "when mocks are enabled" do
@@ -17,8 +22,9 @@ module DefraRubyMocks
         end
 
         allow(AwsBucketService).to receive(:new).and_return(aws_bucket_service)
-        allow(aws_bucket_service).to receive(:write)
         allow(aws_bucket_service).to receive(:read)
+        allow(aws_bucket_service).to receive(:write)
+        allow(aws_bucket_service).to receive(:remove)
       end
 
       describe "#create_payment" do
@@ -33,18 +39,18 @@ module DefraRubyMocks
           }
         end
 
-        before { allow(aws_bucket_service).to receive(:write) }
-
         context "when the request is valid" do
-          let(:response_json) { JSON.parse(response.body) }
-
           before { post path, params: payment_request.as_json }
 
-          it "returns a valid success response" do
+          it "returns a valid HTML response" do
             aggregate_failures do
               expect(response.media_type).to eq("application/json")
               expect(response).to have_http_status(:ok)
             end
+          end
+
+          it "returns the default 'created' payment status" do
+            expect(response_json["state"]["status"]).to eq "created"
           end
 
           it "returns the expected payload values" do
@@ -65,14 +71,20 @@ module DefraRubyMocks
           end
         end
 
+        # This is just a test helper, so just confirm that it attempts to write to S3
+        describe "#set_test_payment_response_status" do
+          before { get "/defra_ruby_mocks/govpay/v1/payments/set_test_payment_response_status/submitted" }
+
+          it { expect(aws_bucket_service).to have_received(:write) }
+        end
+
         describe "#next_url" do
-          let(:path) { "#{base_mocks_url}/secure/123" }
           let(:return_url) { Faker::Internet.url }
 
           before do
             allow(aws_bucket_service).to receive(:read).and_return(return_url)
 
-            get path
+            get "#{base_mocks_url}/secure/123"
           end
 
           it "redirects to the correct URL" do

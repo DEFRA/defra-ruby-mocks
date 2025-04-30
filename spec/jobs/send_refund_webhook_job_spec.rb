@@ -1,0 +1,31 @@
+# frozen_string_literal: true
+
+require "rails_helper"
+require "restclient"
+
+RSpec.describe SendRefundWebhookJob do
+
+  describe "#perform" do
+    subject(:run_job) { described_class.new.perform(govpay_id:, refund_status:, callback_url:, signing_secret:) }
+
+    let(:govpay_id) { SecureRandom.hex }
+    let(:signing_secret) { SecureRandom.hex(16) }
+    let(:refund_status) { "success" }
+    let(:callback_url) { Faker::Internet.url }
+
+    let(:http_client) { instance_double(RestClient::Request) }
+
+    before do
+      allow(RestClient::Request).to receive(:new).and_return(http_client)
+      allow(http_client).to receive(:execute)
+    end
+
+    it { expect { run_job }.not_to raise_error }
+
+    it "sends the webhook" do
+      run_job
+
+      expect(http_client).to have_received(:execute) # .with(method: :get)
+    end
+  end
+end

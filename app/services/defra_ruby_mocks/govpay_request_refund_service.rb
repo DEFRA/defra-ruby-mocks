@@ -6,16 +6,24 @@ module DefraRubyMocks
     def run(payment_id:, amount:, refund_amount_available:) # rubocop:disable Lint/UnusedMethodArgument
       write_timestamp
 
-      # This currently supports only "submitted" status:
       {
         amount: amount,
         created_date: "2019-09-19T16:53:03.213Z",
         refund_id: SecureRandom.hex(22),
-        status: "submitted"
+        status: test_refund_response_status
       }
     end
 
     private
+
+    # Check if a non-default status value has been requested
+    def test_refund_response_status
+      AwsBucketService.read(s3_bucket_name, "test_refund_response_status") || "submitted"
+    rescue StandardError => e
+      # This is expected behaviour when the refund status default override file is not present.
+      Rails.logger.warn ":::::: mocks failed to read test_refund_response_status: #{e}"
+      "submitted"
+    end
 
     # let the refund details service know how long since the refund was requested
     def write_timestamp

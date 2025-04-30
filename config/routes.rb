@@ -35,4 +35,25 @@ DefraRubyMocks::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
       to: "govpay#refund_details",
       as: "govpay_refund_details",
       constraints: ->(_request) { DefraRubyMocks.configuration.enabled? }
+
+  # test helpers, not mocks:
+  get "/govpay/v1/payments/set_test_payment_response_status/:status",
+      to: "govpay_test_helpers#set_test_payment_response_status",
+      as: "govpay_set_test_payment_response_status",
+      constraints: ->(_request) { DefraRubyMocks.configuration.enabled? }
+
+  get "/govpay/v1/payments/set_test_refund_response_status/:status",
+      to: "govpay_test_helpers#set_test_refund_response_status",
+      as: "govpay_set_test_refund_response_status",
+      constraints: ->(_request) { DefraRubyMocks.configuration.enabled? }
+
+  post "/govpay/v1/payments/:govpay_id/send_payment_webhook",
+       to: "govpay_test_helpers#send_payment_webhook",
+       as: "send_payment_webhook",
+       constraints: ->(_request) { DefraRubyMocks.configuration.enabled? }
+
+  post "/govpay/v1/payments/:govpay_id/send_refund_webhook",
+       to: "govpay_test_helpers#send_refund_webhook",
+       as: "send_refund_webhook",
+       constraints: ->(_request) { DefraRubyMocks.configuration.enabled? }
 end

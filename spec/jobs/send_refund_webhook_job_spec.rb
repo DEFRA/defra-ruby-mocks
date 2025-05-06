@@ -6,11 +6,11 @@ require "restclient"
 RSpec.describe SendRefundWebhookJob do
 
   describe "#perform" do
-    subject(:run_job) { described_class.new.perform(govpay_id:, refund_status:, callback_url:, signing_secret:) }
+    subject(:run_job) { described_class.new.perform(govpay_id:, status:, callback_url:, signing_secret:) }
 
     let(:govpay_id) { SecureRandom.hex }
     let(:signing_secret) { SecureRandom.hex(16) }
-    let(:refund_status) { "success" }
+    let(:status) { "success" }
     let(:callback_url) { Faker::Internet.url }
 
     let(:http_client) { instance_double(RestClient::Request) }
@@ -25,7 +25,7 @@ RSpec.describe SendRefundWebhookJob do
     it "sends the webhook" do
       run_job
 
-      expect(http_client).to have_received(:execute) # .with(method: :get)
+      expect(http_client).to have_received(:execute)
     end
   end
 end

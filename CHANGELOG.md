@@ -2,11 +2,35 @@
 
 ## [Unreleased](https://github.com/DEFRA/defra-ruby-mocks/tree/HEAD)
 
-[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v4.2.2...HEAD)
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v5.0.0...HEAD)
+
+**Implemented enhancements:**
+
+- feature/RUBY-3754\_govpay\_webhooks [\#196](https://github.com/DEFRA/defra-ruby-mocks/pull/196) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
+
+**Fixed bugs:**
+
+- Chore/gem updates [\#199](https://github.com/DEFRA/defra-ruby-mocks/pull/199) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
+
+**Merged pull requests:**
+
+- Bump webrick from 1.8.1 to 1.8.2 [\#184](https://github.com/DEFRA/defra-ruby-mocks/pull/184) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump rexml from 3.2.8 to 3.3.9 [\#183](https://github.com/DEFRA/defra-ruby-mocks/pull/183) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump faker from 3.3.1 to 3.5.1 [\#182](https://github.com/DEFRA/defra-ruby-mocks/pull/182) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump timecop from 0.9.8 to 0.9.10 [\#169](https://github.com/DEFRA/defra-ruby-mocks/pull/169) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump rack from 3.0.8 to 3.0.9.1 [\#146](https://github.com/DEFRA/defra-ruby-mocks/pull/146) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [v5.0.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v5.0.0) (2024-09-26)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v4.2.2...v5.0.0)
 
 **Fixed bugs:**
 
 - \[RUBY-3230\] Fix incorrect environment variable for S3 bucket in Defra Ruby Mocks [\#178](https://github.com/DEFRA/defra-ruby-mocks/pull/178) ([jjromeo](https://github.com/jjromeo))
+
+**Merged pull requests:**
+
+- Bump version to 5.0.0 and update CHANGELOG [\#179](https://github.com/DEFRA/defra-ruby-mocks/pull/179) ([jjromeo](https://github.com/jjromeo))
 
 ## [v4.2.2](https://github.com/DEFRA/defra-ruby-mocks/tree/v4.2.2) (2024-05-29)
 
@@ -14,11 +38,11 @@
 
 **Fixed bugs:**
 
-- fix/RUBY-2919\_aws\_credentials [\#159](https://github.com/DEFRA/defra-ruby-mocks/pull/159) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+- fix/RUBY-2919\_aws\_credentials [\#159](https://github.com/DEFRA/defra-ruby-mocks/pull/159) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 
 **Merged pull requests:**
 
-- Release/v4.2.2 [\#160](https://github.com/DEFRA/defra-ruby-mocks/pull/160) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+- Release/v4.2.2 [\#160](https://github.com/DEFRA/defra-ruby-mocks/pull/160) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 
 ## [v4.2.1](https://github.com/DEFRA/defra-ruby-mocks/tree/v4.2.1) (2024-05-23)
 
@@ -26,8 +50,8 @@
 
 **Merged pull requests:**
 
-- Release/v4.2.1 [\#158](https://github.com/DEFRA/defra-ruby-mocks/pull/158) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
-- Fix/require defra ruby aws [\#157](https://github.com/DEFRA/defra-ruby-mocks/pull/157) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+- Release/v4.2.1 [\#158](https://github.com/DEFRA/defra-ruby-mocks/pull/158) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
+- Fix/require defra ruby aws [\#157](https://github.com/DEFRA/defra-ruby-mocks/pull/157) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 
 ## [v4.2.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v4.2.0) (2024-05-21)
 
@@ -35,11 +59,11 @@
 
 **Fixed bugs:**
 
-- Fix/govpay mocks [\#155](https://github.com/DEFRA/defra-ruby-mocks/pull/155) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+- Fix/govpay mocks [\#155](https://github.com/DEFRA/defra-ruby-mocks/pull/155) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 
 **Merged pull requests:**
 
-- Release/v4.2.0 [\#156](https://github.com/DEFRA/defra-ruby-mocks/pull/156) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+- Release/v4.2.0 [\#156](https://github.com/DEFRA/defra-ruby-mocks/pull/156) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 
 ## [v4.1.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v4.1.0) (2023-11-24)
 
@@ -47,11 +71,11 @@
 
 **Fixed bugs:**
 
-- Fix/next url [\#137](https://github.com/DEFRA/defra-ruby-mocks/pull/137) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+- Fix/next url [\#137](https://github.com/DEFRA/defra-ruby-mocks/pull/137) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 
 **Merged pull requests:**
 
-- Release/v4.1.0 [\#139](https://github.com/DEFRA/defra-ruby-mocks/pull/139) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+- Release/v4.1.0 [\#139](https://github.com/DEFRA/defra-ruby-mocks/pull/139) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 - Bump timecop from 0.9.6 to 0.9.8 [\#138](https://github.com/DEFRA/defra-ruby-mocks/pull/138) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump rails from 7.0.5 to 7.1.2 [\#135](https://github.com/DEFRA/defra-ruby-mocks/pull/135) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump faker from 3.2.0 to 3.2.2 [\#134](https://github.com/DEFRA/defra-ruby-mocks/pull/134) ([dependabot[bot]](https://github.com/apps/dependabot))
@@ -75,11 +99,11 @@
 
 **Fixed bugs:**
 
-- Fix parameter handling in GovpayPaymentCallbackJob [\#118](https://github.com/DEFRA/defra-ruby-mocks/pull/118) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+- Fix parameter handling in GovpayPaymentCallbackJob [\#118](https://github.com/DEFRA/defra-ruby-mocks/pull/118) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 
 **Merged pull requests:**
 
-- Release/v2.4.2 [\#119](https://github.com/DEFRA/defra-ruby-mocks/pull/119) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+- Release/v2.4.2 [\#119](https://github.com/DEFRA/defra-ruby-mocks/pull/119) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 
 ## [v2.4.1](https://github.com/DEFRA/defra-ruby-mocks/tree/v2.4.1) (2023-05-23)
 
@@ -87,11 +111,11 @@
 
 **Fixed bugs:**
 
-- Fix govpay refund id handling [\#116](https://github.com/DEFRA/defra-ruby-mocks/pull/116) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+- Fix govpay refund id handling [\#116](https://github.com/DEFRA/defra-ruby-mocks/pull/116) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 
 **Merged pull requests:**
 
-- Release/v2.4.1 [\#117](https://github.com/DEFRA/defra-ruby-mocks/pull/117) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+- Release/v2.4.1 [\#117](https://github.com/DEFRA/defra-ruby-mocks/pull/117) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 
 ## [v2.4.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v2.4.0) (2023-05-22)
 
@@ -99,13 +123,13 @@
 
 **Implemented enhancements:**
 
-- Add support for govpay refunds [\#112](https://github.com/DEFRA/defra-ruby-mocks/pull/112) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+- Add support for govpay refunds [\#112](https://github.com/DEFRA/defra-ruby-mocks/pull/112) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 
 **Merged pull requests:**
 
-- Version v2.4.0 [\#115](https://github.com/DEFRA/defra-ruby-mocks/pull/115) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
-- Remove redundant Worldpay mocks [\#110](https://github.com/DEFRA/defra-ruby-mocks/pull/110) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
-- Release 2.3.3 [\#108](https://github.com/DEFRA/defra-ruby-mocks/pull/108) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+- Version v2.4.0 [\#115](https://github.com/DEFRA/defra-ruby-mocks/pull/115) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
+- Remove redundant Worldpay mocks [\#110](https://github.com/DEFRA/defra-ruby-mocks/pull/110) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
+- Release 2.3.3 [\#108](https://github.com/DEFRA/defra-ruby-mocks/pull/108) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 
 ## [v2.3.3](https://github.com/DEFRA/defra-ruby-mocks/tree/v2.3.3) (2022-06-29)
 
@@ -113,14 +137,14 @@
 
 **Implemented enhancements:**
 
-- Mock govpay succesful payment [\#107](https://github.com/DEFRA/defra-ruby-mocks/pull/107) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
-- Add Govpay mocks [\#104](https://github.com/DEFRA/defra-ruby-mocks/pull/104) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+- Mock govpay succesful payment [\#107](https://github.com/DEFRA/defra-ruby-mocks/pull/107) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
+- Add Govpay mocks [\#104](https://github.com/DEFRA/defra-ruby-mocks/pull/104) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 
 **Merged pull requests:**
 
-- Release v2.3.2 [\#106](https://github.com/DEFRA/defra-ruby-mocks/pull/106) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
-- Release v2.3.2 [\#105](https://github.com/DEFRA/defra-ruby-mocks/pull/105) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
-- Version 2.3.1 [\#103](https://github.com/DEFRA/defra-ruby-mocks/pull/103) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+- Release v2.3.2 [\#106](https://github.com/DEFRA/defra-ruby-mocks/pull/106) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
+- Release v2.3.2 [\#105](https://github.com/DEFRA/defra-ruby-mocks/pull/105) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
+- Version 2.3.1 [\#103](https://github.com/DEFRA/defra-ruby-mocks/pull/103) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 
 ## [v2.3.2](https://github.com/DEFRA/defra-ruby-mocks/tree/v2.3.2) (2022-06-23)
 
@@ -132,7 +156,7 @@
 
 **Implemented enhancements:**
 
-- Support optional company name [\#102](https://github.com/DEFRA/defra-ruby-mocks/pull/102) ([PaulDoyle-DEFRA](https://github.com/PaulDoyle-DEFRA))
+- Support optional company name [\#102](https://github.com/DEFRA/defra-ruby-mocks/pull/102) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 - Worldpay mock expects POST request, not GET [\#98](https://github.com/DEFRA/defra-ruby-mocks/pull/98) ([tobyprivett](https://github.com/tobyprivett))
 
 **Merged pull requests:**

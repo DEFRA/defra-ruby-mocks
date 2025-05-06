@@ -33,10 +33,10 @@ module DefraRubyMocks
       end
 
       SendPaymentWebhookJob.perform_later(
-        params[:govpay_id],
-        params[:payment_status],
-        params[:callback_url],
-        params[:signing_secret]
+        govpay_id: params[:govpay_id],
+        status: params[:payment_status],
+        callback_url: params[:callback_url],
+        signing_secret: params[:signing_secret]
       )
 
       head 200
@@ -50,10 +50,10 @@ module DefraRubyMocks
       end
 
       SendRefundWebhookJob.perform_later(
-        params[:govpay_id],
-        params[:refund_status],
-        params[:callback_url],
-        params[:signing_secret]
+        govpay_id: params[:govpay_id],
+        status: params[:refund_status],
+        callback_url: params[:callback_url],
+        signing_secret: params[:signing_secret]
       )
 
       head 200

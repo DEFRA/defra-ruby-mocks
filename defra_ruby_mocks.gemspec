@@ -16,6 +16,8 @@ Gem::Specification.new do |s|
   s.description = "A Rails engine which can be used to mock external services when loaded into an application"
   s.license     = "The Open Government Licence (OGL) Version 3"
 
+  s.metadata["rubygems_mfa_required"] = "true"
+
   s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
 
   s.required_ruby_version = ">= 3.2.2"
@@ -27,5 +29,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency "defra_ruby_aws", "~> 0.5"
 
-  s.metadata["rubygems_mfa_required"] = "true"
+  # Use rest-client for external requests
+  s.add_dependency "rest-client", "~> 2.0"
 end

@@ -21,6 +21,19 @@ module DefraRubyMocks
 
     private
 
+    def s3_bucket_name
+      @s3_bucket_name = ENV.fetch("AWS_DEFRA_RUBY_MOCKS_BUCKET", nil)
+    end
+
+    # Check if a non-default status value has been requested
+    def test_payment_response_status
+      AwsBucketService.read(s3_bucket_name, "test_payment_response_status") || "created"
+    rescue StandardError => e
+      # This is expected behaviour when the payment status default override file is not present.
+      Rails.logger.warn ":::::: mocks failed to read test_payment_response_status: #{e}"
+      "created"
+    end
+
     def base_url
       File.join(DefraRubyMocks.configuration.govpay_domain, "/payments")
     end
@@ -34,7 +47,7 @@ module DefraRubyMocks
       {
         created_date: "2020-03-03T16:17:19.554Z",
         state: {
-          status: "created",
+          status: test_payment_response_status,
           finished: false
         },
         _links: {

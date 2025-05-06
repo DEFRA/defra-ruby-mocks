@@ -19,6 +19,15 @@ module DefraRubyMocks
 
     private
 
+    # Check if a non-default status value has been requested
+    def test_payment_response_status
+      AwsBucketService.read(s3_bucket_name, "test_payment_response_status") || "success"
+    rescue StandardError => e
+      # This is expected behaviour when the payment status default override file is not present.
+      Rails.logger.warn ":::::: mocks failed to read test_payment_response_status: #{e}"
+      "success"
+    end
+
     # rubocop:disable Metrics/MethodLength
     def response_success
       {
@@ -32,7 +41,7 @@ module DefraRubyMocks
         },
         email: "sherlock.holmes@example.com",
         state: {
-          status: "success",
+          status: test_payment_response_status,
           finished: true
         },
         payment_id: "cnnffa1e6s3u9a6n24u2cp527d",

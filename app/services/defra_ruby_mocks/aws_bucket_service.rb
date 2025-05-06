@@ -16,10 +16,15 @@ module DefraRubyMocks
       new.read(bucket_name, file_name)
     end
 
+    def self.remove(bucket_name, file_name)
+      Rails.logger.debug ":::::: mocks removing #{file_name} on S3"
+      new.remove(bucket_name, file_name)
+    end
+
     def write(bucket_name, file_name, content)
       @bucket_name = bucket_name
       @file_name = file_name
-      Rails.logger.debug ":::::: mocks writing to S3"
+      Rails.logger.debug ":::::: mocks writing #{file_name} to S3"
 
       write_temp_file(content)
 
@@ -31,19 +36,29 @@ module DefraRubyMocks
     def read(bucket_name, file_name)
       @bucket_name = bucket_name
       @file_name = file_name
-      Rails.logger.debug ":::::: mocks reading from S3"
+      Rails.logger.debug ":::::: mocks reading #{file_name} from S3"
 
-      s3 = Aws::S3::Client.new(
+      s3.get_object(bucket: bucket_name, key: file_name).body.read
+    end
+
+    def remove(bucket_name, file_name)
+      @bucket_name = bucket_name
+      Rails.logger.debug ":::::: mocks removing #{file_name} from S3"
+
+      bucket.delete(file_name)
+    end
+
+    private
+
+    def s3
+      @s3 ||= Aws::S3::Client.new(
         region: ENV.fetch("AWS_REGION", nil),
         credentials: Aws::Credentials.new(
           ENV.fetch("AWS_DEFRA_RUBY_MOCKS_ACCESS_KEY_ID", nil),
           ENV.fetch("AWS_DEFRA_RUBY_MOCKS_SECRET_ACCESS_KEY", nil)
         )
       )
-      s3.get_object(bucket: bucket_name, key: file_name).body.read
     end
-
-    private
 
     def temp_filepath
       "#{Dir.tmpdir}/#{file_name}"

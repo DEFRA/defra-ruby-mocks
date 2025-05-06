@@ -38,7 +38,9 @@ module DefraRubyMocks
           Timecop.freeze(last_request_time) do
             GovpayRequestRefundService.run(payment_id: payment_id, amount: 100, refund_amount_available: 100).deep_symbolize_keys
           end
-          allow(aws_bucket_service).to receive(:read).and_return(last_request_time.to_s)
+          allow(aws_bucket_service).to receive(:read)
+            .with(ENV.fetch("AWS_DEFRA_RUBY_MOCKS_BUCKET", nil), "govpay_request_refund_service_last_run_time")
+            .and_return(last_request_time.to_s)
         end
 
         context "when less than 10 seconds has elapsed since the last create request" do
@@ -50,10 +52,7 @@ module DefraRubyMocks
         context "when 10 seconds has elapsed since the last create request" do
           let(:last_request_time) { Time.zone.now - 11.seconds }
 
-          it do
-            puts "spec time now #{Time.zone.now}"
-            expect(run_service[:status]).to eq "success"
-          end
+          it { expect(run_service[:status]).to eq "success" }
         end
 
         context "when GOVPAY_REFUND_SUBMITTED_SUCCESS_LAG is not set" do

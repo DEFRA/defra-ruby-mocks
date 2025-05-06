@@ -19,14 +19,24 @@ module DefraRubyMocks
 
     private
 
-    # "submitted" for up to GOVPAY_REFUND_SUBMITTED_SUCCESS_LAG seconds after the last refund request, then "success"
+    # Check if a non-default status value has been requested
+    def test_refund_response_status
+      AwsBucketService.read(s3_bucket_name, "test_refund_response_status") || "submitted"
+    rescue StandardError => e
+      # This is expected behaviour when the refund status default override file is not present.
+      Rails.logger.warn ":::::: mocks failed to read test_refund_response_status: #{e}"
+      "submitted"
+    end
+
+    # "submitted" (or other, if default override is in place) for up to GOVPAY_REFUND_SUBMITTED_SUCCESS_LAG
+    # seconds after the last refund request, then "success"
     def status
       last_refund_time = refund_request_timestamp
       submitted_success_lag = ENV.fetch("GOVPAY_REFUND_SUBMITTED_SUCCESS_LAG", 0).to_i
       cutoff_time = (last_refund_time + submitted_success_lag.seconds).to_time
       return "success" if submitted_success_lag.zero?
 
-      Time.zone.now < cutoff_time ? "submitted" : "success"
+      Time.zone.now < cutoff_time ? test_refund_response_status : "success"
     rescue Errno::ENOENT
       write_timestamp_file
 

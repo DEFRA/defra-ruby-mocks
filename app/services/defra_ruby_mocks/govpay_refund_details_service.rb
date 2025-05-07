@@ -3,7 +3,7 @@
 module DefraRubyMocks
   class GovpayRefundDetailsService < BaseService
 
-    DEFAULT_LAST_REFUND_REQUEST_TIME = 1.day.ago.freeze
+    include CanUseAwsS3
 
     def run(payment_id:, refund_id:) # rubocop:disable Lint/UnusedMethodArgument
       {
@@ -21,48 +21,26 @@ module DefraRubyMocks
 
     # Check if a non-default status value has been requested
     def test_refund_response_status
-      AwsBucketService.read(s3_bucket_name, "test_refund_response_status") || "submitted"
-    rescue StandardError => e
-      # This is expected behaviour when the refund status default override file is not present.
-      Rails.logger.warn ":::::: mocks failed to read test_refund_response_status: #{e}"
-      "submitted"
+      response_status(response_status_filename: "test_refund_response_status", default_status: "submitted")
     end
 
     # "submitted" (or other, if default override is in place) for up to GOVPAY_REFUND_SUBMITTED_SUCCESS_LAG
     # seconds after the last refund request, then "success"
     def status
-      last_refund_time = refund_request_timestamp
+      last_refund_time = refund_request_timestamp(timestamp_file_name:)
       submitted_success_lag = ENV.fetch("GOVPAY_REFUND_SUBMITTED_SUCCESS_LAG", 0).to_i
       cutoff_time = (last_refund_time + submitted_success_lag.seconds).to_time
       return "success" if submitted_success_lag.zero?
 
       Time.zone.now < cutoff_time ? test_refund_response_status : "success"
     rescue Errno::ENOENT
-      write_timestamp_file
+      write_refund_requested_timestamp(timestamp_file_name:)
 
       "success"
-    end
-
-    def write_timestamp_file
-      timestamp = Time.zone.now
-      Rails.logger.warn ":::::: writing timestamp file: #{timestamp}"
-      AwsBucketService.write(s3_bucket_name, timestamp_file_name, timestamp)
-    end
-
-    def s3_bucket_name
-      @s3_bucket_name = ENV.fetch("AWS_DEFRA_RUBY_MOCKS_BUCKET", nil)
     end
 
     def timestamp_file_name
       @govpay_request_refund_service_last_run_time = "govpay_request_refund_service_last_run_time"
     end
-
-    def refund_request_timestamp
-      timestamp = AwsBucketService.read(s3_bucket_name, timestamp_file_name)
-      timestamp ? Time.parse(timestamp) : DEFAULT_LAST_REFUND_REQUEST_TIME
-    rescue StandardError
-      DEFAULT_LAST_REFUND_REQUEST_TIME
-    end
-
   end
 end

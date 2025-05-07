@@ -144,6 +144,7 @@ GEM
     diff-lcs (1.6.1)
     docile (1.4.0)
     domain_name (0.6.20240107)
+    dotenv (3.1.8)
     drb (2.2.1)
     erubi (1.13.1)
     faker (3.5.1)
@@ -387,6 +388,7 @@ PLATFORMS
 DEPENDENCIES
   defra_ruby_mocks!
   defra_ruby_style
+  dotenv
   faker
   github_changelog_generator
   pry-byebug

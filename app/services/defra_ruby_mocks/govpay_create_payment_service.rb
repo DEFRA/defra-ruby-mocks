@@ -5,6 +5,8 @@ require "securerandom"
 module DefraRubyMocks
   class GovpayCreatePaymentService < BaseService
 
+    include CanUseAwsS3
+
     def run(amount:, description:)
       success_response.merge(
         {
@@ -21,17 +23,8 @@ module DefraRubyMocks
 
     private
 
-    def s3_bucket_name
-      @s3_bucket_name = ENV.fetch("AWS_DEFRA_RUBY_MOCKS_BUCKET", nil)
-    end
-
-    # Check if a non-default status value has been requested
     def test_payment_response_status
-      AwsBucketService.read(s3_bucket_name, "test_payment_response_status") || "created"
-    rescue StandardError => e
-      # This is expected behaviour when the payment status default override file is not present.
-      Rails.logger.warn ":::::: mocks failed to read test_payment_response_status: #{e}"
-      "created"
+      response_status(response_status_filename: "test_payment_response_status", default_status: "created")
     end
 
     def base_url

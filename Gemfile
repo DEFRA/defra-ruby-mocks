@@ -22,6 +22,7 @@ group :development do
 end
 
 group :development, :test do
+  gem "dotenv"
   gem "rspec-rails"
   gem "rubocop-rspec"
   gem "rubocop-rspec_rails"

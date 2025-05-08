@@ -3,7 +3,8 @@
 class BaseSendWebhookJob < ApplicationJob
   def perform(govpay_id:, status:, callback_url:, signing_secret:)
     body = webhook_body(govpay_id:, status:)
-    Rails.logger.warn "MOCKS: sending #{webhook_type} webhook for #{govpay_id}, status \"#{status}\" to #{callback_url}"
+    Rails.logger.warn "[DefraRubyMocks] [BaseSendWebhookJob] sending #{webhook_type} webhook " \
+                      "for #{govpay_id}, status \"#{status}\" to #{callback_url}"
     RestClient::Request.execute(
       method: :get,
       url: callback_url,
@@ -11,7 +12,8 @@ class BaseSendWebhookJob < ApplicationJob
       headers: { "Pay-Signature": webhook_signature(body, signing_secret) }
     )
   rescue StandardError => e
-    Rails.logger.error "MOCKS: error sending #{webhook_type} webhook to #{callback_url}: #{e}\n#{e.backtrace}"
+    Rails.logger.error "[DefraRubyMocks] [BaseSendWebhookJob] error sending  " \
+                       "#{webhook_type} webhook to #{callback_url}: #{e}"
   end
 
   private

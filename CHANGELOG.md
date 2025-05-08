@@ -2,7 +2,15 @@
 
 ## [Unreleased](https://github.com/DEFRA/defra-ruby-mocks/tree/HEAD)
 
-[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v5.0.0...HEAD)
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v5.1.0...HEAD)
+
+**Fixed bugs:**
+
+- Fix/ruby 3754 fix s3 bucket name [\#202](https://github.com/DEFRA/defra-ruby-mocks/pull/202) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
+
+## [v5.1.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v5.1.0) (2025-05-06)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v5.0.0...v5.1.0)
 
 **Implemented enhancements:**
 
@@ -14,6 +22,7 @@
 
 **Merged pull requests:**
 
+- Release/v5.1.0 [\#200](https://github.com/DEFRA/defra-ruby-mocks/pull/200) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 - Bump webrick from 1.8.1 to 1.8.2 [\#184](https://github.com/DEFRA/defra-ruby-mocks/pull/184) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump rexml from 3.2.8 to 3.3.9 [\#183](https://github.com/DEFRA/defra-ruby-mocks/pull/183) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump faker from 3.3.1 to 3.5.1 [\#182](https://github.com/DEFRA/defra-ruby-mocks/pull/182) ([dependabot[bot]](https://github.com/apps/dependabot))

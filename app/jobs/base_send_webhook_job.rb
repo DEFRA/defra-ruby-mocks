@@ -6,9 +6,9 @@ class BaseSendWebhookJob < ApplicationJob
     Rails.logger.warn "[DefraRubyMocks] [BaseSendWebhookJob] sending #{webhook_type} webhook " \
                       "for #{govpay_id}, status \"#{status}\" to #{callback_url}"
     RestClient::Request.execute(
-      method: :get,
+      method: :post,
       url: callback_url,
-      body: body,
+      payload: body.to_json,
       headers: { "Pay-Signature": webhook_signature(body, signing_secret) }
     )
   rescue StandardError => e
@@ -27,7 +27,8 @@ class BaseSendWebhookJob < ApplicationJob
   end
 
   def webhook_signature(webhook_body, signing_secret)
-    OpenSSL::HMAC.hexdigest("sha256", signing_secret.encode("utf-8"), webhook_body.to_json.encode("utf-8"))
+    digest = OpenSSL::Digest.new("sha256")
+    OpenSSL::HMAC.hexdigest(digest, signing_secret, webhook_body.to_json)
   end
 
 end

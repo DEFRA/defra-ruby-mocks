@@ -2,11 +2,23 @@
 
 ## [Unreleased](https://github.com/DEFRA/defra-ruby-mocks/tree/HEAD)
 
-[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v5.1.0...HEAD)
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v5.1.1...HEAD)
+
+**Fixed bugs:**
+
+- Fix base webhook HTTP post and signature [\#204](https://github.com/DEFRA/defra-ruby-mocks/pull/204) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
+
+## [v5.1.1](https://github.com/DEFRA/defra-ruby-mocks/tree/v5.1.1) (2025-05-08)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v5.1.0...v5.1.1)
 
 **Fixed bugs:**
 
 - Fix/ruby 3754 fix s3 bucket name [\#202](https://github.com/DEFRA/defra-ruby-mocks/pull/202) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
+
+**Merged pull requests:**
+
+- Release/v5.1.1 [\#203](https://github.com/DEFRA/defra-ruby-mocks/pull/203) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 
 ## [v5.1.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v5.1.0) (2025-05-06)
 

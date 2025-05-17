@@ -13,12 +13,9 @@ RSpec.describe SendRefundWebhookJob do
     let(:status) { "success" }
     let(:callback_url) { Faker::Internet.url }
 
-    let(:http_client) { instance_double(RestClient::Request) }
+    let(:http_client) { class_double(RestClient::Request).as_stubbed_const }
 
-    before do
-      allow(RestClient::Request).to receive(:new).and_return(http_client)
-      allow(http_client).to receive(:execute)
-    end
+    before { allow(http_client).to receive(:execute).with(instance_of(Hash)) }
 
     it { expect { run_job }.not_to raise_error }
 
@@ -26,6 +23,7 @@ RSpec.describe SendRefundWebhookJob do
       run_job
 
       expect(http_client).to have_received(:execute)
+        .with(hash_including(payload: /"refund_id":"#{govpay_id}"/))
     end
   end
 end

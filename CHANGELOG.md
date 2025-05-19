@@ -2,11 +2,23 @@
 
 ## [Unreleased](https://github.com/DEFRA/defra-ruby-mocks/tree/HEAD)
 
-[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v5.1.1...HEAD)
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v5.1.2...HEAD)
+
+**Fixed bugs:**
+
+- Fix/ruby 3754 refund id in webhook [\#206](https://github.com/DEFRA/defra-ruby-mocks/pull/206) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
+
+## [v5.1.2](https://github.com/DEFRA/defra-ruby-mocks/tree/v5.1.2) (2025-05-14)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v5.1.1...v5.1.2)
 
 **Fixed bugs:**
 
 - Fix base webhook HTTP post and signature [\#204](https://github.com/DEFRA/defra-ruby-mocks/pull/204) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
+
+**Merged pull requests:**
+
+- Release/v5.1.2 [\#205](https://github.com/DEFRA/defra-ruby-mocks/pull/205) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 
 ## [v5.1.1](https://github.com/DEFRA/defra-ruby-mocks/tree/v5.1.1) (2025-05-08)
 

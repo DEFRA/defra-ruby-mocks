@@ -11,5 +11,10 @@ module DefraRubyMocks
     config.generators do |g|
       g.test_framework :rspec
     end
+
+    # Skip SSL for mocks
+    initializer "mocks_engine.middleware" do |_app|
+      require "middleware/skip_ssl_for_mocks_engine"
+    end
   end
 end

@@ -6,6 +6,7 @@ module DefraRubyMocks
     DEFAULT_DELAY = 1000
 
     attr_accessor :govpay_domain
+    attr_accessor :govpay_other_domain
     attr_reader :delay
 
     def initialize

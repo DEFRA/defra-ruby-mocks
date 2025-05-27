@@ -12,7 +12,7 @@ module DefraRubyMocks
         {
           _links: {
             self: { href: "#{base_url}/#{payment_id}", method: "GET" },
-            next_url: { href: "#{base_url}/secure/next-url-uuid-abc123", method: "GET" }
+            next_url: { href: "#{base_other_url}/secure/next-url-uuid-abc123", method: "GET" }
           },
           amount: amount.to_i,
           description: description,
@@ -29,6 +29,10 @@ module DefraRubyMocks
 
     def base_url
       File.join(DefraRubyMocks.configuration.govpay_domain, "/payments")
+    end
+
+    def base_other_url
+      File.join(DefraRubyMocks.configuration.govpay_other_domain, "/payments")
     end
 
     def payment_id

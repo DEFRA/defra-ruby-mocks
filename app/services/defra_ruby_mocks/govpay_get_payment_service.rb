@@ -8,6 +8,7 @@ module DefraRubyMocks
     include CanUseAwsS3
 
     def run(payment_id:, amount: Random.rand(100..1_000), created_at: Time.current)
+      Rails.logger.warn "[DefraRubyMocks][GovpayGetPaymentService][run], payment_id: #{payment_id}"
       # This currently supports only success results:
       response_success.merge(
         {

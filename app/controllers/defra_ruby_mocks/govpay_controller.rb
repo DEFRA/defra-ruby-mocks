@@ -16,7 +16,7 @@ module DefraRubyMocks
         amount: params[:amount], description: params[:description]
       )
     rescue StandardError => e
-      Rails.logger.error("[DefraRubyMocks] [create_payment] error: #{e}")
+      Rails.logger.error("[DefraRubyMocks] [create_payment] error: #{e}\n#{e.backtrace}")
       head 500
     end
 

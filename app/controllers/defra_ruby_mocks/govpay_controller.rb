@@ -10,10 +10,11 @@ module DefraRubyMocks
     def create_payment
       valid_create_params
 
+      application_host = request[.url]
       store_return_url(params[:return_url])
 
       render json: GovpayCreatePaymentService.new.run(
-        amount: params[:amount], description: params[:description]
+        host: application_host(request.url), amount: params[:amount], description: params[:description]
       )
     rescue StandardError => e
       Rails.logger.error("[DefraRubyMocks] [create_payment] error: #{e}\n#{e.backtrace}")
@@ -60,6 +61,14 @@ module DefraRubyMocks
     end
 
     private
+
+    def application_host(url)
+      uri = URI.parse(url)
+      url_root = "#{uri.scheme}://#{uri.host}"
+      url_root += ":#{uri.port}" if uri.port.present?
+
+      url_root
+    end
 
     def return_url_file_name
       @return_url_file_name ||= "return_url_file"

@@ -7,13 +7,13 @@ module DefraRubyMocks
 
     include CanUseAwsS3
 
-    def run(amount:, description:)
-      Rails.logger.warn "[DefraRubyMocks][GovpayCreatePaymentService][run], base_other_url: \"#{base_other_url}\", next_url: GET \"#{base_other_url}/secure/next-url-uuid-abc123\""
+    def run(host:, amount:, description:)
+      Rails.logger.warn "[DefraRubyMocks][GovpayCreatePaymentService][run], host: \"#{host}\", next_url: GET \"#{host}/secure/next-url-uuid-abc123\""
       success_response.merge(
         {
           _links: {
             self: { href: "#{base_url}/#{payment_id}", method: "GET" },
-            next_url: { href: "#{base_other_url}/secure/next-url-uuid-abc123", method: "GET" }
+            next_url: { href: "#{host}/secure/next-url-uuid-abc123", method: "GET" }
           },
           amount: amount.to_i,
           description: description,
@@ -30,10 +30,6 @@ module DefraRubyMocks
 
     def base_url
       File.join(DefraRubyMocks.configuration.govpay_domain, "/payments")
-    end
-
-    def base_other_url
-      File.join(DefraRubyMocks.configuration.govpay_other_domain, "/payments")
     end
 
     def payment_id

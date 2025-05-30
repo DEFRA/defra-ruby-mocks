@@ -8,7 +8,7 @@ module DefraRubyMocks
     include CanUseAwsS3
 
     def run(host:, amount:, description:)
-      Rails.logger.warn "[DefraRubyMocks][GovpayCreatePaymentService][run], host: \"#{host}\", next_url: GET \"#{next_url}\""
+      Rails.logger.warn "[DefraRubyMocks][GovpayCreatePaymentService][run], host: \"#{host}\", next_url: GET \"#{next_url(host)}\""
       success_response.merge(
         {
           _links: {

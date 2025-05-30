@@ -13,6 +13,7 @@ module DefraRubyMocks
       store_return_url(params[:return_url])
 
       render json: GovpayCreatePaymentService.new.run(
+        Rails.logger.warn "[DefraRubyMocks] [create_payment] for request url \"#{request.url}\" using application host \"#{application_host(request.url)}\""
         host: application_host(request.url), amount: params[:amount], description: params[:description]
       )
     rescue StandardError => e

@@ -14,7 +14,6 @@ module DefraRubyMocks
 
         DefraRubyMocks.configure do |config|
           config.govpay_domain = "http://localhost:3000/defra_ruby_mocks"
-          config.govpay_other_domain = "http://localhost:8000/defra_ruby_mocks"
         end
 
         allow(AwsBucketService).to receive(:new).and_return(aws_bucket_service)

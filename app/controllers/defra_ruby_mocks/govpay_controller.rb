@@ -10,7 +10,6 @@ module DefraRubyMocks
     def create_payment
       valid_create_params
 
-      application_host = request[.url]
       store_return_url(params[:return_url])
 
       render json: GovpayCreatePaymentService.new.run(

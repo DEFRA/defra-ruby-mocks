@@ -10,18 +10,18 @@ module DefraRubyMocks
       Helpers::Configuration.prep_for_tests
       DefraRubyMocks.configure do |config|
         config.govpay_domain = "http://localhost:3000/defra_ruby_mocks"
-        config.govpay_other_domain = "http://localhost:8000/defra_ruby_mocks"
       end
     end
 
     let(:amount) { Faker::Number.number(digits: 4) }
     let(:description) { Faker::Lorem.sentence }
-    let(:return_url) { File.join(DefraRubyMocks.configuration.govpay_other_domain, "/payments/secure/next-url-uuid-abc123") }
+    let(:domain) { DefraRubyMocks.configuration.govpay_domain }
+    let(:return_url) { File.join(domain, "/defra_ruby_mocks/payments/secure/next-url-uuid-abc123") }
 
     describe ".run" do
 
       subject(:run_service) do
-        described_class.run(amount: amount, description: description).deep_symbolize_keys
+        described_class.run(host: domain, amount: amount, description: description).deep_symbolize_keys
       end
 
       context "with a valid payment request" do

@@ -19,7 +19,6 @@ module DefraRubyMocks
 
         DefraRubyMocks.configure do |config|
           config.govpay_domain = "http://localhost:3000/defra_ruby_mocks"
-          config.govpay_other_domain = "http://localhost:8000/defra_ruby_mocks"
         end
 
         allow(AwsBucketService).to receive(:new).and_return(aws_bucket_service)
@@ -64,7 +63,7 @@ module DefraRubyMocks
 
           it "returns the correct next_url value" do
             expect(response_json["_links"]["next_url"]["href"])
-              .to eq File.join(DefraRubyMocks.configuration.govpay_other_domain, "/payments/secure/next-url-uuid-abc123")
+              .to eq File.join(DefraRubyMocks.configuration.govpay_domain, "/payments/secure/next-url-uuid-abc123")
           end
 
           it "writes the response URL to AWS S3" do

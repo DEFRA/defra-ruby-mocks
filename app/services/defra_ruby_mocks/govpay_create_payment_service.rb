@@ -13,7 +13,7 @@ module DefraRubyMocks
         {
           _links: {
             self: { href: "#{base_url}/#{payment_id}", method: "GET" },
-            next_url: { href: "#{host}/secure/next-url-uuid-abc123", method: "GET" }
+            next_url: { href: "#{host}/defra_ruby_mocks/payments/secure/next-url-uuid-abc123", method: "GET" }
           },
           amount: amount.to_i,
           description: description,

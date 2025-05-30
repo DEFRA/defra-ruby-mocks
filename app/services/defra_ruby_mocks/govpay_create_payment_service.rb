@@ -8,12 +8,12 @@ module DefraRubyMocks
     include CanUseAwsS3
 
     def run(host:, amount:, description:)
-      Rails.logger.warn "[DefraRubyMocks][GovpayCreatePaymentService][run], host: \"#{host}\", next_url: GET \"#{host}/secure/next-url-uuid-abc123\""
+      Rails.logger.warn "[DefraRubyMocks][GovpayCreatePaymentService][run], host: \"#{host}\", next_url: GET \"#{next_url}\""
       success_response.merge(
         {
           _links: {
             self: { href: "#{base_url}/#{payment_id}", method: "GET" },
-            next_url: { href: "#{host}/defra_ruby_mocks/payments/secure/next-url-uuid-abc123", method: "GET" }
+            next_url: { href: next_url, method: "GET" }
           },
           amount: amount.to_i,
           description: description,
@@ -23,6 +23,10 @@ module DefraRubyMocks
     end
 
     private
+
+    def next_url
+      "#{host}/defra_ruby_mocks/payments/secure/next-url-uuid-abc123"
+    end
 
     def test_payment_response_status
       response_status(response_status_filename: "test_payment_response_status", default_status: "created")

@@ -23,19 +23,20 @@ module DefraRubyMocks
       head 500
     end
 
-    # This mocks the Govpay route which presents the payment details page to the user.
-    # We don't mock the actual payment details and payment confirmation pages - we go
-    # straight to the application callback route.
-    def next_url
-      response_url = retrieve_return_url
-      Rails.logger.warn "[DefraRubyMocks] [Govpay] calling response URL #{response_url}"
-      redirect_to response_url, allow_other_host: true
-    rescue RestClient::ExceptionWithResponse => e
-      Rails.logger.warn "[DefraRubyMocks] [Govpay] RestClient received response: #{e}"
-    rescue StandardError => e
-      Rails.logger.error("[DefraRubyMocks] [Govpay] Error sending request to govpay: #{e}")
-      Airbrake.notify(e, message: "Error on govpay request")
-    end
+    # # This mocks the Govpay route which presents the payment details page to the user.
+    # # We don't mock the actual payment details and payment confirmation pages - we go
+    # # straight to the application callback route.
+    # def next_url
+    #   response_url = retrieve_return_url
+    #   log_msg = "[DefraRubyMocks] [Govpay] response URL #{response_url}"
+    #   Rails.logger.warn "[DefraRubyMocks] [Govpay] calling response URL #{response_url}"
+    #   redirect_to response_url, allow_other_host: true
+    # rescue RestClient::ExceptionWithResponse => e
+    #   Rails.logger.warn "[DefraRubyMocks] [Govpay] RestClient received response: #{e}"
+    # rescue StandardError => e
+    #   Rails.logger.error("[DefraRubyMocks] [Govpay] Error sending request to govpay: #{e}")
+    #   Airbrake.notify(e, message: "Error on govpay request")
+    # end
 
     def payment_details
       valid_payment_id
@@ -70,6 +71,12 @@ module DefraRubyMocks
       url_root += ":#{uri.port}" if uri.port.present?
       url_root += DefraRubyMocks.configuration.host_is_back_office? ? "/bo" : "/fo"
 
+      File.write(
+        Rails.root.join("/logs/mocks_application_host.log"),
+        "application_host for #{url}: " \
+        "url_root: #{}url_root\n" \
+        "#{caller.join('\n')}"
+        )
       url_root
     end
 

@@ -19,6 +19,14 @@ module DefraRubyMocks
   end
 
   class Configuration
+
+    # If the setting's value is "true", then set to a boolean true. Otherwise,
+    # set it to false.
+    def change_string_to_boolean_for(setting)
+      setting = setting == "true" if setting.is_a?(String)
+      setting
+    end
+
     # Used to determine if engine is running in the back-office rather than the
     # front-office
     def host_is_back_office=(value)

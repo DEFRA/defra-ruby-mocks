@@ -10,6 +10,7 @@ module DefraRubyMocks
     def create_payment
       valid_create_params
 
+      Raills.logger.error "[DefraRubyMocks] [create_payment] params: #{params}"
       store_return_url(params[:return_url])
 
       Rails.logger.warn "[DefraRubyMocks] [create_payment] for request url \"#{request.url}\" using application host \"#{application_host(request.url)}\""

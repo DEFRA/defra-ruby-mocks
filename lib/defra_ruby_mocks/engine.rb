@@ -8,6 +8,12 @@ module DefraRubyMocks
   class Engine < ::Rails::Engine
     isolate_namespace DefraRubyMocks
 
+    initializer "DefraRubyMocks.set_logger" do
+      ActiveSupport.on_load(:after_initialize) do
+        DefraRubyMocks::Engine.config.logger = Rails.logger
+      end
+    end
+
     config.generators do |g|
       g.test_framework :rspec
     end

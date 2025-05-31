@@ -12,7 +12,13 @@ module DefraRubyMocks
     def configuration
       @configuration ||= Configuration.new
     end
+  end
 
+  def self.configure
+    yield(configuration)
+  end
+
+  class Configuration
     # Used to determine if engine is running in the back-office rather than the
     # front-office
     def host_is_back_office=(value)
@@ -24,9 +30,5 @@ module DefraRubyMocks
 
       @host_is_back_office
     end
-  end
-
-  def self.configure
-    yield(configuration)
   end
 end

@@ -72,7 +72,7 @@ module DefraRubyMocks
       url_root += DefraRubyMocks.configuration.host_is_back_office? ? "/bo" : "/fo"
 
       File.write(
-        Rails.root.join("/logs/mocks_application_host.log"),
+        Rails.root.join("/tmp/mocks_application_host.log"),
         "application_host for #{url}: " \
         "url_root: #{}url_root\n" \
         "#{caller.join('\n')}"

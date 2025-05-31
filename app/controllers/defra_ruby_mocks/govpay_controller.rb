@@ -67,7 +67,7 @@ module DefraRubyMocks
       uri = URI.parse(url)
       url_root = "#{uri.scheme}://#{uri.host}"
       url_root += ":#{uri.port}" if uri.port.present?
-      url_root += Rails.application.configuration.host_is_back_office? ? "/bo" : "/fo"
+      url_root += Rails.application.config.host_is_back_office? ? "/bo" : "/fo"
 
       url_root
     end

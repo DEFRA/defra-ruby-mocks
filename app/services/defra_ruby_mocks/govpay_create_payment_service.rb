@@ -8,17 +8,7 @@ module DefraRubyMocks
     include CanUseAwsS3
 
     def run(amount:, description:)
-      success_response.merge(
-        {
-          _links: {
-            self: { href: "#{base_url}/#{payment_id}", method: "GET" },
-            next_url: { href: "#{base_url}/secure/next-url-uuid-abc123", method: "GET" }
-          },
-          amount: amount.to_i,
-          description: description,
-          payment_id: payment_id
-        }
-      )
+      success_response(amount, description)
     end
 
     private
@@ -28,15 +18,36 @@ module DefraRubyMocks
     end
 
     def base_url
-      File.join(DefraRubyMocks.configuration.govpay_domain, "/payments")
+      File.join(DefraRubyMocks.configuration.govpay_mocks_internal_root_url, "/payments")
     end
 
     def payment_id
       @payment_id ||= SecureRandom.alphanumeric(26)
     end
 
+    def return_url
+      "#{DefraRubyMocks.configuration.govpay_mocks_internal_root_url}/payments/secure/next-url-uuid-abc123"
+    end
+
+    def next_url(url)
+      external_url = DefraRubyMocks.configuration.govpay_mocks_external_root_url_other
+      external_url_root = url_root(external_url)
+      mocks_url = DefraRubyMocks.configuration.govpay_mocks_internal_root_url_other
+      mocks_url_root = url_root(mocks_url)
+
+      url.gsub(mocks_url_root, external_url_root)
+    end
+
+    def url_root(url)
+      uri = URI.parse(url)
+      url_root = "#{uri.scheme}://#{uri.host}"
+      url_root += ":#{uri.port}" if uri.port.present? && uri.port != 80
+
+      url_root
+    end
+
     # rubocop:disable Metrics/MethodLength
-    def success_response
+    def success_response(amount, description)
       {
         created_date: "2020-03-03T16:17:19.554Z",
         state: {
@@ -45,19 +56,20 @@ module DefraRubyMocks
         },
         _links: {
           self: {
-            href: "https://publicapi.payments.service.gov.uk/v1/payments/hu20sqlact5260q2nanm0q8u93",
+            href: "#{base_url}/#{payment_id}",
             method: "GET"
           },
           next_url: {
-            href: "https://www.payments.service.gov.uk/secure/bb0a272c-8eaf-468d-b3xf-ae5e000d2231",
+            href: next_url("#{DefraRubyMocks.configuration.govpay_mocks_internal_root_url_other}" \
+                           "/payments/secure/next-url-uuid-abc123"),
             method: "GET"
           }
         },
-        amount: 14_500,
+        amount: amount.to_i,
         reference: "12345",
-        description: "Pay your council tax",
-        return_url: "https://your.service.gov.uk/completed",
-        payment_id: "hu20sqlact5260q2nanm0q8u93",
+        description:,
+        return_url:,
+        payment_id:,
         payment_provider: "worldpay",
         provider_id: "10987654321"
       }

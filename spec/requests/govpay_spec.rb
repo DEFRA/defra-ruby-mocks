@@ -9,7 +9,7 @@ module DefraRubyMocks
   RSpec.describe "Govpay" do
     include ERB::Util
 
-    let(:base_mocks_url) { File.join(DefraRubyMocks.configuration.govpay_domain, "/govpay/v1/payments") }
+    let(:base_mocks_url) { File.join(DefraRubyMocks.configuration.govpay_mocks_internal_root_url, "/payments") }
 
     context "when mocks are enabled" do
       let(:aws_bucket_service) { instance_double(AwsBucketService) }
@@ -18,7 +18,13 @@ module DefraRubyMocks
         Helpers::Configuration.prep_for_tests
 
         DefraRubyMocks.configure do |config|
-          config.govpay_domain = "http://localhost:3000/defra_ruby_mocks"
+          # The back- and front-office mocks root URLs, not externally accessible in the hosted environments
+          config.govpay_mocks_internal_root_url = "http://internal.mocks.host:1111/defra_ruby_mocks/govpay/v1"
+          config.govpay_mocks_internal_root_url_other = "http://internal.mocks.host:8888/defra_ruby_mocks/govpay/v1"
+
+          # The back- and front-office externally-accessible domains
+          config.govpay_mocks_external_root_url = "http://external.back-office.host.cloud/defra_ruby_mocks/govpay/v1"
+          config.govpay_mocks_external_root_url_other = "http://external.front-office.host.cloud/defra_ruby_mocks/govpay/v1"
         end
 
         allow(AwsBucketService).to receive(:new).and_return(aws_bucket_service)
@@ -63,7 +69,7 @@ module DefraRubyMocks
 
           it "returns the correct next_url value" do
             expect(response_json["_links"]["next_url"]["href"])
-              .to eq File.join(DefraRubyMocks.configuration.govpay_domain, "/payments/secure/next-url-uuid-abc123")
+              .to eq "#{DefraRubyMocks.configuration.govpay_mocks_external_root_url_other}/payments/secure/next-url-uuid-abc123"
           end
 
           it "writes the response URL to AWS S3" do

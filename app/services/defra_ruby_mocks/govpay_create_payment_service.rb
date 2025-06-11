@@ -29,13 +29,8 @@ module DefraRubyMocks
       "#{DefraRubyMocks.configuration.govpay_mocks_internal_root_url}/payments/secure/next-url-uuid-abc123"
     end
 
-    def next_url(url)
-      external_url = DefraRubyMocks.configuration.govpay_mocks_external_root_url_other
-      external_url_root = url_root(external_url)
-      mocks_url = DefraRubyMocks.configuration.govpay_mocks_internal_root_url_other
-      mocks_url_root = url_root(mocks_url)
-
-      url.gsub(mocks_url_root, external_url_root)
+    def next_url
+      "#{DefraRubyMocks.configuration.govpay_mocks_external_root_url_other}/payments/secure/next-url-uuid-abc123"
     end
 
     def url_root(url)
@@ -60,8 +55,7 @@ module DefraRubyMocks
             method: "GET"
           },
           next_url: {
-            href: next_url("#{DefraRubyMocks.configuration.govpay_mocks_internal_root_url_other}" \
-                           "/payments/secure/next-url-uuid-abc123"),
+            href: next_url,
             method: "GET"
           }
         },

@@ -5,7 +5,10 @@ module DefraRubyMocks
 
     DEFAULT_DELAY = 1000
 
-    attr_accessor :govpay_domain
+    attr_accessor :govpay_mocks_external_root_url,
+                  :govpay_mocks_external_root_url_other,
+                  :govpay_mocks_internal_root_url,
+                  :govpay_mocks_internal_root_url_other
     attr_reader :delay
 
     def initialize

@@ -171,18 +171,24 @@ This Govpay mock replicates those 2 interactions with the following url
 
 #### Configuration
 
-In order to use the govpay mock you'll need to provide additional configuration details:
+In order to use the govpay mock you'll need to provide additional configuration details.
+- The root Govpay mock URLs for both front- and back-office. Both are required because the mocks for front-office point at back-office and vice-versa, and the mock gem needs to know both values for the two hosting applications.
+- The external URL for both applications. These are required because the mock gem needs to map from internal-EC2 only URLs to externally accessible URLs.
+
+For example, for a front-office application, where the front-office and back-office mocks are mounted on `/fo/mocks` and `/bo/mocks` respectively:
 
 ```ruby
 config/initializers/defra_ruby_mocks.rb
 require "defra_ruby_mocks"
 
 DefraRubyMocks.configure do |config|
-  config.govpay_domain = File.join(ENV["WCRS_GOVPAY_MOCK_DOMAIN"] || "http://localhost:3002", "/fo/mocks/govpay/v1")
+  configuration.govpay_mocks_external_root_url = ENV.fetch("MOCK_FO_GOVPAY_URL", "https://back-office.domain.cloud/bo/mocks/govpay/v1")
+  configuration.govpay_mocks_external_root_url_other = ENV.fetch("MOCK_BO_GOVPAY_URL", "https://front-office.domain.cloud/fo/mocks/govpay/v1")
+
+  configuration.govpay_mocks_internal_root_url = ENV.fetch("MOCK_FO_GOVPAY_URL_INTERNAL", "https://back-office-internal.domain.cloud:8001/bo/mocks/govpay/v1")
+  configuration.govpay_mocks_internal_root_url_other = ENV.fetch("MOCK_BO_GOVPAY_URL_INTERNAL", "https://front-office-internal.domain.cloud:8002/fo/mocks/govpay/v1")
 end
 ```
-
-The domain is used when generating the URL we tell the app to redirect users to. As this is just an engine and not a standalone service, we need to tell it what domain it is running from.
 
 You'll also need to provide AWS configuration details for the mocks, for example:
 

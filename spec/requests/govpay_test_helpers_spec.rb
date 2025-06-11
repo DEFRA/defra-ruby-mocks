@@ -4,7 +4,7 @@ require "rails_helper"
 
 module DefraRubyMocks
   RSpec.describe "GovpayTestHelpers" do
-    let(:base_mocks_url) { File.join(DefraRubyMocks.configuration.govpay_domain, "/govpay/v1/payments") }
+    let(:base_mocks_url) { File.join(DefraRubyMocks.configuration.govpay_mocks_internal_root_url, "/payments") }
 
     context "when mocks are enabled" do
       let(:aws_bucket_service) { instance_double(AwsBucketService) }
@@ -13,7 +13,7 @@ module DefraRubyMocks
         Helpers::Configuration.prep_for_tests
 
         DefraRubyMocks.configure do |config|
-          config.govpay_domain = "http://localhost:3000/defra_ruby_mocks"
+          config.govpay_mocks_internal_root_url = "http://localhost:3000/defra_ruby_mocks/govpay/v1"
         end
 
         allow(AwsBucketService).to receive(:new).and_return(aws_bucket_service)

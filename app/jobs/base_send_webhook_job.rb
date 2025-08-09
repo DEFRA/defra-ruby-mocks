@@ -1,15 +1,16 @@
 # frozen_string_literal: true
 
 class BaseSendWebhookJob < ApplicationJob
-  def perform(govpay_id:, status:, callback_url:, signing_secret:)
-    body = webhook_body(govpay_id:, status:)
-    Rails.logger.warn "[DefraRubyMocks] [BaseSendWebhookJob] sending #{webhook_type} webhook " \
-                      "for #{govpay_id}, status \"#{status}\" to #{callback_url}"
+  attr_accessor :govpay_payment_id, :callback_url, :signing_secret
+
+  def post_callback
+    body = webhook_body
+
     RestClient::Request.execute(
       method: :post,
       url: callback_url,
-      payload: body.to_json,
-      headers: { "Pay-Signature": webhook_signature(body, signing_secret) }
+      headers: { "Pay-Signature": webhook_signature(body, signing_secret) },
+      payload: body.to_json
     )
   rescue StandardError => e
     Rails.logger.error "[DefraRubyMocks] [BaseSendWebhookJob] error sending  " \
@@ -22,7 +23,7 @@ class BaseSendWebhookJob < ApplicationJob
     raise NotImplementedError
   end
 
-  def webhook_body(govpay_id:, status:)
+  def webhook_body
     raise NotImplementedError
   end
 

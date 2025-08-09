@@ -25,16 +25,16 @@ module DefraRubyMocks
 
     # This schedules a job to send a mock payment webhook.
     def send_payment_webhook
-      Rails.logger.warn "[DefraRubyMocks] [send_payment_webhook] " \
-                        "params: #{params[:govpay_id]}, status #{params[:payment_status]}"
+      Rails.logger.warn "[DefraRubyMocks] [send_payment_webhook] #{params.slice(:govpay_payment_id,
+                                                                                :govpay_payment_payment_status)}"
 
-      %w[govpay_id payment_status callback_url signing_secret].each do |p|
+      %w[govpay_payment_id govpay_payment_status callback_url signing_secret].each do |p|
         raise StandardError, "Missing parameter: '#{p}'" unless params[p].present?
       end
 
       SendPaymentWebhookJob.perform_later(
-        govpay_id: params[:govpay_id],
-        status: params[:payment_status],
+        govpay_payment_id: params[:govpay_payment_id],
+        govpay_payment_status: params[:govpay_payment_status],
         callback_url: params[:callback_url],
         signing_secret: params[:signing_secret]
       )
@@ -44,16 +44,17 @@ module DefraRubyMocks
 
     # This schedules a job to send a mock refund webhook.
     def send_refund_webhook
-      Rails.logger.warn "[DefraRubyMocks] [send_refund webhook] " \
-                        "params: #{params[:govpay_id]}, status #{params[:refund_status]}"
+      Rails.logger.warn "[DefraRubyMocks] [send_refund webhook] #{params.slice(:govpay_refund_id, :govpay_payment_id,
+                                                                               :govpay_refund_status)}"
 
-      %w[govpay_id refund_status callback_url signing_secret].each do |p|
+      %w[govpay_payment_id govpay_refund_id govpay_refund_status callback_url signing_secret].each do |p|
         raise StandardError, "Missing parameter: '#{p}'" unless params[p].present?
       end
 
       SendRefundWebhookJob.perform_later(
-        govpay_id: params[:govpay_id],
-        status: params[:refund_status],
+        govpay_payment_id: params[:govpay_payment_id],
+        govpay_refund_id: params[:govpay_refund_id],
+        govpay_refund_status: params[:govpay_refund_status],
         callback_url: params[:callback_url],
         signing_secret: params[:signing_secret]
       )

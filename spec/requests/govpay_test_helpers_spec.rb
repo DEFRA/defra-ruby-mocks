@@ -37,10 +37,11 @@ module DefraRubyMocks
       end
 
       describe "#send_payment_webhook" do
-        let(:request_mock_webhook_path) { "/defra_ruby_mocks/govpay/v1/payments/#{SecureRandom.hex(22)}/send_payment_webhook" }
+        let(:request_mock_webhook_path) { "/defra_ruby_mocks/govpay/v1/payments/send_payment_webhook" }
         let(:params) do
           {
-            payment_status: "success",
+            govpay_payment_id: SecureRandom.hex(22),
+            govpay_payment_status: "success",
             callback_url: Faker::Internet.url,
             signing_secret: SecureRandom.hex(16)
           }
@@ -60,10 +61,12 @@ module DefraRubyMocks
       end
 
       describe "#send_refund_webhook" do
-        let(:request_mock_webhook_path) { "/defra_ruby_mocks/govpay/v1/payments/#{SecureRandom.hex(22)}/send_refund_webhook" }
+        let(:request_mock_webhook_path) { "/defra_ruby_mocks/govpay/v1/payments/send_refund_webhook" }
         let(:params) do
           {
-            refund_status: "success",
+            govpay_payment_id: SecureRandom.hex(22),
+            govpay_refund_id: SecureRandom.hex,
+            govpay_refund_status: "success",
             callback_url: Faker::Internet.url,
             signing_secret: SecureRandom.hex(16)
           }

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    defra_ruby_mocks (5.2.0)
+    defra_ruby_mocks (5.3.0)
       defra_ruby_aws (~> 0.5)
       rails (~> 7.0)
       rest-client (~> 2.0)

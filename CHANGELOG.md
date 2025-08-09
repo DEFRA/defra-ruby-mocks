@@ -2,11 +2,23 @@
 
 ## [Unreleased](https://github.com/DEFRA/defra-ruby-mocks/tree/HEAD)
 
-[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v5.1.3...HEAD)
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v5.2.0...HEAD)
+
+**Fixed bugs:**
+
+- Fix/ruby 3931 send refund webhook payment [\#212](https://github.com/DEFRA/defra-ruby-mocks/pull/212) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
+
+## [v5.2.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v5.2.0) (2025-06-12)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v5.1.3...v5.2.0)
 
 **Implemented enhancements:**
 
 - Fix/ruby 3754 govpay mocks timeout [\#209](https://github.com/DEFRA/defra-ruby-mocks/pull/209) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
+
+**Merged pull requests:**
+
+- Release/v5.2.0 [\#210](https://github.com/DEFRA/defra-ruby-mocks/pull/210) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 
 ## [v5.1.3](https://github.com/DEFRA/defra-ruby-mocks/tree/v5.1.3) (2025-05-19)
 

@@ -132,6 +132,36 @@ The list of possible statuses was taken from
 - [Companies House API](https://developer.companieshouse.gov.uk/api/docs/company/company_number/companyProfile-resource.html)
 - [Companies House API enumerations](https://github.com/companieshouse/api-enumerations/blob/master/constants.yml)
 
+### OS Places
+
+When mounted into an app you can make requests to `/mocks/addresses?postcode=[postcode]` to get a mock address lookup response.
+
+```bash
+curl "http://localhost:3000/mocks/addresses?postcode=BS1%205AH"
+[
+    {
+        "moniker": "340116",
+        "uprn": "340116",
+        "lines": ["ENVIRONMENT AGENCY", "DEANERY ROAD"],
+        "town": "BRISTOL",
+        "postcode": "BS1 5AH",
+        "partial": "ENVIRONMENT AGENCY, HORIZON HOUSE, DEANERY ROAD, BRISTOL, BS1 5AH",
+        "buildingName": "HORIZON HOUSE",
+        "thoroughfareName": "DEANERY ROAD",
+        "organisationName": "ENVIRONMENT AGENCY"
+    },
+    ...
+]
+```
+
+#### Postcodes
+
+The mock normalizes postcodes by converting to uppercase and removing spaces. Currently the following postcodes return mock data:
+
+- `BS1 5AH` - Returns two addresses (Environment Agency Horizon House, Bristol)
+
+Any other postcode will return an empty array `[]`.
+
 ### Govpay
 
 When mounted into an app you can simulate interacting with the Govpay hosted pages service. The following endpoints are supported:

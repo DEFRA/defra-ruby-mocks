@@ -145,7 +145,7 @@ module DefraRubyMocks
           it "returns a 422 response" do
             get path
 
-            expect(response).to have_http_status :unprocessable_entity
+            expect(response).to have_http_status :unprocessable_content
           end
         end
       end

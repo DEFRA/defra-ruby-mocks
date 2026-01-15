@@ -401,7 +401,7 @@ GEM
     zeitwerk (2.7.4)
 
 PLATFORMS
-  x86_64-darwin-25
+  ruby
 
 DEPENDENCIES
   defra_ruby_mocks!

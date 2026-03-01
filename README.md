@@ -134,24 +134,29 @@ The list of possible statuses was taken from
 
 ### OS Places
 
-When mounted into an app you can make requests to `/mocks/addresses?postcode=[postcode]` to get a mock address lookup response.
+When mounted into an app you can make requests to `/mocks/places/v1/postcode?postcode=[postcode]` to get a mock address lookup response in the OS Places API DPA format.
 
 ```bash
-curl "http://localhost:3000/mocks/addresses?postcode=BS1%205AH"
-[
-    {
-        "moniker": "340116",
-        "uprn": "340116",
-        "lines": ["ENVIRONMENT AGENCY", "DEANERY ROAD"],
-        "town": "BRISTOL",
-        "postcode": "BS1 5AH",
-        "partial": "ENVIRONMENT AGENCY, HORIZON HOUSE, DEANERY ROAD, BRISTOL, BS1 5AH",
-        "buildingName": "HORIZON HOUSE",
-        "thoroughfareName": "DEANERY ROAD",
-        "organisationName": "ENVIRONMENT AGENCY"
-    },
-    ...
-]
+curl "http://localhost:3000/mocks/places/v1/postcode?postcode=BS1%205AH"
+{
+    "results": [
+        {
+            "DPA": {
+                "UPRN": "340116",
+                "ADDRESS": "ENVIRONMENT AGENCY, HORIZON HOUSE, DEANERY ROAD, BRISTOL, BS1 5AH",
+                "ORGANISATION_NAME": "ENVIRONMENT AGENCY",
+                "BUILDING_NAME": "HORIZON HOUSE",
+                "THOROUGHFARE_NAME": "DEANERY ROAD",
+                "POST_TOWN": "BRISTOL",
+                "POSTCODE": "BS1 5AH",
+                "X_COORDINATE": 358205.0,
+                "Y_COORDINATE": 172708.0,
+                ...
+            }
+        },
+        ...
+    ]
+}
 ```
 
 #### Postcodes
@@ -160,7 +165,7 @@ The mock normalizes postcodes by converting to uppercase and removing spaces. Cu
 
 - `BS1 5AH` - Returns two addresses (Environment Agency Horizon House, Bristol)
 
-Any other postcode will return an empty array `[]`.
+Any other postcode will return `{"results": []}`.
 
 ### Govpay
 

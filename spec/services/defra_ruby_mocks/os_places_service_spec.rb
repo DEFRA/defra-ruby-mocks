@@ -21,10 +21,10 @@ module DefraRubyMocks
           end
         end
 
-        it "returns addresses with expected structure" do
-          address = run_service.results.first
-          expect(address).to include(
-            "uprn" => "340116", "town" => "BRISTOL", "postcode" => "BS1 5AH"
+        it "returns addresses in DPA format with expected structure" do
+          dpa = run_service.results.first["DPA"]
+          expect(dpa).to include(
+            "UPRN" => "340116", "POST_TOWN" => "BRISTOL", "POSTCODE" => "BS1 5AH"
           )
         end
       end

@@ -4,7 +4,7 @@ require "rails_helper"
 
 module DefraRubyMocks
   RSpec.describe "OsPlaces" do
-    let(:path) { "/defra_ruby_mocks/addresses" }
+    let(:path) { "/defra_ruby_mocks/places/v1/postcode" }
 
     context "when mocks are enabled" do
       before { Helpers::Configuration.prep_for_tests }
@@ -22,18 +22,18 @@ module DefraRubyMocks
           expect(response).to have_http_status(:ok)
         end
 
-        it "returns an array of addresses" do
-          results = JSON.parse(response.body)
-          aggregate_failures do
-            expect(results).to be_an(Array)
-            expect(results.length).to eq(2)
-          end
+        it "returns results wrapped in OS Places API format", :aggregate_failures do
+          parsed = JSON.parse(response.body)
+          expect(parsed).to have_key("results")
+          expect(parsed["results"]).to be_an(Array)
+          expect(parsed["results"].length).to eq(2)
         end
 
-        it "returns addresses with expected data" do
-          results = JSON.parse(response.body)
-          expect(results.first).to include(
-            "uprn" => "340116", "town" => "BRISTOL", "postcode" => "BS1 5AH"
+        it "returns addresses in DPA format with expected data" do
+          parsed = JSON.parse(response.body)
+          dpa = parsed["results"].first["DPA"]
+          expect(dpa).to include(
+            "UPRN" => "340116", "POST_TOWN" => "BRISTOL", "POSTCODE" => "BS1 5AH"
           )
         end
       end
@@ -44,8 +44,8 @@ module DefraRubyMocks
         before { get path, params: { postcode: postcode } }
 
         it "normalizes the postcode and returns results" do
-          results = JSON.parse(response.body)
-          expect(results.length).to eq(2)
+          parsed = JSON.parse(response.body)
+          expect(parsed["results"].length).to eq(2)
         end
       end
 
@@ -62,9 +62,9 @@ module DefraRubyMocks
           expect(response).to have_http_status(:ok)
         end
 
-        it "returns an empty array" do
-          results = JSON.parse(response.body)
-          expect(results).to eq([])
+        it "returns an empty results array" do
+          parsed = JSON.parse(response.body)
+          expect(parsed).to eq("results" => [])
         end
       end
     end

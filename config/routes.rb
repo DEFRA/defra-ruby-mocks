@@ -11,7 +11,7 @@ DefraRubyMocks::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
       as: "company_officers",
       constraints: ->(_request) { DefraRubyMocks.configuration.enabled? }
 
-  get "/addresses",
+  get "/places/v1/postcode",
       to: "os_places#postcode",
       as: "os_places_addresses",
       constraints: ->(_request) { DefraRubyMocks.configuration.enabled? }

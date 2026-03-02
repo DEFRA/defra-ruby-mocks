@@ -24,6 +24,8 @@ end
 group :development, :test do
   gem "dotenv"
   gem "rspec-rails"
+  gem "rubocop-factory_bot"
+  gem "rubocop-rake"
   gem "rubocop-rspec"
   gem "rubocop-rspec_rails"
 end

@@ -132,6 +132,41 @@ The list of possible statuses was taken from
 - [Companies House API](https://developer.companieshouse.gov.uk/api/docs/company/company_number/companyProfile-resource.html)
 - [Companies House API enumerations](https://github.com/companieshouse/api-enumerations/blob/master/constants.yml)
 
+### OS Places
+
+When mounted into an app you can make requests to `/mocks/places/v1/postcode?postcode=[postcode]` to get a mock address lookup response in the OS Places API DPA format.
+
+```bash
+curl "http://localhost:3000/mocks/places/v1/postcode?postcode=BS1%205AH"
+{
+    "results": [
+        {
+            "DPA": {
+                "UPRN": "340116",
+                "ADDRESS": "ENVIRONMENT AGENCY, HORIZON HOUSE, DEANERY ROAD, BRISTOL, BS1 5AH",
+                "ORGANISATION_NAME": "ENVIRONMENT AGENCY",
+                "BUILDING_NAME": "HORIZON HOUSE",
+                "THOROUGHFARE_NAME": "DEANERY ROAD",
+                "POST_TOWN": "BRISTOL",
+                "POSTCODE": "BS1 5AH",
+                "X_COORDINATE": 358205.0,
+                "Y_COORDINATE": 172708.0,
+                ...
+            }
+        },
+        ...
+    ]
+}
+```
+
+#### Postcodes
+
+The mock normalizes postcodes by converting to uppercase and removing spaces. Currently the following postcodes return mock data:
+
+- `BS1 5AH` - Returns two addresses (Environment Agency Horizon House, Bristol)
+
+Any other postcode will return `{"results": []}`.
+
 ### Govpay
 
 When mounted into an app you can simulate interacting with the Govpay hosted pages service. The following endpoints are supported:

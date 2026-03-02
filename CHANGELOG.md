@@ -2,11 +2,27 @@
 
 ## [Unreleased](https://github.com/DEFRA/defra-ruby-mocks/tree/HEAD)
 
-[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v5.2.0...HEAD)
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v5.3.0...HEAD)
+
+**Implemented enhancements:**
+
+- Add OS Places address lookup mock functionality [\#221](https://github.com/DEFRA/defra-ruby-mocks/pull/221) ([brujeo](https://github.com/brujeo))
+
+**Merged pull requests:**
+
+- Bump rack from 3.1.16 to 3.1.18 [\#218](https://github.com/DEFRA/defra-ruby-mocks/pull/218) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [v5.3.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v5.3.0) (2025-08-09)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v5.2.0...v5.3.0)
 
 **Fixed bugs:**
 
 - Fix/ruby 3931 send refund webhook payment [\#212](https://github.com/DEFRA/defra-ruby-mocks/pull/212) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
+
+**Merged pull requests:**
+
+- Release/v5.3.0 [\#213](https://github.com/DEFRA/defra-ruby-mocks/pull/213) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 
 ## [v5.2.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v5.2.0) (2025-06-12)
 
@@ -143,12 +159,15 @@
 - Bump sprockets from 4.2.0 to 4.2.1 [\#127](https://github.com/DEFRA/defra-ruby-mocks/pull/127) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump timecop from 0.9.6 to 0.9.8 [\#126](https://github.com/DEFRA/defra-ruby-mocks/pull/126) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump protocol-http1 from 0.15.0 to 0.15.1 [\#122](https://github.com/DEFRA/defra-ruby-mocks/pull/122) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Upgrade to rails 7 [\#120](https://github.com/DEFRA/defra-ruby-mocks/pull/120) ([jjromeo](https://github.com/jjromeo))
-- Bump rails-html-sanitizer from 1.4.2 to 1.4.3 [\#109](https://github.com/DEFRA/defra-ruby-mocks/pull/109) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [v4.0.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v4.0.0) (2023-10-05)
 
 [Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v2.4.2...v4.0.0)
+
+**Merged pull requests:**
+
+- Upgrade to rails 7 [\#120](https://github.com/DEFRA/defra-ruby-mocks/pull/120) ([jjromeo](https://github.com/jjromeo))
+- Bump rails-html-sanitizer from 1.4.2 to 1.4.3 [\#109](https://github.com/DEFRA/defra-ruby-mocks/pull/109) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [v2.4.2](https://github.com/DEFRA/defra-ruby-mocks/tree/v2.4.2) (2023-06-06)
 
@@ -201,11 +220,14 @@
 
 - Release v2.3.2 [\#106](https://github.com/DEFRA/defra-ruby-mocks/pull/106) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 - Release v2.3.2 [\#105](https://github.com/DEFRA/defra-ruby-mocks/pull/105) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
-- Version 2.3.1 [\#103](https://github.com/DEFRA/defra-ruby-mocks/pull/103) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 
 ## [v2.3.2](https://github.com/DEFRA/defra-ruby-mocks/tree/v2.3.2) (2022-06-23)
 
 [Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v2.3.1...v2.3.2)
+
+**Merged pull requests:**
+
+- Version 2.3.1 [\#103](https://github.com/DEFRA/defra-ruby-mocks/pull/103) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 
 ## [v2.3.1](https://github.com/DEFRA/defra-ruby-mocks/tree/v2.3.1) (2022-06-14)
 
@@ -214,19 +236,25 @@
 **Implemented enhancements:**
 
 - Support optional company name [\#102](https://github.com/DEFRA/defra-ruby-mocks/pull/102) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
-- Worldpay mock expects POST request, not GET [\#98](https://github.com/DEFRA/defra-ruby-mocks/pull/98) ([tobyprivett](https://github.com/tobyprivett))
 
 **Merged pull requests:**
 
 - Bump rack from 2.2.3 to 2.2.3.1 [\#101](https://github.com/DEFRA/defra-ruby-mocks/pull/101) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump rspec-rails from 5.1.1 to 5.1.2 [\#100](https://github.com/DEFRA/defra-ruby-mocks/pull/100) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump nokogiri from 1.13.3 to 1.13.4 [\#99](https://github.com/DEFRA/defra-ruby-mocks/pull/99) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump rspec-rails from 5.0.2 to 5.1.0 [\#89](https://github.com/DEFRA/defra-ruby-mocks/pull/89) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump nokogiri from 1.13.0 to 1.13.1 [\#88](https://github.com/DEFRA/defra-ruby-mocks/pull/88) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [v2.3.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v2.3.0) (2022-03-29)
 
 [Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v2.2.0...v2.3.0)
+
+**Implemented enhancements:**
+
+- Worldpay mock expects POST request, not GET [\#98](https://github.com/DEFRA/defra-ruby-mocks/pull/98) ([tobyprivett](https://github.com/tobyprivett))
+
+**Merged pull requests:**
+
+- Bump rspec-rails from 5.0.2 to 5.1.0 [\#89](https://github.com/DEFRA/defra-ruby-mocks/pull/89) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump nokogiri from 1.13.0 to 1.13.1 [\#88](https://github.com/DEFRA/defra-ruby-mocks/pull/88) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [v2.2.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v2.2.0) (2022-01-10)
 
@@ -287,6 +315,17 @@
 **Implemented enhancements:**
 
 - Upgrade rails and ruby [\#43](https://github.com/DEFRA/defra-ruby-mocks/pull/43) ([cintamani](https://github.com/cintamani))
+
+**Merged pull requests:**
+
+- Bump defra\_ruby\_style from 0.2.1 to 0.2.2 [\#42](https://github.com/DEFRA/defra-ruby-mocks/pull/42) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+
+## [v1.5.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v1.5.0) (2020-06-05)
+
+[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v1.4.1...v1.5.0)
+
+**Implemented enhancements:**
+
 - Log errors in worldpay controller [\#41](https://github.com/DEFRA/defra-ruby-mocks/pull/41) ([Cruikshanks](https://github.com/Cruikshanks))
 - Add mocking of errored Worldpay payments [\#40](https://github.com/DEFRA/defra-ruby-mocks/pull/40) ([Cruikshanks](https://github.com/Cruikshanks))
 - Add mocking of cancelled Worldpay payments [\#39](https://github.com/DEFRA/defra-ruby-mocks/pull/39) ([Cruikshanks](https://github.com/Cruikshanks))
@@ -294,13 +333,8 @@
 
 **Merged pull requests:**
 
-- Bump defra\_ruby\_style from 0.2.1 to 0.2.2 [\#42](https://github.com/DEFRA/defra-ruby-mocks/pull/42) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
 - Revert "Refactor worldpay controller" [\#37](https://github.com/DEFRA/defra-ruby-mocks/pull/37) ([Cruikshanks](https://github.com/Cruikshanks))
 - Refactor worldpay controller [\#36](https://github.com/DEFRA/defra-ruby-mocks/pull/36) ([Cruikshanks](https://github.com/Cruikshanks))
-
-## [v1.5.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v1.5.0) (2020-06-05)
-
-[Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v1.4.1...v1.5.0)
 
 ## [v1.4.1](https://github.com/DEFRA/defra-ruby-mocks/tree/v1.4.1) (2020-06-03)
 

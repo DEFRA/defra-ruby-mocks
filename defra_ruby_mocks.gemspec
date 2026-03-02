@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
   s.add_dependency "sprockets", "~> 4.0"
   s.add_dependency "sprockets-rails", "~> 3.0"
 
-  s.add_dependency "defra_ruby_aws", "~> 0.5"
+  s.add_dependency "defra_ruby_aws", "~> 0.6"
 
   # Use rest-client for external requests
   s.add_dependency "rest-client", "~> 2.0"

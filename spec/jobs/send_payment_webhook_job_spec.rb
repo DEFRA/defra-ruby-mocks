@@ -23,7 +23,7 @@ RSpec.describe SendPaymentWebhookJob do
 
     it { expect { run_job }.not_to raise_error }
 
-    # rubocop:disable RSpec/ExampleLength -- the test logic is clearer in a single spec than spread across multiple
+    # rubocop:disable-next RSpec/ExampleLength -- the test logic is clearer in a single spec than spread across multiple
     it "sends the webhook" do
       run_job
 
@@ -36,6 +36,5 @@ RSpec.describe SendPaymentWebhookJob do
         )
       )
     end
-    # rubocop:enable RSpec/ExampleLength
   end
 end

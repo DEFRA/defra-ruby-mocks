@@ -25,7 +25,7 @@ module DefraRubyMocks
       response_status(response_status_filename: "test_payment_response_status", default_status: "success")
     end
 
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable-next Metrics/MethodLength
     def response_success
       {
         amount: 10_501,
@@ -90,7 +90,6 @@ module DefraRubyMocks
         }
       }
     end
-    # rubocop:enable Metrics/MethodLength
 
   end
 end

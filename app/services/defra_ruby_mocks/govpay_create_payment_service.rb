@@ -41,7 +41,7 @@ module DefraRubyMocks
       url_root
     end
 
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable-next Metrics/MethodLength
     def success_response(amount, description)
       {
         created_date: "2020-03-03T16:17:19.554Z",
@@ -68,7 +68,6 @@ module DefraRubyMocks
         provider_id: "10987654321"
       }
     end
-    # rubocop:enable Metrics/MethodLength
 
   end
 end

@@ -21,7 +21,7 @@ module DefraRubyMocks
       new.remove(bucket_name, file_name)
     end
 
-    # rubocop:disable Naming/PredicateMethod
+    # rubocop:disable-next Naming/PredicateMethod
     def write(bucket_name, file_name, content)
       @bucket_name = bucket_name
       @file_name = file_name
@@ -33,7 +33,6 @@ module DefraRubyMocks
 
       true
     end
-    # rubocop:enable Naming/PredicateMethod
 
     def read(bucket_name, file_name)
       @bucket_name = bucket_name

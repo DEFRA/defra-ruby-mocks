@@ -16,8 +16,6 @@ RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include("lib/**/*.rb")
 end
 
-load "rails/tasks/statistics.rake"
-
 Dir[File.join(File.dirname(__FILE__), "lib/tasks/**/*.rake")].each { |f| load f }
 
 Bundler::GemHelper.install_tasks

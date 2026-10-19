@@ -47,6 +47,13 @@ module DefraRubyMocks
         end
       end
 
+      context "when the company is a Registered Society (IP prefix)" do
+        let(:company_number) { "IP00141R" }
+
+        it { expect(run_service.company_status).to be_nil }
+        it { expect(run_service.company_type).to eq("registered-society-non-jurisdictional") }
+      end
+
       context "when the company number is not from the 'specials' list" do
         context "when it is valid" do
           let(:company_number) { "SC247974" }

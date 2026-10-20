@@ -9,11 +9,15 @@ module DefraRubyMocks
     # Examples we need to validate are
     # 10997904, 09764739
     # SC534714, CE000958
-    # IP00141R, IP27702R, SP02252R
+    # IP00141R, IP27702R, SP02252R (Registered Societies)
     # https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/426891/uniformResourceIdentifiersCustomerGuide.pdf
     VALID_COMPANIES_HOUSE_REGISTRATION_NUMBER_REGEX = /\A(\d{8,8}$)|([a-zA-Z]{2}\d{6}$)|([a-zA-Z]{2}\d{5}[a-zA-Z]{1}$)\z/i
 
     NOT_FOUND = "99999999"
+
+    # Registered Societies do not have a company_status field.
+    # IP = England/Wales, SP = Scotland
+    REGISTERED_SOCIETY_PREFIXES = %w[IP SP].freeze
 
     def self.special_company_numbers
       {
@@ -37,8 +41,9 @@ module DefraRubyMocks
       raise NotFoundError unless valid_company_number?(company_number)
       raise NotFoundError if company_number == NOT_FOUND
 
-      @company_status = specials[company_number] || "active"
-      @company_type = llps.include?(company_number) ? "llp" : "ltd"
+      @company_number = company_number
+      @company_status = registered_society? ? nil : (specials[company_number] || "active")
+      @company_type = determine_type
 
       self
     end
@@ -49,6 +54,17 @@ module DefraRubyMocks
 
     def valid_company_number?(company_number)
       company_number.match?(VALID_COMPANIES_HOUSE_REGISTRATION_NUMBER_REGEX)
+    end
+
+    def registered_society?
+      REGISTERED_SOCIETY_PREFIXES.any? { |prefix| @company_number.upcase.start_with?(prefix) }
+    end
+
+    def determine_type
+      return "registered-society-non-jurisdictional" if registered_society?
+      return "llp" if llps.include?(@company_number)
+
+      "ltd"
     end
 
     def specials

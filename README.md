@@ -127,6 +127,12 @@ Additionally, an `"active"` LLP company can be retrieved by using the following 
 - `XX999999`
 - `YY999999`
 
+#### Registered Societies
+
+Registered Societies do not have a `company_status` field.
+
+Any company number with the prefix `IP` or `SP` will be treated as a Registered Society and not return a company_status.
+
 The list of possible statuses was taken from
 
 - [Companies House API](https://developer.companieshouse.gov.uk/api/docs/company/company_number/companyProfile-resource.html)

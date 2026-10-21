@@ -6,10 +6,13 @@
 
 **Implemented enhancements:**
 
+- \[RUBY-4520\] Add mock for Registered Society [\#241](https://github.com/DEFRA/defra-ruby-mocks/pull/241) ([tobyprivett](https://github.com/tobyprivett))
+- Allow Rails 8.x [\#240](https://github.com/DEFRA/defra-ruby-mocks/pull/240) ([brujeo](https://github.com/brujeo))
 - Add OS Places address lookup mock functionality [\#221](https://github.com/DEFRA/defra-ruby-mocks/pull/221) ([brujeo](https://github.com/brujeo))
 
 **Merged pull requests:**
 
+- Update ruby version and fix specs [\#242](https://github.com/DEFRA/defra-ruby-mocks/pull/242) ([tobyprivett](https://github.com/tobyprivett))
 - dependencies + changelog update [\#223](https://github.com/DEFRA/defra-ruby-mocks/pull/223) ([brujeo](https://github.com/brujeo))
 - Bump rack from 3.1.16 to 3.1.18 [\#218](https://github.com/DEFRA/defra-ruby-mocks/pull/218) ([dependabot[bot]](https://github.com/apps/dependabot))
 
@@ -44,6 +47,7 @@
 **Fixed bugs:**
 
 - Fix/ruby 3754 refund id in webhook [\#206](https://github.com/DEFRA/defra-ruby-mocks/pull/206) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
+- Chore/gem updates [\#199](https://github.com/DEFRA/defra-ruby-mocks/pull/199) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 
 **Merged pull requests:**
 
@@ -80,10 +84,6 @@
 **Implemented enhancements:**
 
 - feature/RUBY-3754\_govpay\_webhooks [\#196](https://github.com/DEFRA/defra-ruby-mocks/pull/196) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
-
-**Fixed bugs:**
-
-- Chore/gem updates [\#199](https://github.com/DEFRA/defra-ruby-mocks/pull/199) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 
 **Merged pull requests:**
 
@@ -159,6 +159,7 @@
 - Bump version to 4.0.0 [\#128](https://github.com/DEFRA/defra-ruby-mocks/pull/128) ([jjromeo](https://github.com/jjromeo))
 - Bump sprockets from 4.2.0 to 4.2.1 [\#127](https://github.com/DEFRA/defra-ruby-mocks/pull/127) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump timecop from 0.9.6 to 0.9.8 [\#126](https://github.com/DEFRA/defra-ruby-mocks/pull/126) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump protocol-http1 from 0.15.0 to 0.15.1 [\#122](https://github.com/DEFRA/defra-ruby-mocks/pull/122) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [v4.0.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v4.0.0) (2023-10-05)
 
@@ -172,10 +173,6 @@
 ## [v2.4.2](https://github.com/DEFRA/defra-ruby-mocks/tree/v2.4.2) (2023-06-06)
 
 [Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v2.4.1...v2.4.2)
-
-**Fixed bugs:**
-
-- Fix parameter handling in GovpayPaymentCallbackJob [\#118](https://github.com/DEFRA/defra-ruby-mocks/pull/118) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 
 **Merged pull requests:**
 
@@ -191,7 +188,7 @@
 
 **Merged pull requests:**
 
-- Bump protocol-http1 from 0.15.0 to 0.15.1 [\#122](https://github.com/DEFRA/defra-ruby-mocks/pull/122) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Release/v2.4.1 [\#117](https://github.com/DEFRA/defra-ruby-mocks/pull/117) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 
 ## [v2.4.0](https://github.com/DEFRA/defra-ruby-mocks/tree/v2.4.0) (2023-05-22)
 
@@ -201,9 +198,12 @@
 
 - Add support for govpay refunds [\#112](https://github.com/DEFRA/defra-ruby-mocks/pull/112) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 
+**Fixed bugs:**
+
+- Fix parameter handling in GovpayPaymentCallbackJob [\#118](https://github.com/DEFRA/defra-ruby-mocks/pull/118) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
+
 **Merged pull requests:**
 
-- Release/v2.4.1 [\#117](https://github.com/DEFRA/defra-ruby-mocks/pull/117) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 - Version v2.4.0 [\#115](https://github.com/DEFRA/defra-ruby-mocks/pull/115) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 - Remove redundant Worldpay mocks [\#110](https://github.com/DEFRA/defra-ruby-mocks/pull/110) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
 - Release 2.3.3 [\#108](https://github.com/DEFRA/defra-ruby-mocks/pull/108) ([PaulDoyle-EA](https://github.com/PaulDoyle-EA))
@@ -401,6 +401,10 @@
 
 [Full Changelog](https://github.com/DEFRA/defra-ruby-mocks/compare/v1.0.0...v1.1.0)
 
+**Implemented enhancements:**
+
+- Add worlpday mocking functionality [\#11](https://github.com/DEFRA/defra-ruby-mocks/pull/11) ([Cruikshanks](https://github.com/Cruikshanks))
+
 **Fixed bugs:**
 
 - Fix simplecov setup in project [\#12](https://github.com/DEFRA/defra-ruby-mocks/pull/12) ([Cruikshanks](https://github.com/Cruikshanks))
@@ -411,7 +415,6 @@
 
 **Implemented enhancements:**
 
-- Add worlpday mocking functionality [\#11](https://github.com/DEFRA/defra-ruby-mocks/pull/11) ([Cruikshanks](https://github.com/Cruikshanks))
 - Add configuration to the project [\#6](https://github.com/DEFRA/defra-ruby-mocks/pull/6) ([Cruikshanks](https://github.com/Cruikshanks))
 - Add companies house mock [\#4](https://github.com/DEFRA/defra-ruby-mocks/pull/4) ([Cruikshanks](https://github.com/Cruikshanks))
 
